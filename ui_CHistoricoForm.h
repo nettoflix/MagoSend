@@ -21,6 +21,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QWidget>
@@ -47,6 +48,9 @@ public:
     QPushButton *okButton;
     QCheckBox *ckbExactNumber;
     QPushButton *refreshButton;
+    QGroupBox *groupBox;
+    QRadioButton *radioButton;
+    QRadioButton *radioButton_2;
     QTableWidget *tableWidget;
 
     void setupUi(QWidget *CHistoricoForm)
@@ -765,13 +769,22 @@ public:
         ckbExactNumber->setGeometry(QRect(20, 70, 121, 23));
         refreshButton = new QPushButton(groupBox_10);
         refreshButton->setObjectName(QStringLiteral("refreshButton"));
-        refreshButton->setGeometry(QRect(20, 280, 281, 41));
+        refreshButton->setGeometry(QRect(20, 510, 281, 41));
         QFont font3;
         refreshButton->setFont(font3);
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/refresh_yellow.png"), QSize(), QIcon::Normal, QIcon::Off);
         refreshButton->setIcon(icon);
         refreshButton->setIconSize(QSize(24, 24));
+        groupBox = new QGroupBox(groupBox_10);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(20, 290, 281, 161));
+        radioButton = new QRadioButton(groupBox);
+        radioButton->setObjectName(QStringLiteral("radioButton"));
+        radioButton->setGeometry(QRect(30, 40, 231, 23));
+        radioButton_2 = new QRadioButton(groupBox);
+        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
+        radioButton_2->setGeometry(QRect(30, 80, 231, 23));
 
         horizontalLayout_3->addWidget(groupBox_10);
 
@@ -823,6 +836,9 @@ public:
 #endif // QT_NO_TOOLTIP
         ckbExactNumber->setText(QApplication::translate("CHistoricoForm", "C\303\263digo exato", Q_NULLPTR));
         refreshButton->setText(QApplication::translate("CHistoricoForm", "Atualizar", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("CHistoricoForm", "Filtro por status", Q_NULLPTR));
+        radioButton->setText(QApplication::translate("CHistoricoForm", "Apenas registros com sucesso", Q_NULLPTR));
+        radioButton_2->setText(QApplication::translate("CHistoricoForm", "Apenas registros com erro", Q_NULLPTR));
     } // retranslateUi
 
 };

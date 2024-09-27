@@ -38,7 +38,7 @@ DISTNAME      = 4SDigisend41.0.0
 DISTDIR = /home/mago/4SDigisend4/release/4SDigisend41.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,'$$ORIGIN/lib'
-LIBS          = $(SUBLIBS) ../ffmpeg/ffmpeg/libavformat/libavformat.so -L/home/mago/Qt5.9.6/5.9.6/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) ../ffmpeg/ffmpeg/libavformat/libavformat.so ../ffmpeg/ffmpeg/libavutil/libavutil.so -L/home/mago/Qt5.9.6/5.9.6/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -968,6 +968,9 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -995,7 +998,6 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -1083,7 +1085,6 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -1131,7 +1132,6 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -1199,6 +1199,9 @@ release/moc_CTransferMonitor.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvarlengtharray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontainerfwd.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
 		../XmlRPC/XmlRpc/XmlRpcClient.h \
@@ -2104,6 +2107,9 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -2130,7 +2136,6 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -2218,7 +2223,6 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -2266,7 +2270,6 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -2528,6 +2531,9 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -2554,7 +2560,6 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -2640,7 +2645,6 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -2688,7 +2692,6 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -3257,6 +3260,9 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -3283,7 +3289,6 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -3371,7 +3376,6 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -3419,7 +3423,6 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -3569,6 +3572,9 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -3595,7 +3601,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -3683,7 +3688,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -3731,7 +3735,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -3952,6 +3955,9 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvarlengtharray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontainerfwd.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
 		../XmlRPC/XmlRpc/XmlRpcClient.h \
@@ -4062,7 +4068,6 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -4150,7 +4155,6 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -4198,7 +4202,6 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -4346,6 +4349,9 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -4377,7 +4383,6 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -4465,7 +4470,6 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -4513,7 +4517,6 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -4661,6 +4664,9 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -4692,7 +4698,6 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -4780,7 +4785,6 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -4828,7 +4832,6 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -5249,6 +5252,9 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -5275,7 +5281,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -5361,7 +5366,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -5409,7 +5413,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -6053,6 +6056,7 @@ release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDebug \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -6068,7 +6072,6 @@ release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -7398,6 +7401,9 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -7424,7 +7430,6 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -7512,7 +7517,6 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -7560,7 +7564,6 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
@@ -7976,6 +7979,9 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		CTransferMonitor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -8002,7 +8008,6 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
@@ -8088,7 +8093,6 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
@@ -8136,7 +8140,6 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \

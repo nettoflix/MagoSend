@@ -204,16 +204,16 @@ void CTransferMonitor::runLogic()
 
 		}
 		bool isConnected = CUploadServiceClient::CheckConnection(ip);
-		if(isConnected && !host->getIsConnected())
+		if(isConnected)// && !host->getIsConnected())
 		{
-			qDebug("[%s] is connected!", ip.toLatin1().data());
+			//qDebug("[%s] is connected!", ip.toLatin1().data());
 			host->setConnected(true);
 
 			emit hostTableTextColorChanged(QColor(Qt::green), ip);
 		}
-		else if(!isConnected && host->getIsConnected())
+		else if(!isConnected)// && host->getIsConnected())
 		{
-			qDebug("[%s] is NOT connected!", ip.toLatin1().data());
+			//qDebug("[%s] is NOT connected!", ip.toLatin1().data());
 			host->setConnected(false);
 			emit hostTableTextColorChanged(QColor(Qt::red), ip);
 		}

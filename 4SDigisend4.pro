@@ -134,6 +134,8 @@ win32 {
 #-----------------------------------------------------------------------
         #ffmpeg:
         LIBS +=  "../ffmpeg/ffmpeg/libavformat/libavformat.so"
+        LIBS +=  "../ffmpeg/ffmpeg/libavutil/libavutil.so"
+
 
 RESOURCES += \
     qrc.qrc

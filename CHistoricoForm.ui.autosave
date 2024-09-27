@@ -905,7 +905,7 @@ QTableCornerButton::section {
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>510</y>
+          <y>450</y>
           <width>281</width>
           <height>41</height>
          </rect>
@@ -935,7 +935,7 @@ QTableCornerButton::section {
           <x>20</x>
           <y>290</y>
           <width>281</width>
-          <height>161</height>
+          <height>141</height>
          </rect>
         </property>
         <property name="title">

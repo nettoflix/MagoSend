@@ -135,6 +135,7 @@ int CServiceUtils::getVideoDuration(QString filePath) {
 		//qDebug("Error: File path is empty.");
 		return -1;
 	}
+	av_log_set_level(AV_LOG_ERROR); // tira os logs de warning
 
 	// Convert QString to std::string
 	std::string inputFilename = filePath.toStdString();

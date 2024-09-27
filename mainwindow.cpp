@@ -312,12 +312,14 @@ void MainWindow::addQueueToTableWidget()
 	//QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 	QVector<VideoFileInfo*> *queue = &getTransferMonitor()->getCurrentQueue();
 	int row = ui->tableWidget->rowCount();
+	int notAddedCount = 0;
 	for(int i=batchIndex; i < queue->size() && i < batchSize+batchIndex; i++)
 	{
 
 		//qDebug("addQueueToTableWidget [%d]", i);
 
 		VideoFileInfo *videoInfo = queue->at(i);
+
 		if(!videoInfo->getWasAddedToTableWidget())
 		{
 
@@ -353,11 +355,13 @@ void MainWindow::addQueueToTableWidget()
 			row++;
 			//			queueLocker.relock();
 			videoInfo->setWasAddedToTableWidget(true);
+			notAddedCount++;
 
 		}
 	}
+	batchIndex += batchSize - notAddedCount;
 	qDebug("addQueueToTableWidget -2");
-	batchIndex +=batchSize;
+
 	//só vou parar o timer_loadTable se já adicionei todos os items da queue, se não a queue nao está sendo alimentada
 	//e se nao  estou esperando confirmação do usuário pra adicionar mais items
 	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
@@ -373,23 +377,21 @@ void MainWindow::addQueueToTableWidget()
 				//	qDebug("addQueueToTableWidget -3");
 				timer_loadTable.stop();
 				tableSpinner->stopSpinner();
-				workerThread.exit();
-				workerThread.wait();
+				//workerThread.exit();
+				//workerThread.wait();
 				ui->btn_Enviar->setEnabled(true);
 				ui->btn_pausar->setEnabled(true);
 				ui->btn_Remover->setEnabled(true);
 				openFilesAction->setEnabled(true);
+				batchIndex = queue->size();
 			}
 		}
-		else
-		{
-			batchIndex = queue->size();
-		}
+		batchIndex = queue->size();
 	}
 
 	//populateCount -= 1;
 	//qDebug("addQueueToTableWidget -2");
-	qDebug("batchIndex [%d], queueSize [%d], isPopulating [%d], waitingUser [%d]", batchIndex, queue->size(),worker->getIsPopulatingQueue(), waitingUserResponseToAddItems);
+	qDebug("batchIndex [%d], queueSize [%d], rowCount [%d],isPopulating [%d], waitingUser [%d]", batchIndex, queue->size(),ui->tableWidget->rowCount(),worker->getIsPopulatingQueue(), waitingUserResponseToAddItems);
 
 
 
@@ -480,7 +482,7 @@ void MainWindow::onFileSelectionBtnClick()
 		MagoDB* db = new MagoDB();
 		bool shouldWarn = db->warningWhenOverwriteFile();
 		delete db;
-		if(shouldWarn)
+		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
 		{
 			qDebug("shouldAlwaysOverWriteFile = false");
 			if(!workerThread.isRunning())
@@ -497,31 +499,22 @@ void MainWindow::onFileSelectionBtnClick()
 			}
 
 			qDebug("MainWindow::onFileSelectionBtnClick-3");
+			qDebug("emit triggerWork!!");
 			emit triggerWorker();
 		}
-		else
+		else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
 		{
 			qDebug("shouldAlwaysOverWriteFile = true");
-			int count = 0;
+				qDebug() << "onFileSelectionBtnClick: Current thread ID: " << QThread::currentThreadId();
 			for(int i=0; i<ui->hostsTable->rowCount(); i++)
 			{
-				for(const QString filePath : filePaths)
-				{
-					count++;
-					if(count >= batchSize)
-					{
-						QApplication::processEvents();
-						//qDebug("PROCESS EVENTS!");
-						count=0;
-					}
-					//qDebug("MainWindow::pupulateGuiTable : populateQueue filepath [%s]", filePath.toLatin1().data());
-					getTransferMonitor()->populateQueue(filePath, ui->hostsTable->item(i,1)->text());
 
-				}
+				workerThread.start();
+				QString ip = ui->hostsTable->item(i,1)->text();
+				ui->tableWidget->hide();
+				emit populateQueueWithPaths(filePaths, ip);
 
 			}
-			timer_loadTable.start(30);
-			connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
 
 		}
 	}
@@ -1046,8 +1039,8 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 					qDebug("NAO QUERO ENVIAR VIDEO REPETIDO!!!");
 					for (const QString &item : fileOnHost.filespath)
 					{
-						qDebug("ITEM: [%s]", item.toLatin1().data());
-						qDebug("hostFilesPath: [%s]", QString(hostFilesPaths.join(",")).toLatin1().data());
+						//qDebug("ITEM: [%s]", item.toLatin1().data());
+						//qDebug("hostFilesPath: [%s]", QString(hostFilesPaths.join(",")).toLatin1().data());
 						hostFilesPaths.removeAll(item);
 					}
 				}
