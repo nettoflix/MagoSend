@@ -905,7 +905,7 @@ QTableCornerButton::section {
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>510</y>
+          <y>420</y>
           <width>281</width>
           <height>41</height>
          </rect>
@@ -935,36 +935,36 @@ QTableCornerButton::section {
           <x>20</x>
           <y>290</y>
           <width>281</width>
-          <height>161</height>
+          <height>121</height>
          </rect>
         </property>
         <property name="title">
          <string>Filtro por status</string>
         </property>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QCheckBox" name="cb_showErrors">
          <property name="geometry">
           <rect>
-           <x>30</x>
+           <x>20</x>
            <y>40</y>
-           <width>231</width>
+           <width>211</width>
            <height>23</height>
           </rect>
          </property>
          <property name="text">
-          <string>Apenas registros com sucesso</string>
+          <string>Mostrar registros com erro</string>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QCheckBox" name="cb_showSuccess">
          <property name="geometry">
           <rect>
-           <x>30</x>
-           <y>80</y>
-           <width>231</width>
+           <x>20</x>
+           <y>70</y>
+           <width>241</width>
            <height>23</height>
           </rect>
          </property>
          <property name="text">
-          <string>Apenas registros com erro</string>
+          <string>Mostrar registros com sucesso</string>
          </property>
         </widget>
        </widget>

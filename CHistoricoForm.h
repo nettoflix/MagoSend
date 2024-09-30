@@ -32,14 +32,19 @@ public:
 	void populateTable(QList<CDBHistoryEntry> entries);
 	void initTable();
 	QList<CDBHistoryEntry> filterEntriesByKeyword(QList<CDBHistoryEntry> entries);
+	QStringList getSuccessStatus();
+	QStringList getErrorStatus();
 	void refresh();
 private slots:
 	void on_refreshButton_clicked();
 
 	void on_okButton_clicked();
 
+	void on_cb_showErrors_clicked();
+
 private:
 	Ui::CHistoricoForm *ui;
+	MagoDB* db;
 };
 
 #endif // CHISTORICOFORM_H

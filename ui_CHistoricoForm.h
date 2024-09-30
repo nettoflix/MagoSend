@@ -21,7 +21,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QWidget>
@@ -49,8 +48,8 @@ public:
     QCheckBox *ckbExactNumber;
     QPushButton *refreshButton;
     QGroupBox *groupBox;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QCheckBox *cb_showErrors;
+    QCheckBox *cb_showSuccess;
     QTableWidget *tableWidget;
 
     void setupUi(QWidget *CHistoricoForm)
@@ -769,7 +768,7 @@ public:
         ckbExactNumber->setGeometry(QRect(20, 70, 121, 23));
         refreshButton = new QPushButton(groupBox_10);
         refreshButton->setObjectName(QStringLiteral("refreshButton"));
-        refreshButton->setGeometry(QRect(20, 510, 281, 41));
+        refreshButton->setGeometry(QRect(20, 420, 281, 41));
         QFont font3;
         refreshButton->setFont(font3);
         QIcon icon;
@@ -778,13 +777,13 @@ public:
         refreshButton->setIconSize(QSize(24, 24));
         groupBox = new QGroupBox(groupBox_10);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(20, 290, 281, 161));
-        radioButton = new QRadioButton(groupBox);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-        radioButton->setGeometry(QRect(30, 40, 231, 23));
-        radioButton_2 = new QRadioButton(groupBox);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-        radioButton_2->setGeometry(QRect(30, 80, 231, 23));
+        groupBox->setGeometry(QRect(20, 290, 281, 121));
+        cb_showErrors = new QCheckBox(groupBox);
+        cb_showErrors->setObjectName(QStringLiteral("cb_showErrors"));
+        cb_showErrors->setGeometry(QRect(20, 40, 211, 23));
+        cb_showSuccess = new QCheckBox(groupBox);
+        cb_showSuccess->setObjectName(QStringLiteral("cb_showSuccess"));
+        cb_showSuccess->setGeometry(QRect(20, 70, 241, 23));
 
         horizontalLayout_3->addWidget(groupBox_10);
 
@@ -837,8 +836,8 @@ public:
         ckbExactNumber->setText(QApplication::translate("CHistoricoForm", "C\303\263digo exato", Q_NULLPTR));
         refreshButton->setText(QApplication::translate("CHistoricoForm", "Atualizar", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("CHistoricoForm", "Filtro por status", Q_NULLPTR));
-        radioButton->setText(QApplication::translate("CHistoricoForm", "Apenas registros com sucesso", Q_NULLPTR));
-        radioButton_2->setText(QApplication::translate("CHistoricoForm", "Apenas registros com erro", Q_NULLPTR));
+        cb_showErrors->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com erro", Q_NULLPTR));
+        cb_showSuccess->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com sucesso", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -8,10 +8,10 @@ CBDQuery::CBDQuery()
 	//MagoDB* magosendDB = static_cast<MagoDB*>(db);
 }
 
-QList<CDBHistoryEntry> CBDQuery::getEntries(QDateTime dateIN, QDateTime dateOUT, QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString usuario)
+QList<CDBHistoryEntry> CBDQuery::getEntries(QDateTime dateIN, QDateTime dateOUT, QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QStringList status, QString usuario)
 {
-
-	QSqlQuery* query = (QSqlQuery*) db->getMagoSendHistoryEntries(dateIN.isValid() ? dateIN.toString("dd/MM/yyyy hh:mm:ss").toLatin1().data() : nullptr,
+	MagoDB* magodb = (MagoDB*) db;
+	QSqlQuery* query = (QSqlQuery*) magodb->getMagoSendHistoryEntries(dateIN.isValid() ? dateIN.toString("dd/MM/yyyy hh:mm:ss").toLatin1().data() : nullptr,
 														  dateOUT.isValid() ? dateOUT.toString("dd/MM/yyyy hh:mm:ss").toLatin1().data() : nullptr,
 														  !numero.isEmpty() ? numero.toLatin1().data()  : nullptr,
 														  !titulo.isEmpty() ? titulo.toLatin1().data()  : nullptr,
@@ -19,7 +19,7 @@ QList<CDBHistoryEntry> CBDQuery::getEntries(QDateTime dateIN, QDateTime dateOUT,
 														  !modalidade.isEmpty() ? modalidade.toLatin1().data()  : nullptr,
 														  duracao,
 														  !ip.isEmpty() ? ip.toLatin1().data()  : nullptr,
-														  !status.isEmpty() ? status.toLatin1().data()  : nullptr,
+														  status,
 														  !usuario.isEmpty() ? usuario.toLatin1().data() : nullptr
 														  );
 
@@ -42,16 +42,16 @@ QList<CDBHistoryEntry> CBDQuery::getEntries(QDateTime dateIN, QDateTime dateOUT,
 						entry.data = query->value("data").toDateTime();
 						entry.duracao = query->value("duracao").toInt();
 						entry.usuario = query->value("usuario").toByteArray();
-						qDebug("Entry:");
-						qDebug("entry.data = %s", entry.data.toString("dd/MM/yyyy - hh:mm:ss.zzz").toLatin1().data());
-						qDebug() << "entry.numero =" << entry.numero;
-						qDebug() << "entry.titulo =" << entry.titulo;
-						qDebug() << "entry.caminho =" << entry.caminho;
-						qDebug() << "entry.modalidade =" << entry.modalidade;
-						qDebug() << "entry.ip =" << entry.ip;
-						qDebug() << "entry.duracao =" << entry.duracao;
-						qDebug() << "entry.status =" << entry.status;
-						qDebug() << "entry.usuario = " << entry.usuario;
+//						qDebug("Entry:");
+//						qDebug("entry.data = %s", entry.data.toString("dd/MM/yyyy - hh:mm:ss.zzz").toLatin1().data());
+//						qDebug() << "entry.numero =" << entry.numero;
+//						qDebug() << "entry.titulo =" << entry.titulo;
+//						qDebug() << "entry.caminho =" << entry.caminho;
+//						qDebug() << "entry.modalidade =" << entry.modalidade;
+//						qDebug() << "entry.ip =" << entry.ip;
+//						qDebug() << "entry.duracao =" << entry.duracao;
+//						qDebug() << "entry.status =" << entry.status;
+//						qDebug() << "entry.usuario = " << entry.usuario;
 
 			 entries.push_back(entry);
 		}

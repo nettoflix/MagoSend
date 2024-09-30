@@ -29,7 +29,7 @@ class CBDQuery
 public:
     CBDQuery();
 
-	QList<CDBHistoryEntry> getEntries(QDateTime dateIN = QDateTime(), QDateTime dateOUT = QDateTime(), QString numero = "", QString titulo = "", QString caminho="", QString modalidade="", int duracao=-1, QString ip="", QString status="", QString usuario="");
+	QList<CDBHistoryEntry> getEntries(QDateTime dateIN = QDateTime(), QDateTime dateOUT = QDateTime(), QString numero = "", QString titulo = "", QString caminho="", QString modalidade="", int duracao=-1, QString ip="", QStringList status = QStringList(), QString usuario="");
 
 
 private:

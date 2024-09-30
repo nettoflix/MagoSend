@@ -364,11 +364,13 @@ bool MagoDB::CreateTableOptions()
 
 	resultado = query.exec(QLatin1String("create table options("
 										 "overwritefile boolean NOT NULL,"
-										 "overwriteId boolean NOT NULL)"));
+										 "overwriteId boolean NOT NULL,"
+										 "showErrors boolean NOT NULL,"
+										 "showSuccess boolean NOT NULL)"));
 	qDebug() << query.lastError();
 	if(resultado)
 	{
-		sql.sprintf("INSERT INTO options (overwritefile, overwriteid) VALUES (false, false)");
+		sql.sprintf("INSERT INTO options (overwritefile, overwriteid, showErrors, showSuccess) VALUES (false, false, true,true)");
 		qDebug("sql = %s", sql.toLatin1().data());
 		query.prepare(sql);
 		query.exec();
@@ -486,6 +488,94 @@ bool MagoDB::updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId)
 	query.exec();
 	qDebug() << query.lastError();
 
+}
+
+bool MagoDB::updateStatusFilter(bool showErrors, bool showSuccess)
+{
+	QSqlQuery query;
+	QString sql;
+	char* str_showErrors = "false";
+	char* str_showSuccess = "false";
+	if(showErrors)
+	{
+		str_showErrors = "true";
+	}
+	if(showSuccess)
+	{
+		str_showSuccess = "true";
+	}
+
+	sql.sprintf("UPDATE options SET showErrors = '%s'", str_showErrors);
+	query.prepare(sql);
+	query.exec();
+	qDebug() << query.lastError();
+	sql.sprintf("UPDATE options SET showSuccess = '%s'", str_showSuccess);
+	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
+	qDebug("sql = %s", sql.toLatin1().data());
+	query.prepare(sql);
+	query.exec();
+	qDebug() << query.lastError();
+}
+
+bool MagoDB::shouldShowErrors()
+{
+	QSqlQuery query;
+	QString sql;
+	sql.sprintf("SELECT showErrors FROM options LIMIT 1");
+
+	qDebug("sql query = %s", sql.toLatin1().data());
+
+	query.prepare(sql);
+
+	query.exec();
+	if(query.next())
+	{
+		qDebug() << query.lastError();
+		if(query.value("showErrors").toBool() == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+	else
+	{
+		qDebug() << query.lastError();
+		return false;
+	}
+}
+bool MagoDB::shouldShowSuccess()
+{
+	QSqlQuery query;
+	QString sql;
+	sql.sprintf("SELECT showSuccess FROM options LIMIT 1");
+
+	qDebug("sql query = %s", sql.toLatin1().data());
+
+	query.prepare(sql);
+
+	query.exec();
+	if(query.next())
+	{
+		qDebug() << query.lastError();
+		if(query.value("showSuccess").toBool() == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+	else
+	{
+		qDebug() << query.lastError();
+		return false;
+	}
 }
 //bool MagoDB::ensureColumnExists(const QString &table_name, const QString &columnName, const QString &columnType)
 //{
@@ -886,7 +976,7 @@ void *MagoDB::getHistoryEntries(char *data, char *data2, char *entrada, char *sa
 	return query;
 }
 
-void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, char *titulo, char *caminho, char *modalidade, int duracao, char *ip, char *status, char* usuario)
+void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, char *titulo, char *caminho, char *modalidade, int duracao, char *ip, QStringList status, char* usuario)
 {
 	QSqlQuery* query = new QSqlQuery();
 
@@ -948,12 +1038,19 @@ void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, c
 		validCArg = true;
 	}
 
-	if(status)
+	if(status.size() > 0)
 	{
-		if(validCArg)
-			sql+= " and ";
+		if(validCArg) sql += " and ";
 
-		sql+= QString("status = %1").arg(status);
+		sql += "status IN(";
+
+		for(int i = 0; i < status.size(); ++i)
+		{
+			if(i > 0) sql += ", ";
+			sql += QString("'%1'").arg(status[i]);
+		}
+
+		sql += ")";
 		validCArg = true;
 	}
 	if(usuario)

@@ -34,6 +34,9 @@ public:
 	bool __stdcall CreateTableModalidades();
 	bool __stdcall CreateTableOptions();
 	bool __stdcall updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId);
+	bool __stdcall updateStatusFilter(bool showErrors = false, bool showSuccess = false);
+	bool __stdcall shouldShowErrors();
+	bool __stdcall shouldShowSuccess();
 	//bool __stdcall ensureColumnExists(const QString &table_name,const QString &columnName, const QString &columnType);
 	bool __stdcall doesSessionExists(char* sessao);
 	bool __stdcall warningWhenOverwriteFile();
@@ -78,7 +81,7 @@ public:
 	void* __stdcall loadAllEventsOrderBy(char* fieldName);
 	void* __stdcall loadAllEventsOrderByWithValueEqual(char* fieldName, char* fieldNameEqual, char* fieldValue);
 	void* __stdcall getHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* entrada = nullptr, char* saida = nullptr, char* numero = nullptr, char* titulo = nullptr, int roteiro = -1, int posicaoMesa = -1, char* veiculacao =nullptr);
-	void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, char* status = nullptr, char* usuario=nullptr);
+	void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, QStringList status = QStringList(), char* usuario=nullptr);
 	void* __stdcall getHistoryFieldValues(char * fieldName);
     QString __stdcall GetEventTitulo(char* number);
     QString __stdcall GetEventModalidade(char* number);

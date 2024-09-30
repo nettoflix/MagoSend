@@ -144,7 +144,7 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	iconCheck = new QIcon(":images/check.png");
 	iconError = new QIcon(":images/error.png");
 
-	batchSize = 100;
+	batchSize = 2000;
 
 
 	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);

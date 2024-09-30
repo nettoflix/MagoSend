@@ -56,7 +56,7 @@ public:
 
 	virtual void* __stdcall loadAllEventsOrderByWithValueEqual(char* fieldName, char* fieldNameEqual, char* fieldValue) = 0;
 	virtual void* __stdcall getHistoryEntries(char* data = nullptr, char* data2 = nullptr,char* entrada = nullptr, char* saida = nullptr, char* numero = nullptr, char* titulo = nullptr, int roteiro = -1, int posicaoMesa = -1, char* veiculacao =nullptr) = 0;
-	virtual void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, char* status = nullptr, char* usuario=nullptr) = 0;
+	//virtual void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, char* status = nullptr, char* usuario=nullptr) = 0;
     virtual void* __stdcall getHistoryFieldValues(char * fieldName) = 0;
 	virtual bool __stdcall ChangeMagoDBVersion(char* version) = 0;
 	virtual QString __stdcall GetMagoDBVersion() = 0;

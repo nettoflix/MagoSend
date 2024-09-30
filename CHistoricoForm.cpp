@@ -1,4 +1,5 @@
 #include "CHistoricoForm.h"
+#include "VideoFileInfo.h"
 #include "ui_CHistoricoForm.h"
 
 #include <QMessageBox>
@@ -12,13 +13,20 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 	ui->dateEdit_1->setDate(QDate::currentDate());
 	ui->dateEdit_2->setDate(QDate::currentDate());
 	initTable();
+
+	db = new MagoDB();
+	ui->cb_showErrors->setChecked(db->shouldShowErrors());
+	ui->cb_showSuccess->setChecked(db->shouldShowSuccess());
+
 	//populateTable(entries);
 
 }
 
 CHistoricoForm::~CHistoricoForm()
 {
+	db->updateStatusFilter(ui->cb_showErrors->isChecked(), ui->cb_showSuccess->isChecked());
 	delete ui;
+	delete db;
 }
 
 void CHistoricoForm::populateTable(QList<CDBHistoryEntry> entries)
@@ -36,7 +44,7 @@ void CHistoricoForm::populateTable(QList<CDBHistoryEntry> entries)
 	{
 		CDBHistoryEntry entry = entries.at(i);
 		//Data
-		qDebug("entry: [%d]", i);
+		//qDebug("entry: [%d]", i);
 
 		tableItem = new QDateTimeWidgetItem(entry.data.toString("dd/MM/yyyy hh:mm:ss"));
 		tableItem->setTextAlignment(Qt::AlignCenter);
@@ -157,6 +165,19 @@ QList<CDBHistoryEntry> CHistoricoForm::filterEntriesByKeyword(QList<CDBHistoryEn
 	return entriesFinal;
 }
 
+
+QStringList CHistoricoForm::getSuccessStatus()
+{
+	QStringList list = {"ENVIADO"};
+	return list;
+}
+
+QStringList CHistoricoForm::getErrorStatus()
+{
+	QStringList list = {"IMPOSSIVEL CONECTAR-SE AO HOST", "FALHA DURANTE O ENVIO DO ARQUIVO", "ARQUIVO NAO EXISTE"};
+	return list;
+}
+
 void CHistoricoForm::refresh()
 {
 	ui->tableWidget->setSortingEnabled(false);
@@ -178,8 +199,21 @@ void CHistoricoForm::refresh()
 	//qDebug("dateTimeStart [%s]", dateTimeStart.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
 	//qDebug("dateTimeEnd [%s]", dateTimeEnd.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
 	CBDQuery query;
-	QList<CDBHistoryEntry> entries = query.getEntries(dateTimeStart,dateTimeEnd);
-	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries);
+	QList<CDBHistoryEntry> entries;
+	QStringList statusList;
+	statusList.append("CANCELADO");
+	if(ui->cb_showSuccess->isChecked())
+	{
+		statusList.append(getSuccessStatus());
+	}
+	if(ui->cb_showErrors->isChecked())
+	{
+		statusList.append(getErrorStatus());
+	}
+
+	 entries = query.getEntries(dateTimeStart, dateTimeEnd, "","","","",-1,"",statusList,"");
+	//QList<CDBHistoryEntry> entriesFiltered = filterEntriesByStatus(entries);
+	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries );
 	populateTable(entriesFinal);
 }
 
@@ -207,4 +241,11 @@ void CHistoricoForm::on_okButton_clicked()
 	QList<CDBHistoryEntry> entries = query.getEntries(dateTimeStart,dateTimeEnd);
 	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries);
 	populateTable(entriesFinal);
+}
+
+
+
+void CHistoricoForm::on_cb_showErrors_clicked()
+{
+
 }
