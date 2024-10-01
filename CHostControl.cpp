@@ -231,34 +231,35 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 			{
 
 				videoInfo->setStatus(CVideoStatus::SENT);
-				qDebug("nowStr: [%s]", nowStr.toLatin1().data());
+				//qDebug("nowStr: [%s]", nowStr.toLatin1().data());
 				//cadastra no banco de dados da máquina local (magosenddb)
-				MagoDB* db = new MagoDB();
+//				MagoDB* db = new MagoDB();
 
 
 
-				db->AddHistoricoMagoSend(videoInfo->getId().toLatin1().data(),videoInfo->getTitulo().toLatin1().data(), videoInfo->getFilename().toLatin1().data(),videoInfo->getModalidade().toLatin1().data(),
-										videoInfo->getDuration(), videoInfo->getIp().toLatin1().data(),videoInfo->getStatusString().toLatin1().data(), nowStr.toLatin1().data(), getMainWindow()->getUsuario().toLatin1().data());
-				delete db;
+//				db->AddHistoricoMagoSend(videoInfo->getId().toLatin1().data(),videoInfo->getTitulo().toLatin1().data(), videoInfo->getFilename().toLatin1().data(),videoInfo->getModalidade().toLatin1().data(),
+//										videoInfo->getDuration(), videoInfo->getIp().toLatin1().data(),videoInfo->getStatusString().toLatin1().data(), nowStr.toLatin1().data(), getMainWindow()->getUsuario().toLatin1().data());
+//				delete db;
 				//cadastra o evento no banco de dados do Mago Host
-				MagoDB* magodb = new MagoDB(hostIp);
-				QString magosendIniFileName = QApplication::applicationDirPath() + "/Arquivos/MagoSend.ini";
-				QSettings settings(magosendIniFileName, QSettings::IniFormat);
-				QString magoMediaPath = settings.value("magoMediaPath").toString();
-				QString path = magoMediaPath + "/"+ baseName;
-				qDebug("CHostControl::markVideoAsSent -  gonna save in db the path: [%s]", path.toLatin1().data());
-				if(magodb->EventExistsByNumber(numero.toLatin1().data()))
-				{
-					qDebug("EventExistsByNumber");
-					magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toLatin1().data());
-				}
-				else
-				{
 
-					qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
-					magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toLatin1().data());
-				}
-				delete magodb;
+//				MagoDB* magodb = new MagoDB(hostIp);
+//				QString magosendIniFileName = QApplication::applicationDirPath() + "/Arquivos/MagoSend.ini";
+//				QSettings settings(magosendIniFileName, QSettings::IniFormat);
+//				QString magoMediaPath = settings.value("magoMediaPath").toString();
+//				QString path = magoMediaPath + "/"+ baseName;
+//				qDebug("CHostControl::markVideoAsSent -  gonna save in db the path: [%s]", path.toLatin1().data());
+//				if(magodb->EventExistsByNumber(numero.toLatin1().data()))
+//				{
+//					qDebug("EventExistsByNumber");
+//					magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toLatin1().data());
+//				}
+//				else
+//				{
+
+//					qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
+//					magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toLatin1().data());
+//				}
+//				delete magodb;
 			}
 		}
 

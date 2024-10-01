@@ -14,7 +14,7 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 	ui->dateEdit_2->setDate(QDate::currentDate());
 	initTable();
 
-	db = new MagoDB();
+//	db = new MagoDB();
 	ui->cb_showErrors->setChecked(db->shouldShowErrors());
 	ui->cb_showSuccess->setChecked(db->shouldShowSuccess());
 

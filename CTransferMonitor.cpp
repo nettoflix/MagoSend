@@ -7,12 +7,16 @@ CTransferMonitor::CTransferMonitor(MainWindow* mainWindow)
 	//this->moveToThread(this);
 	//this->start();
 	this->mainWindow = mainWindow;
-	QObject::connect(this, &CTransferMonitor::hostTableTextColorChanged, mainWindow, &MainWindow::changeHostsTableTextColor, Qt::QueuedConnection);
+
 	qDebug("run- 1");
 	//timer = new QTimer;
 	//QObject::connect(timer, &QTimer::timeout, this, &CTransferMonitor::runLogic);
 	//timer->start(10);
+
 	//this->moveToThread(this);
+
+
+	magoDbCommandsThread = new CMagoDBCommandsThread();
 	QThread::start();
 
 }
@@ -178,7 +182,7 @@ void CTransferMonitor::runLogic()
 	//CUploadServiceClientProgressResult progressResult;
 	QList<VideoFileInfo*> videosToSaveOnDB;
 	//qDebug("run- 3");
-	//verifica o status da conexão com os hosts, pega o progresso e outras coisas relacionadas ao host
+	// pega o progresso e outras coisas relacionadas ao host
 	QList<CurrentUpload> currentFilesUp;
 	for(int i=0; i<hostControl->getHosts().size(); i++)
 	{
@@ -192,7 +196,7 @@ void CTransferMonitor::runLogic()
 		//Usuário clicou no botão de cancelar o envio atual desse host
 		if(shouldCancelUpload)
 		{
-			qDebug("run() - should cancel");
+			//qDebug("run() - should cancel");
 			if(CUploadServiceClient::cancelActiveUpload(port))
 			{
 				CUploadServiceClient::deleteFileOnHost(ip,host->getProgressResult().filename);
@@ -204,20 +208,7 @@ void CTransferMonitor::runLogic()
 			}
 
 		}
-		bool isConnected = CUploadServiceClient::CheckConnection(ip);
-		if(isConnected)// && !host->getIsConnected())
-		{
-			//qDebug("[%s] is connected!", ip.toLatin1().data());
-			host->setConnected(true);
 
-			emit hostTableTextColorChanged(QColor(Qt::green), ip);
-		}
-		else if(!isConnected)// && host->getIsConnected())
-		{
-			//qDebug("[%s] is NOT connected!", ip.toLatin1().data());
-			host->setConnected(false);
-			emit hostTableTextColorChanged(QColor(Qt::red), ip);
-		}
 		//pergunto pro host qual o progresso do envio atual
 		host->setProgressResult(CUploadServiceClient::AskServriceAboutItsProgress(host->port));
 		//currentFilesUp << CurrentUpload(host->getProgressResult().filename,host->getIp());
@@ -226,25 +217,30 @@ void CTransferMonitor::runLogic()
 	//this->setCurrentFilesUploading(currentFilesUp);
 	hostsLocker.unlock();
 	int waitingCount = 0;
-
-	//envia os videos que estão esperando ser enviados, atualiza o progresso do envio atual de acordo com o progresso do Host e atualiza o status do video
+	if(getMainWindow() != nullptr && getMainWindow()->getWorker() != nullptr){
+		if(getMainWindow()->getWorker()->isPopulatingQueue) return; //se a workerThread estiver adicionando itens na lista, nao pega esse lock pra nao travar ela
+}
+		//envia os videos que estão esperando ser enviados, atualiza o progresso do envio atual de acordo com o progresso do Host e atualiza o status do video
 	QMutexLocker queueLocker(&queueMutex);
+	int count = 0;
 	for(VideoFileInfo *videoInfo : this->getCurrentQueue())
 	{
+		count++;
 		if(videoInfo->getStatus() != WAITING && videoInfo->getStatus() != SENDING && videoInfo->getStatus() != TRYING_TO_CONNECT)
 		{
 			continue; //já foi enviado ou já deu erro, não tem o que fazer a partir daqui
 		}
 		else{
+			//qDebug("count: [%d]", count);
 			//qDebug("run()-1");
 			videoInfo->host->addUseCount(); //host está sendo usado
 			bool isBusy = videoInfo->host->isBusy();
 			int hostPort = videoInfo->host->port;
 			CVideoStatus status = videoInfo->getStatus();
-			bool isHostConnected = videoInfo->host->getIsConnected();
 			QString hostIp = videoInfo->ip;
 			QString videoFileName = videoInfo->filename;
 			//queueLocker.unlock();
+			//qDebug("run()-1");
 			if(status == CVideoStatus::WAITING)
 			{
 				//qDebug("run()-2");
@@ -252,8 +248,7 @@ void CTransferMonitor::runLogic()
 				waitingCount++;
 				if(isTransferring && !isBusy)
 				{
-					if(isHostConnected)
-					{
+
 						if(CUploadServiceClient::TellServiceToUploadFile(videoFileName, true, hostPort, "127.0.0.1", "CXmlTransferFinished", 2000))
 						{
 							//queueLocker.relock();
@@ -266,25 +261,9 @@ void CTransferMonitor::runLogic()
 						{
 							qDebug("CTransferMonitor::TellServiceToUploadFile failed IP[%s], fileName [%s]", hostIp.toLatin1().data(), videoFileName.toLatin1().data());
 						}
-					}
-					else
-					{
-						if(CUploadServiceClient::TellServiceToUploadFile(videoFileName, true, hostPort, "127.0.0.1", "CXmlTransferFinished", 2000, "", 0.1))
-						{
-							//queueLocker.relock();
-							videoInfo->host->setBusy(true);
-							qDebug("CTransferMonitor:run() - SENDING, videoInf: IP[%s], fileName [%s]", hostIp.toLatin1().data(), videoFileName.toLatin1().data());
-							videoInfo->status = CVideoStatus::TRYING_TO_CONNECT;
-							//queueLocker.unlock();
-						}
-						else
-						{
-							qDebug("CTransferMonitor::TellServiceToUploadFile failed IP[%s], fileName [%s]", hostIp.toLatin1().data(), videoFileName.toLatin1().data());
-						}
-					}
-
 				}
 			}
+			//qDebug("CTransferMonitor:run() - 3");
 			//queueLocker.relock();
 			//atualiza o progresso de acordo com o progresso do seu Host
 			videoInfo->updateProgress();
@@ -293,7 +272,8 @@ void CTransferMonitor::runLogic()
 			int progresso = videoInfo->getProgress();
 			if(progresso < 0)
 			{
-				qDebug() << "CTransferMonitor::run - progresso: [%s]" << progresso;
+				//qDebug("CTransferMonitor:run() -4");
+				//qDebug() << "CTransferMonitor::run - progresso: [%s]" << progresso;
 				if(videoInfo->getStatus() == CVideoStatus::TRYING_TO_CONNECT || videoInfo->getStatus() == CVideoStatus::SENDING)
 				{
 					if(progresso == UploadFileStatus::TRYING_TO_CONNECT_TO_HOST)
@@ -313,7 +293,15 @@ void CTransferMonitor::runLogic()
 						videoInfo->setIsActiveUpload(false);
 						QDateTime now = QDateTime::currentDateTime();
 						QString nowStr = now.toString("yyyy-MM-dd hh:mm:ss");
-						MagoDB* db = new MagoDB();
+//						magoDbCommandsThread->commands->queuedAddHistoricoMagoSend(videoInfo->getId().toLatin1().data(),videoInfo->getTitulo().toLatin1().data(), videoInfo->getFilename().toLatin1().data(),videoInfo->getModalidade().toLatin1().data(),
+//																		 videoInfo->getDuration(), videoInfo->getIp().toLatin1().data(),videoInfo->getStatusString().toLatin1().data(), nowStr.toLatin1().data(), getMainWindow()->getUsuario().toLatin1().data());
+						//qDebug() << "transferMonitor addHistorico: Current thread ID:" << QThread::currentThreadId();
+//						magoDbCommandsThread->commands->queuedAddHistoricoMagoSend(videoInfo->getId(),videoInfo->getTitulo(), videoInfo->getFilename(),videoInfo->getModalidade(),
+//																		 videoInfo->getDuration(), videoInfo->getIp(),videoInfo->getStatusString(), nowStr, getMainWindow()->getUsuario());
+						CMagoDBCommandsThread::commands->queuedAddHistoricoMagoSend(videoInfo->getId(),videoInfo->getTitulo(), videoInfo->getFilename(),videoInfo->getModalidade(),
+																					 videoInfo->getDuration(), videoInfo->getIp(),videoInfo->getStatusString(), nowStr, getMainWindow()->getUsuario());
+
+						//						MagoDB* db = new MagoDB();
 //						db->AddHistoricoMagoSend(videoToSave->getId().toLatin1().data(),videoToSave->getTitulo().toLatin1().data(), videoToSave->getFilename().toLatin1().data(),videoToSave->getModalidade().toLatin1().data(),
 //												 videoToSave->getDuration(), videoToSave->getIp().toLatin1().data(),videoToSave->getStatusString().toLatin1().data(), nowStr.toLatin1().data(), getMainWindow()->getUsuario().toLatin1().data());
 
@@ -322,7 +310,7 @@ void CTransferMonitor::runLogic()
 //						videoToSave->setDbTime(nowStr);
 //						videosToSaveOnDB <<  videoToSave;
 
-
+		qDebug("CTransferMonitor:run() - 5");
 					}
 				}
 			}
@@ -351,8 +339,10 @@ void CTransferMonitor::runLogic()
 		queueLocker.unlock();
 
 
-	//QThread::msleep(50);
+		//QThread::msleep(50);
 }
+
+
 //bool CTransferMonitor::getIsPopulatingQueue() const
 //{
 //	return isPopulatingQueue;
@@ -370,7 +360,7 @@ void CTransferMonitor::run()
 	while(true)
 	{
 		runLogic();
-		QThread::msleep(70);
+		QThread::msleep(2);
 
 	}
 

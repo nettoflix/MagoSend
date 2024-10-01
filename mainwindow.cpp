@@ -149,6 +149,8 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	//	worker2 = new Worker(this);
 	//workerThread.start();
 	worker->moveToThread(&workerThread);
+	worker->startCheckTimer();
+	workerThread.start();
 	QObject::connect(worker, &Worker::idAlreadyExistOnHost, this, &MainWindow::updateQueueItemInformation);
 	qRegisterMetaType<QList<CFilesOnHost>>("QList<CFilesOnHost>");
 
@@ -165,7 +167,7 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	//getTransferMonitor()->moveToThread(&workerThread);
 	//	workerThread.start();
 	//connect(this, &MainWindow::populateQueueWithPaths, getTransferMonitor(), &CTransferMonitor::onPopulateQueueWithPaths, Qt::QueuedConnection);
-	qDebug() << "MainWIndow: Current thread ID:" << QThread::currentThreadId();
+	//qDebug() << "MainWIndow: Current thread ID:" << QThread::currentThreadId();
 	//workerThread2 = new QThread();
 	//worker2->moveToThread(workerThread2);
 	//workerThread2->start();
@@ -199,22 +201,22 @@ void MainWindow::changeHostsTableTextColor(QColor color, QString ip)
 void MainWindow::loadModComboBox()
 {
 	ui->cb_modalidades->clear();
-	MagoDB* db = new MagoDB();
-	QVector<QPair<QString, QString>> modList = db->getModalidadesMagoSend();
-	delete db;
-	for(QPair<QString, QString> modalidade : modList) {
-		ui->cb_modalidades->addItem(modalidade.first);
-	}
+//	MagoDB* db = new MagoDB();
+//	QVector<QPair<QString, QString>> modList = db->getModalidadesMagoSend();
+//	delete db;
+//	for(QPair<QString, QString> modalidade : modList) {
+//		ui->cb_modalidades->addItem(modalidade.first);
+//	}
 }
 
 void MainWindow::loadSessionComboBox()
 {
 	ui->cb_sessions->clear();
 	//pegar todas as sessoes do DB
-	MagoDB* db = new MagoDB();
-	QStringList sessions = db->getSessionNames();
-	ui->cb_sessions->addItems(sessions);
-	delete db;
+//	MagoDB* db = new MagoDB();
+	//QStringList sessions = db->getSessionNames();
+	//ui->cb_sessions->addItems(sessions);
+	//delete db;
 
 }
 
@@ -240,11 +242,11 @@ bool MainWindow::getWarningAceppted() const
 
 void MainWindow::initDB()
 {
-	db = new MagoDB();
-	db->CreateTableHistorico();
-	db->CreateTableModalidades();
-	db->CreateTableSessions();
-	db->CreateTableOptions();
+//	db = new MagoDB();
+//	db->CreateTableHistorico();
+//	db->CreateTableModalidades();
+//	db->CreateTableSessions();
+//	db->CreateTableOptions();
 	//delete db;
 }
 
@@ -391,9 +393,10 @@ void MainWindow::addQueueToTableWidget()
 
 		if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
 		{
-
+		qDebug("addQueueToTableWidget -3");
 			if(!worker->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
 			{
+					qDebug("addQueueToTableWidget -4");
 				ui->tableWidget->show();
 				qDebug("STOP SPINNER!");
 				//	qDebug("addQueueToTableWidget -3");
@@ -432,10 +435,9 @@ void MainWindow::addQueueToTableWidget()
 void MainWindow::onQueueDonePopulating()
 {
 	qDebug("done populating!");
-	if(!populatingTableWidget)
-	{
-	  addQueueToTableWidget();
-	}
+	 addQueueToTableWidget();
+
+
 
 }
 
@@ -510,33 +512,33 @@ void MainWindow::onFileSelectionBtnClick()
 
 
 	if (!filePaths.isEmpty()) {
-		MagoDB* db = new MagoDB();
-		bool shouldWarn = db->warningWhenOverwriteFile();
-		delete db;
-		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
-		{
-			qDebug("shouldAlwaysOverWriteFile = false");
-			if(!workerThread.isRunning())
-			{
+//		MagoDB* db = new MagoDB();
+//		bool shouldWarn = db->warningWhenOverwriteFile();
+//		delete db;
+//		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
+//		{
+//			qDebug("shouldAlwaysOverWriteFile = false");
+//			if(!workerThread.isRunning())
+//			{
 
-				qDebug("MainWindow::onFileSelectionBtnClick-2");
-				workerThread.start();
-				//worker->moveToThread(&workerThread);
-				QObject::connect(this, &MainWindow::triggerWorker, worker ,[this]()
-				{
-					worker->getFilesAlreadyPresentOnHosts(this->filePaths);
-				});
-				QObject::connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
-			}
+//				qDebug("MainWindow::onFileSelectionBtnClick-2");
+//				workerThread.start();
+//				//worker->moveToThread(&workerThread);
+//				QObject::connect(this, &MainWindow::triggerWorker, worker ,[this]()
+//				{
+//					worker->getFilesAlreadyPresentOnHosts(this->filePaths);
+//				});
+//				QObject::connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
+//			}
 
-			qDebug("MainWindow::onFileSelectionBtnClick-3");
-			qDebug("emit triggerWork!!");
-			emit triggerWorker();
-		}
-		else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
-		{
+//			qDebug("MainWindow::onFileSelectionBtnClick-3");
+//			qDebug("emit triggerWork!!");
+//			emit triggerWorker();
+//		}
+	//	else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
+		//{
 			qDebug("shouldAlwaysOverWriteFile = true");
-				qDebug() << "onFileSelectionBtnClick: Current thread ID: " << QThread::currentThreadId();
+				//qDebug() << "onFileSelectionBtnClick: Current thread ID: " << QThread::currentThreadId();
 			for(int i=0; i<ui->hostsTable->rowCount(); i++)
 			{
 
@@ -547,7 +549,7 @@ void MainWindow::onFileSelectionBtnClick()
 
 			}
 
-		}
+		//}
 	}
 	else
 	{
@@ -748,15 +750,15 @@ void MainWindow::onAtualizarDadosBtnClick()
 		int currentRow = ui->tableWidget->currentRow();
 		if(currentRow != -1)
 		{
-			MagoDB* db = new MagoDB();
-			bool shouldWarn = db->warningWhenOverwriteId();
-			delete db;
-			if(!shouldWarn)
-			{
-				updateQueueItemInformation(false);
-			}
-			else
-			{
+//			MagoDB* db = new MagoDB();
+//			bool shouldWarn = db->warningWhenOverwriteId();
+//			delete db;
+//			if(!shouldWarn)
+//			{
+//				updateQueueItemInformation(false);
+//			}
+		//	else
+		//	{
 				QString newId = ui->te_ID->toPlainText();
 				QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 				VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(currentRow);
@@ -767,7 +769,7 @@ void MainWindow::onAtualizarDadosBtnClick()
 				workerThread.start();
 				worker->checkIfIdExistsOnHosts(ip, newId);
 				qDebug("onAtualizarDadosBtnClick - OUT");
-			}
+			//}
 
 		}
 	}
@@ -844,7 +846,7 @@ QPair<int,int> MainWindow:: getFirstAndLastVisibleRowFromTable()
 void MainWindow::onTimer()
 {
 	//qDebug("MainWindow - onTimer!!");
-
+//qDebug() << "onTimer: Current thread ID:" << QThread::currentThreadId();
 	for(int i=0; i<ui->hostsTable->rowCount(); i++)
 	{
 		QString ip = ui->hostsTable->item(i, 1)->text();
@@ -858,9 +860,7 @@ void MainWindow::onTimer()
 			}
 		}
 	}
-
 	if(worker->isPopulatingQueue) return; //se a workerThread estiver populando a fila, não podemos tentar pegar o lock da queueLocker, se não a GUI thread vai freezar
-
 	QPair<int,int> rows = getFirstAndLastVisibleRowFromTable();
 	for(int i=rows.first; i<=rows.second; i++)
 	{
@@ -980,35 +980,26 @@ void MainWindow::on_btn_connectSession_clicked()
 		qDebug("remove i [%d]", i);
 	}
 	ui->hostsTable->setRowCount(0);
-	MagoDB* db = new MagoDB();
-	QStringList ipList = db->getIpListFromSession(selectedSession.toLatin1().data());
-	QStringList nameList = db->getNameListFromSession(selectedSession.toLatin1().data());
-	delete db;
-	for(QString ip : ipList)
-	{
-		//if(CServiceUtils::isValidIPv4format(ip))
-		//{
-		int row = ui->hostsTable->rowCount();
-		ui->hostsTable->setRowCount(row + 1);
-		QTableWidgetItem* nameItem = new QTableWidgetItem(nameList.at(row));
-		QTableWidgetItem* ipItem = new QTableWidgetItem(ip);
-		QTableWidgetItem* bitRate = new QTableWidgetItem("0.00 MB/s");
-		ipItem->setTextColor(QColor(Qt::gray));
-		ui->hostsTable->setItem(row, 0, nameItem);
-		ui->hostsTable->setItem(row, 1, ipItem);
-		ui->hostsTable->setItem(row, 2, bitRate);
-		hostControl->registerIp(ip);
-		//hostControl->startTransferService(ip);
+//	MagoDB* db = new MagoDB();
+	//QStringList ipList = db->getIpListFromSession(selectedSession.toLatin1().data());
+	//QStringList nameList = db->getNameListFromSession(selectedSession.toLatin1().data());
+	//delete db;
+//	for(QString ip : ipList)
+//	{
+//		//if(CServiceUtils::isValidIPv4format(ip))
+//		//{
+//		int row = ui->hostsTable->rowCount();
+//		ui->hostsTable->setRowCount(row + 1);
+//		QTableWidgetItem* nameItem = new QTableWidgetItem(nameList.at(row));
+//		QTableWidgetItem* ipItem = new QTableWidgetItem(ip);
+//		QTableWidgetItem* bitRate = new QTableWidgetItem("0.00 MB/s");
+//		ipItem->setTextColor(QColor(Qt::gray));
+//		ui->hostsTable->setItem(row, 0, nameItem);
+//		ui->hostsTable->setItem(row, 1, ipItem);
+//		ui->hostsTable->setItem(row, 2, bitRate);
+//		hostControl->registerIp(ip);
 
-		//	}
-		//	else
-		//	{
-		//	qDebug("MainWindow::on_btn_connectSession_clicked - IP inválido [%s]", ip.toLatin1().data());
-		//}
-	}
-	//qDebug("Sessao [%s], ips: [%s]", session.toLatin1().data(), QString(ipList.join(",")).toLatin1().data());
-
-	//QStringList ipList = settings.value(
+//	}
 }
 
 void MainWindow::setWarningResponse(bool value)
@@ -1019,6 +1010,11 @@ void MainWindow::setWarningResponse(bool value)
 MagoDB *MainWindow::getDb() const
 {
 	return db;
+}
+
+Worker *MainWindow::getWorker() const
+{
+	return worker;
 }
 
 void MainWindow::showWarningMessage(const QString &message)
@@ -1106,7 +1102,7 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 			}
 
 			qDebug("emite monitorPopulateQueue!");
-			qDebug() << "pupulateGuiTable: Current thread ID:" << QThread::currentThreadId();
+			//qDebug() << "pupulateGuiTable: Current thread ID:" << QThread::currentThreadId();
 			ui->tableWidget->hide();
 
 			emit populateQueueWithPaths(pathsToPopulate, ip);

@@ -6,7 +6,7 @@ CSendOptionsForm::CSendOptionsForm(QWidget *parent) :
 	ui(new Ui::CSendOptionsForm)
 {
 	ui->setupUi(this);
-	db = new MagoDB();
+//	db = new MagoDB();
 	bool alwaysWarnFile = db->warningWhenOverwriteFile();
 	bool alwaysWarnId = db->warningWhenOverwriteId();
 	ui->checkBox_arquivo->setChecked(alwaysWarnFile);
@@ -15,14 +15,14 @@ CSendOptionsForm::CSendOptionsForm(QWidget *parent) :
 
 CSendOptionsForm::~CSendOptionsForm()
 {
-	delete db;
+//	delete db;
 	delete ui;
 }
 
 void CSendOptionsForm::closeEvent(QCloseEvent *event)
 {
 	qDebug("fechoU!");
-	db->updateSendOptions(ui->checkBox_arquivo->isChecked(),ui->checkBox_id->isChecked());
+//	db->updateSendOptions(ui->checkBox_arquivo->isChecked(),ui->checkBox_id->isChecked());
 	this->accept();
 }
 

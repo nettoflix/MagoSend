@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Worker_t {
-    QByteArrayData data[15];
-    char stringdata0[234];
+    QByteArrayData data[17];
+    char stringdata0[266];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,21 +40,24 @@ QT_MOC_LITERAL(4, 61, 15), // "listFilesOnHost"
 QT_MOC_LITERAL(5, 77, 20), // "idAlreadyExistOnHost"
 QT_MOC_LITERAL(6, 98, 5), // "value"
 QT_MOC_LITERAL(7, 104, 19), // "queueDonePopulating"
-QT_MOC_LITERAL(8, 124, 29), // "getFilesAlreadyPresentOnHosts"
-QT_MOC_LITERAL(9, 154, 9), // "filePaths"
-QT_MOC_LITERAL(10, 164, 22), // "checkIfIdExistsOnHosts"
-QT_MOC_LITERAL(11, 187, 2), // "ip"
-QT_MOC_LITERAL(12, 190, 2), // "id"
-QT_MOC_LITERAL(13, 193, 24), // "onPopulateQueueWithPaths"
-QT_MOC_LITERAL(14, 218, 15) // "pathsToPopulate"
+QT_MOC_LITERAL(8, 124, 25), // "hostTableTextColorChanged"
+QT_MOC_LITERAL(9, 150, 5), // "color"
+QT_MOC_LITERAL(10, 156, 2), // "ip"
+QT_MOC_LITERAL(11, 159, 29), // "getFilesAlreadyPresentOnHosts"
+QT_MOC_LITERAL(12, 189, 9), // "filePaths"
+QT_MOC_LITERAL(13, 199, 22), // "checkIfIdExistsOnHosts"
+QT_MOC_LITERAL(14, 222, 2), // "id"
+QT_MOC_LITERAL(15, 225, 24), // "onPopulateQueueWithPaths"
+QT_MOC_LITERAL(16, 250, 15) // "pathsToPopulate"
 
     },
     "Worker\0filesAlreadyPresentOnHostsResult\0"
     "\0QList<CFilesOnHost>\0listFilesOnHost\0"
     "idAlreadyExistOnHost\0value\0"
-    "queueDonePopulating\0getFilesAlreadyPresentOnHosts\0"
-    "filePaths\0checkIfIdExistsOnHosts\0ip\0"
-    "id\0onPopulateQueueWithPaths\0pathsToPopulate"
+    "queueDonePopulating\0hostTableTextColorChanged\0"
+    "color\0ip\0getFilesAlreadyPresentOnHosts\0"
+    "filePaths\0checkIfIdExistsOnHosts\0id\0"
+    "onPopulateQueueWithPaths\0pathsToPopulate"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,32 +67,34 @@ static const uint qt_meta_data_Worker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   44,    2, 0x06 /* Public */,
-       5,    1,   47,    2, 0x06 /* Public */,
-       7,    0,   50,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
+       5,    1,   52,    2, 0x06 /* Public */,
+       7,    0,   55,    2, 0x06 /* Public */,
+       8,    2,   56,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    1,   51,    2, 0x0a /* Public */,
-      10,    2,   54,    2, 0x0a /* Public */,
-      13,    2,   59,    2, 0x0a /* Public */,
+      11,    1,   61,    2, 0x0a /* Public */,
+      13,    2,   64,    2, 0x0a /* Public */,
+      15,    2,   69,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, QMetaType::Bool,    6,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QColor, QMetaType::QString,    9,   10,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QStringList,    9,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   11,   12,
-    QMetaType::Void, QMetaType::QStringList, QMetaType::QString,   14,   11,
+    QMetaType::Void, QMetaType::QStringList,   12,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   10,   14,
+    QMetaType::Void, QMetaType::QStringList, QMetaType::QString,   16,   10,
 
        0        // eod
 };
@@ -103,9 +108,10 @@ void Worker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 0: _t->filesAlreadyPresentOnHostsResult((*reinterpret_cast< QList<CFilesOnHost>(*)>(_a[1]))); break;
         case 1: _t->idAlreadyExistOnHost((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 2: _t->queueDonePopulating(); break;
-        case 3: _t->getFilesAlreadyPresentOnHosts((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
-        case 4: _t->checkIfIdExistsOnHosts((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 5: _t->onPopulateQueueWithPaths((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 3: _t->hostTableTextColorChanged((*reinterpret_cast< QColor(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 4: _t->getFilesAlreadyPresentOnHosts((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
+        case 5: _t->checkIfIdExistsOnHosts((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 6: _t->onPopulateQueueWithPaths((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -128,6 +134,13 @@ void Worker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             typedef void (Worker::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Worker::queueDonePopulating)) {
                 *result = 2;
+                return;
+            }
+        }
+        {
+            typedef void (Worker::*_t)(QColor , QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Worker::hostTableTextColorChanged)) {
+                *result = 3;
                 return;
             }
         }
@@ -159,13 +172,13 @@ int Worker::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }
@@ -188,6 +201,13 @@ void Worker::idAlreadyExistOnHost(bool _t1)
 void Worker::queueDonePopulating()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
+void Worker::hostTableTextColorChanged(QColor _t1, QString _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

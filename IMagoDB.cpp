@@ -9,13 +9,12 @@
 #include "MagoDB.h"
 
 
-IMagoDB * CreateDB()
+IMagoDB* CreateDB(char* IP, bool useRandomConnectionName)
 {
-
-
-	IMagoDB * pMagoDB = new MagoDB();
+	IMagoDB* pMagoDB = new MagoDB(IP, useRandomConnectionName);
 	return pMagoDB;
 }
+
 
 void DropDB()
 {

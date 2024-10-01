@@ -29,10 +29,14 @@ public:
 class Worker : public QObject {
 	Q_OBJECT
 public:
+	QTimer* checkConnectionTimer;
 	explicit Worker(MainWindow* mw);
+	~Worker();
 	bool isPopulatingQueue = false;
 	bool getIsPopulatingQueue() const;
 	void setIsPopulatingQueue(bool value);
+	void startCheckTimer();
+	void onCheckConnection();
 
 public slots:
 	void getFilesAlreadyPresentOnHosts(QStringList filePaths);
@@ -43,6 +47,7 @@ signals:
 	void filesAlreadyPresentOnHostsResult(QList<CFilesOnHost> listFilesOnHost);
 	void idAlreadyExistOnHost(bool value);
 	void queueDonePopulating();
+	void hostTableTextColorChanged(QColor color, QString ip);
 private:
 	MainWindow* mw;
 };

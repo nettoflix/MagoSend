@@ -80,7 +80,8 @@ SOURCES += \
     CWaitingSpinnerWidget.cpp \
     CSendOptionsForm.cpp \
     SpinnerThread.cpp \
-    CMagoDBCommandsThread.cpp
+    CMagoDBCommandsThread.cpp \
+    CWaiter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -109,7 +110,8 @@ HEADERS += \
     CWaitingSpinnerWidget.h \
     CSendOptionsForm.h \
     SpinnerThread.h \
-    CMagoDBCommandsThread.h
+    CMagoDBCommandsThread.h \
+    CWaiter.h
 
 FORMS += \
         mainwindow.ui \

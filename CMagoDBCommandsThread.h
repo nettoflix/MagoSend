@@ -10,13 +10,12 @@
 
 #include <QThread>
 #include <QHash>
+#include <QSqlDatabase>
 
 #include <IMagoDB.h>
 
-
-#include "CMagoDBEvent.h"
 #include "CWaiter.h"
-#include "CMainWindow.h"
+#include "MagoDB.h"
 
 class CMagoDBCommandsThreadWorker;
 
@@ -34,77 +33,20 @@ public:
 	{
 		return worker;
 	}
+	void queuedAddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario);
 
-	void queuedAddHistorico(QString ticket, QString numero, QString titulo, int duracaoreal, QString veiculacao, int roteiro, QDateTime data, QDateTime entrada, QDateTime saida, int posicaomesa, QString hPrevisto, QString crit1);
 
-
-	void queuedChangeHistoricoSaida(QString ticket, int roteiro, QDateTime saida);
-
-	/*!
-	 * Cria um evento, baseado em um arquivo de video em disco, caso nao exista nenhum evento no banco
-	 * que utilize esse mesmo arquivo em video. Se existir alum evento fazendo referencia a esse arquivo,
-	 * entao o metodo sai fora. Assim que tudo e terminado, dando certo ou nao, o meotodo "methodName" do
-	 * objeto "object" e chamado...
-	 * ATENCAO: esse metodo NAO bloqueia a thread principal...
-	 *
-	 * @param path
-	 */
-	void queuedCreateEventByPathIfDosentExist(QString path, QObject* object, QString methodName, int finishedInicilization);
-
-	/*!
-	 * Faz uma pesquisa via thread PRINCIPAL na tabela de eventos, ordenada pelo campo "orderBy".
-	 * ATENCAO: esse metodo bloqueia a thread principal...
-	 * @param field
-	 * @param value
-	 * @param orderBy
-	 * @return
-	 */
-	CMagoDBEventCollection loadAllEventsOrderByWithValueEqual(QString field, QString value, QString orderBy);
-
-	/*!
-	 * Faz uma pesquisa via thread na tabela de eventos, ordenada pelo campo "orderBy", e assim que estiver pronta,
-	 * envia os resultados chamando o o metodo "methodName" de "object"...
-	 * ATENCAO: esse metodo NAO bloqueia a thread principal...
-	 * @param field
-	 * @param value
-	 * @param orderBy
-	 * @param object
-	 * @param methodName
-	 */
-	void queuedLoadAllEventsOrderByWithValueEqual(QString field, QString value, QString orderBy, QObject* object, QString methodName);
-
-	void queuedLoadAllProgramsOrderByWithValueEqual(QString field, QString value, QString orderBy, QObject* object, QString methodName);
-
-	/*!
-	 * atualiaza todos os eventos do Banco de dados que tenham esse "Path" com novos frameIn e frameOut...
-	 * ATENCAO: esse metodo NAO bloqueia a thread principal...
-	 * @param path
-	 * @param frameIn
-	 * @param frameOut
-	 */
-	void queuedUpdateAllEventsWithNewVideoInformationByPath(QString path, int frameIn, int frameOut);
-
-	void queuedSetAllEventsWithNullPath(QString path);
-
-	inline IMagoDB* getMagoDB()
+	inline MagoDB* getMagoDB()
 	{
-		return magoDB;
+		return (MagoDB*) magoDB;
 	}
 
 
 	inline QSqlDatabase getNewConnection(QString dbName)
 	{
 		QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL", dbName);
-		db.setDatabaseName("magodb");
-		if (CMainWindow::mainWindow->config.isMagoRemoto)
-		{
-			qDebug("getNewConnection - MAGO REMOTO - ip = [%s]", CMainWindow::mainWindow->config.magoServerIP.toLatin1().data());
-			db.setHostName(CMainWindow::mainWindow->config.magoServerIP.toLatin1().data());
-		}
-		else
-		{
-			db.setHostName("127.0.0.1");
-		}
+		db.setDatabaseName("magosend");
+		db.setHostName("127.0.0.1");
 		db.setPort(5432);
 		db.setUserName("postgres");
 		db.setPassword("admin");
@@ -112,19 +54,6 @@ public:
 
 		return db;
 	}
-
-//	inline void deleteRandomConnection(QSqlDatabase* database)
-//	{
-//		QString dbConnectionName;
-//		{
-//			dbConnectionName = database->connectionName();
-
-//			database->close();
-//		}
-//		//QSqlDatabase::removeDatabase(database->databaseName());
-
-//		QSqlDatabase::removeDatabase(dbConnectionName);
-//	}
 
 	inline QSqlDatabase getRandomConnection()
 	{
@@ -150,16 +79,8 @@ public:
 
 		//cria a nova conexao com banco utilizando esse nome randomico..
 		QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL", dbName);
-		db.setDatabaseName("magodb");
-		if (CMainWindow::mainWindow->config.isMagoRemoto)
-		{
-			qDebug("getRandomConnection - MAGO REMOTO - ip = [%s]", CMainWindow::mainWindow->config.magoServerIP.toLatin1().data());
-			db.setHostName(CMainWindow::mainWindow->config.magoServerIP.toLatin1().data());
-		}
-		else
-		{
-			db.setHostName("127.0.0.1");
-		}
+		db.setDatabaseName("magosend");
+		db.setHostName("127.0.0.1");
 		//db.setHostName("127.0.0.1");
 		db.setPort(5432);
 		db.setUserName("postgres");
@@ -200,25 +121,8 @@ protected:
 public slots:
 
 	//void queuedAddHistorico(QString ticket, QString numero, QString titulo, int duracaoreal, QString veiculacao, int roteiro, QString data, QString entrada, QString saida, int posicaomesa, QString hPrevisto, QString crit1);
-	void queuedAddHistorico(QString ticket, QString numero, QString titulo, int duracaoreal, QString veiculacao, int roteiro, QString data, QString entrada, QString saida, QStringList list);
+	void queuedAddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario);
 
-	void queuedChangeHistoricoSaida(QString ticket, int roteiro, QString saida);
-
-	void queuedCreateEventByPathIfDosentExist(QString path, QObject* object, QString methodName, int finishedInicilization);
-
-	void loadAllEventsOrderByWithValueEqual(QString field, QString value, QString orderBy, void* result);
-
-	void queuedLoadAllEventsOrderByWithValueEqual(QString field, QString value, QString orderBy, QObject* object, QString methodName);
-
-	/*!
-	 * atualiaza todos os eventos do Banco de dados que tenham esse "Path" com novos frameIn e frameOut...
-	 * @param path
-	 * @param frameIn
-	 * @param frameOut
-	 */
-	void queuedUpdateAllEventsWithNewVideoInformationByPath(QString path, int frameIn, int frameOut);
-
-	void queuedSetAllEventsWithNullPath(QString path);
 };
 
 #endif /* CMAGODBCOMMANDSTHREAD_H_ */

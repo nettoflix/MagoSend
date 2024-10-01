@@ -33,41 +33,41 @@ void CCadastrarLoginForm::on_btn_registrar_clicked()
 	}
 
 
-	MagoDB* db = new MagoDB();
-	if(db->userAlreadyExists(usuario.toLatin1().data()))
-	{
-		QMessageBox::warning(this, "Usuário duplicado", "Esse nome de usuário já existe, escolha outro", QMessageBox::Ok);
-		return;
-	}
-	else
-	{
-		QByteArray passwordHash = QCryptographicHash::hash(senha.toUtf8(), QCryptographicHash::Sha256);
-		qDebug() << "hash:" <<passwordHash.toHex();
-		if(db->AddUserMagoSend(usuario.toLatin1().data(), passwordHash.toHex().data()))
-		{
-			int result = QMessageBox::information(
-						this,
-						"Conta Criada com Sucesso",
-						"Sua conta foi criada com sucesso! Agora você pode fazer login e começar a usar o aplicativo. Seja bem-vindo!",
-						QMessageBox::Ok
-						);
-			if(result == QMessageBox::Ok)
-			{
-				this->accept();
-			}
+//	MagoDB* db = new MagoDB();
+//	if(db->userAlreadyExists(usuario.toLatin1().data()))
+//	{
+//		QMessageBox::warning(this, "Usuário duplicado", "Esse nome de usuário já existe, escolha outro", QMessageBox::Ok);
+//		return;
+//	}
+//	else
+//	{
+//		QByteArray passwordHash = QCryptographicHash::hash(senha.toUtf8(), QCryptographicHash::Sha256);
+//		qDebug() << "hash:" <<passwordHash.toHex();
+//		if(db->AddUserMagoSend(usuario.toLatin1().data(), passwordHash.toHex().data()))
+//		{
+//			int result = QMessageBox::information(
+//						this,
+//						"Conta Criada com Sucesso",
+//						"Sua conta foi criada com sucesso! Agora você pode fazer login e começar a usar o aplicativo. Seja bem-vindo!",
+//						QMessageBox::Ok
+//						);
+//			if(result == QMessageBox::Ok)
+//			{
+//				this->accept();
+//			}
 
-		}
-		else
-		{
+//		}
+//		else
+//		{
 
-			QMessageBox::warning(
-				this,
-				"Erro de Registro",
-				"Não foi possível registrar o usuário devido a um problema de comunicação com o banco de dados. Por favor, entre em contato com o suporte.",
-				QMessageBox::Ok
-			);
+//			QMessageBox::warning(
+//				this,
+//				"Erro de Registro",
+//				"Não foi possível registrar o usuário devido a um problema de comunicação com o banco de dados. Por favor, entre em contato com o suporte.",
+//				QMessageBox::Ok
+//			);
 
-		}
-	}
-	delete db;
+//		}
+//	}
+//	delete db;
 }

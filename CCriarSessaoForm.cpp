@@ -16,7 +16,7 @@ CCriarSessaoForm::CCriarSessaoForm(QWidget *parent, QString sessionName, bool re
 	ui->listWidget_ips->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->listWidget_ips->setSelectionMode(QAbstractItemView::NoSelection);
 
-	db = new MagoDB();
+//	db = new MagoDB();
 	this->setWindowTitle("Criar Sessão");
 	ui->te_Sessao->setText(sessionName);
 	if(readOnly)

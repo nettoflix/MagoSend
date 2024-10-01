@@ -3,6 +3,7 @@
 #include <QThread>
 #include <QTimer>
 //#include "CHostControl.h"
+#include "CMagoDBCommandsThread.h"
 #include "CUploadServiceClient.h"
 #include "Host.h"
 #include "VideoFileInfo.h"
@@ -41,6 +42,7 @@ private:
 	QVector<VideoFileInfo*> currentQueue;
 	//bool isPopulatingQueue = false;
 	QTimer* timer;
+	QTimer* checkConnectionTimer;
 	void run();
 	private slots:
 		void runLogic();
@@ -48,8 +50,8 @@ private:
 public:
 	CTransferMonitor(MainWindow* mainWindow);
 	~CTransferMonitor();
-
-
+	CMagoDBCommandsThread* magoDbCommandsThread;
+	QThread workerThread;
 	void populateQueue(QString filePath, QString ip);
 	//void onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip);
 	void removeFromQueue(int row);
@@ -73,8 +75,7 @@ public:
 	//void setIsPopulatingQueue(bool value);
 
 signals:
-	void hostTableTextColorChanged(QColor color, QString ip);
-	void filesPresentOnHostResult(QStringList list);
+	//void hostTableTextColorChanged(QColor color, QString ip);
 	//void queueDonePopulating();
 
 };

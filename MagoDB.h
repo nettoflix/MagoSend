@@ -20,7 +20,7 @@ class MagoDB: public IMagoDB
 
 public:
 	QSqlDatabase Magodb;
-	MagoDB(QString remoteIp = QString(""));
+	 MagoDB(char* IP, bool useRandomConnectionName);
 	virtual  ~MagoDB();
 	QString databaseName() const;
 	int getDbPort();
@@ -67,7 +67,7 @@ public:
 	bool __stdcall AddProgram(char* codigo, char* titulo, int breaks, int frames, int posicaomesa);
 	bool __stdcall UpdateProgram(char* oldcodigo, char* newcodigo, char* titulo, int breaks, int frames, int posicaomesa);
 	bool __stdcall RemoveProgram(char* codigo);
-	int __stdcall AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario);
+	int __stdcall AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario, QSqlDatabase* connection);
 	int __stdcall AddUserMagoSend(char* usuario, char* senha);
 	bool __stdcall userAlreadyExists(char* usuario);
 	QString __stdcall getUserPassword(char* usuario);

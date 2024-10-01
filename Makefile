@@ -77,6 +77,7 @@ SOURCES       = main.cpp \
 		CSendOptionsForm.cpp \
 		SpinnerThread.cpp \
 		CMagoDBCommandsThread.cpp \
+		CWaiter.cpp \
 		../4SMagoTransferServer/CUploadServiceClient.cpp \
 		../XmlRPC/XmlRpc/XmlRpcClient.cpp \
 		../XmlRPC/XmlRpc/XmlRpcDispatch.cpp \
@@ -126,6 +127,7 @@ OBJECTS       = release/main.o \
 		release/CSendOptionsForm.o \
 		release/SpinnerThread.o \
 		release/CMagoDBCommandsThread.o \
+		release/CWaiter.o \
 		release/CUploadServiceClient.o \
 		release/XmlRpcClient.o \
 		release/XmlRpcDispatch.o \
@@ -332,6 +334,7 @@ DIST          = ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/spec_pre.prf \
 		CSendOptionsForm.h \
 		SpinnerThread.h \
 		CMagoDBCommandsThread.h \
+		CWaiter.h \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/base64.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
@@ -371,6 +374,7 @@ DIST          = ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/spec_pre.prf \
 		CSendOptionsForm.cpp \
 		SpinnerThread.cpp \
 		CMagoDBCommandsThread.cpp \
+		CWaiter.cpp \
 		../4SMagoTransferServer/CUploadServiceClient.cpp \
 		../XmlRPC/XmlRpc/XmlRpcClient.cpp \
 		../XmlRPC/XmlRpc/XmlRpcDispatch.cpp \
@@ -734,8 +738,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents qrc.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h CServiceUtils.h CTransferMonitor.h CHostControl.h CXmlTransferFinished.h Host.h HostListDelegate.h CustomStringListModel.h CModalidadesForm.h CCriarSessaoForm.h VideoFileInfo.h CEditarSessaoForm.h MagoDB.h IMagoDB.h CBDQuery.h lindows.h CDateUtils.h CHistoricoForm.h CLoginForm.h CCadastrarLoginForm.h CWorker.h EfficientItemDelegate.h CustomSelectionModel.h CWaitingSpinnerWidget.h CSendOptionsForm.h SpinnerThread.h CMagoDBCommandsThread.h ../4SMagoTransferServer/CUploadServiceClient.h ../XmlRPC/XmlRpc/base64.h ../XmlRPC/XmlRpc/XmlRpc.h ../XmlRPC/XmlRpc/XmlRpcClient.h ../XmlRPC/XmlRpc/XmlRpcDispatch.h ../XmlRPC/XmlRpc/XmlRpcException.h ../XmlRPC/XmlRpc/XmlRpcServer.h ../XmlRPC/XmlRpc/XmlRpcServerConnection.h ../XmlRPC/XmlRpc/XmlRpcServerMethod.h ../XmlRPC/XmlRpc/XmlRpcSocket.h ../XmlRPC/XmlRpc/XmlRpcSource.h ../XmlRPC/XmlRpc/XmlRpcUtil.h ../XmlRPC/XmlRpc/XmlRpcValue.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp CServiceUtils.cpp CTransferMonitor.cpp CHostControl.cpp CXmlTransferFinished.cpp Host.cpp HostListDelegate.cpp CustomStringListModel.cpp CModalidadesForm.cpp CCriarSessaoForm.cpp VideoFileInfo.cpp CEditarSessaoForm.cpp IMagoDB.cpp MagoDB.cpp CBDQuery.cpp CDateUtils.cpp CHistoricoForm.cpp CLoginForm.cpp CCadastrarLoginForm.cpp CWorker.cpp EfficientItemDelegate.cpp CustomSelectionModel.cpp CWaitingSpinnerWidget.cpp CSendOptionsForm.cpp SpinnerThread.cpp CMagoDBCommandsThread.cpp ../4SMagoTransferServer/CUploadServiceClient.cpp ../XmlRPC/XmlRpc/XmlRpcClient.cpp ../XmlRPC/XmlRpc/XmlRpcDispatch.cpp ../XmlRPC/XmlRpc/XmlRpcServer.cpp ../XmlRPC/XmlRpc/XmlRpcServerConnection.cpp ../XmlRPC/XmlRpc/XmlRpcServerMethod.cpp ../XmlRPC/XmlRpc/XmlRpcSocket.cpp ../XmlRPC/XmlRpc/XmlRpcSource.cpp ../XmlRPC/XmlRpc/XmlRpcUtil.cpp ../XmlRPC/XmlRpc/XmlRpcValue.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h CServiceUtils.h CTransferMonitor.h CHostControl.h CXmlTransferFinished.h Host.h HostListDelegate.h CustomStringListModel.h CModalidadesForm.h CCriarSessaoForm.h VideoFileInfo.h CEditarSessaoForm.h MagoDB.h IMagoDB.h CBDQuery.h lindows.h CDateUtils.h CHistoricoForm.h CLoginForm.h CCadastrarLoginForm.h CWorker.h EfficientItemDelegate.h CustomSelectionModel.h CWaitingSpinnerWidget.h CSendOptionsForm.h SpinnerThread.h CMagoDBCommandsThread.h CWaiter.h ../4SMagoTransferServer/CUploadServiceClient.h ../XmlRPC/XmlRpc/base64.h ../XmlRPC/XmlRpc/XmlRpc.h ../XmlRPC/XmlRpc/XmlRpcClient.h ../XmlRPC/XmlRpc/XmlRpcDispatch.h ../XmlRPC/XmlRpc/XmlRpcException.h ../XmlRPC/XmlRpc/XmlRpcServer.h ../XmlRPC/XmlRpc/XmlRpcServerConnection.h ../XmlRPC/XmlRpc/XmlRpcServerMethod.h ../XmlRPC/XmlRpc/XmlRpcSocket.h ../XmlRPC/XmlRpc/XmlRpcSource.h ../XmlRPC/XmlRpc/XmlRpcUtil.h ../XmlRPC/XmlRpc/XmlRpcValue.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp CServiceUtils.cpp CTransferMonitor.cpp CHostControl.cpp CXmlTransferFinished.cpp Host.cpp HostListDelegate.cpp CustomStringListModel.cpp CModalidadesForm.cpp CCriarSessaoForm.cpp VideoFileInfo.cpp CEditarSessaoForm.cpp IMagoDB.cpp MagoDB.cpp CBDQuery.cpp CDateUtils.cpp CHistoricoForm.cpp CLoginForm.cpp CCadastrarLoginForm.cpp CWorker.cpp EfficientItemDelegate.cpp CustomSelectionModel.cpp CWaitingSpinnerWidget.cpp CSendOptionsForm.cpp SpinnerThread.cpp CMagoDBCommandsThread.cpp CWaiter.cpp ../4SMagoTransferServer/CUploadServiceClient.cpp ../XmlRPC/XmlRpc/XmlRpcClient.cpp ../XmlRPC/XmlRpc/XmlRpcDispatch.cpp ../XmlRPC/XmlRpc/XmlRpcServer.cpp ../XmlRPC/XmlRpc/XmlRpcServerConnection.cpp ../XmlRPC/XmlRpc/XmlRpcServerMethod.cpp ../XmlRPC/XmlRpc/XmlRpcSocket.cpp ../XmlRPC/XmlRpc/XmlRpcSource.cpp ../XmlRPC/XmlRpc/XmlRpcUtil.cpp ../XmlRPC/XmlRpc/XmlRpcValue.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui CModalidadesForm.ui CCriarSessaoForm.ui CEditarSessaoForm.ui CHistoricoForm.ui CLoginForm.ui CCadastrarLoginForm.ui CSendOptionsForm.ui $(DISTDIR)/
 
 
@@ -3135,9 +3139,12 @@ release/moc_CMagoDBCommandsThread.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QT
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
 		IMagoDB.h \
 		lindows.h \
-		../4SMagoTransferServer/CWaiter.h \
+		CWaiter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
@@ -9215,15 +9222,43 @@ release/CMagoDBCommandsThread.o: CMagoDBCommandsThread.cpp ../Qt5.9.6/5.9.6/gcc_
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		IMagoDB.h \
 		lindows.h \
-		../4SMagoTransferServer/CWaiter.h \
+		CWaiter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CMagoDBCommandsThread.o CMagoDBCommandsThread.cpp
+
+release/CWaiter.o: CWaiter.cpp CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmutex.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtcore-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemdetection.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocessordetection.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcompilerdetection.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypeinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsysinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlogging.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qflags.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasicatomic.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qgenericatomic.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic_msvc.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qglobalstatic.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnumeric.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversiontagging.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CWaiter.o CWaiter.cpp
 
 release/CUploadServiceClient.o: ../4SMagoTransferServer/CUploadServiceClient.cpp ../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \

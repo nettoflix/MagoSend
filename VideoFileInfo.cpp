@@ -14,7 +14,7 @@ VideoFileInfo::VideoFileInfo(QString filename, QString modalidade ,int duration,
 	this->status = status;
 	this->modalidade = modalidade;
 	this->ip = host->ip;
-	qDebug("id [%s], titulo [%s], filename [%s]", this->id.toLatin1().data(), this->titulo.toLatin1().data(), this->filename.toLatin1().data());
+	//qDebug("id [%s], titulo [%s], filename [%s]", this->id.toLatin1().data(), this->titulo.toLatin1().data(), this->filename.toLatin1().data());
 }
 
 QString VideoFileInfo::getDbTime() const

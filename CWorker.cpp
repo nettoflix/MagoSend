@@ -2,7 +2,12 @@
 Worker::Worker(MainWindow* mw)
 {
 	this->mw = mw;
+	QObject::connect(this, &Worker::hostTableTextColorChanged, mw, &MainWindow::changeHostsTableTextColor, Qt::QueuedConnection);
+}
 
+Worker::~Worker()
+{
+	delete checkConnectionTimer;
 }
 
 bool Worker::getIsPopulatingQueue() const
@@ -13,6 +18,40 @@ bool Worker::getIsPopulatingQueue() const
 void Worker::setIsPopulatingQueue(bool value)
 {
 	isPopulatingQueue = value;
+}
+
+void Worker::startCheckTimer()
+{
+	checkConnectionTimer = new QTimer();
+	connect(checkConnectionTimer, &QTimer::timeout, this,&Worker::onCheckConnection);
+	checkConnectionTimer->start(100);
+
+}
+
+void Worker::onCheckConnection()
+{
+
+	//qDebug() << "onCheckConnection: Current thread ID:" << QThread::currentThreadId();
+	//QMutexLocker hostsLocker(&getMainWindow()->getHostControl()->getHostsMutex());
+	for(Host* host : mw->getHostControl()->getHosts())
+	{
+		bool isConnected = CUploadServiceClient::CheckConnection(host->ip);
+		if(isConnected)// && !host->getIsConnected())
+		{
+			//qDebug("[%s] is connected!", ip.toLatin1().data());
+			host->setConnected(true);
+
+			emit hostTableTextColorChanged(QColor(Qt::green), host->ip);
+		}
+		else if(!isConnected)// && host->getIsConnected())
+		{
+			//qDebug("[%s] is NOT connected!", ip.toLatin1().data());
+			host->setConnected(false);
+			emit hostTableTextColorChanged(QColor(Qt::red), host->ip);
+		}
+	}
+
+
 }
 
 void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
@@ -46,19 +85,23 @@ void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
 
 void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
 {
-	MagoDB* magodb = new MagoDB(ip);
-	bool exists = magodb->EventExistsByNumber(id.toLatin1().data());
-	qDebug("Worker::checkIfIdExistsOnHosts - exists [%d]", exists);
-	emit idAlreadyExistOnHost(exists);
+	//	MagoDB* magodb = new MagoDB(ip);
+	//	bool exists = magodb->EventExistsByNumber(id.toLatin1().data());
+	//	qDebug("Worker::checkIfIdExistsOnHosts - exists [%d]", exists);
+	//	emit idAlreadyExistOnHost(exists);
 }
 void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 {
 	setIsPopulatingQueue(true);
-	qDebug() << "populateQueueWithPaths: Current thread ID: " << QThread::currentThreadId() << "IP:" << ip;
+	qDebug("Worker::onPopulateQueueWithPaths -1 ");
+	//qDebug() << "populateQueueWithPaths: Current thread ID: " << QThread::currentThreadId() << "IP:" << ip;
 	QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
+	qDebug("Worker::onPopulateQueueWithPaths -2 ");
 	QMutexLocker queueLocker(&mw->getTransferMonitor()->getQueueMutex());
+	qDebug("Worker::onPopulateQueueWithPaths -3 ");
 	CHostControl* hostControl = mw->getHostControl();
 	for (Host* host : hostControl->getHosts()) {
+
 		if(host->getIp() == ip)
 		{
 			if(!host->getWasRemovedFromTableWidget())
@@ -77,12 +120,12 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 					if(count >=20)
 					{
 						count = 0;
-							//qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
-//						if(ip == "192.168.0.145")
-//						{
-//							qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
+						//qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
+						//						if(ip == "192.168.0.145")
+						//						{
+						//							qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
 
-//						}
+						//						}
 						QThread::msleep(10);
 					}
 				}
@@ -92,6 +135,13 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 	}
 
 	setIsPopulatingQueue(false);
+	qDebug("Worker::onPopulateQueueWithPaths -4 ");
+	hostsLocker.unlock();
+	queueLocker.unlock();
+		qDebug("Worker::onPopulateQueueWithPaths -emit queueDonePopulating - 5 ");
 	emit queueDonePopulating();
+
+	qDebug("Worker::onPopulateQueueWithPaths -6 ");
+
 
 }

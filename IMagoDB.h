@@ -64,7 +64,7 @@ public:
 
 extern "C"
 {
-Q_DECL_EXPORT IMagoDB* CreateDB();
+Q_DECL_EXPORT IMagoDB* CreateDB(char * IP = "127.0.0.1", bool useRandomConnectionName = false);
 Q_DECL_EXPORT void DropDB();
 }
 

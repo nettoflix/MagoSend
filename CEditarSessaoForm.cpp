@@ -23,14 +23,11 @@ void CEditarSessaoForm::init()
 {
 	sessionsToRemove.clear();
 	ui->cb_Sessoes->clear();
-	//	QString digisend4IniFileName = QApplication::applicationDirPath() + "/Arquivos/.Digisend4.ini";
-	//	QSettings settings(digisend4IniFileName, QSettings::IniFormat);
-	//	QStringList sessoes = settings.allKeys();
 	//pegar o nome de todas as sessoes do DB
-	MagoDB* db = new MagoDB();
-	QStringList sessoes = db->getSessionNames();
-	delete db;
-	ui->cb_Sessoes->addItems(sessoes);
+//	MagoDB* db = new MagoDB();
+	//QStringList sessoes = db->getSessionNames();
+//	delete db;
+//	ui->cb_Sessoes->addItems(sessoes);
 }
 
 void CEditarSessaoForm::on_pushButton_clicked()
@@ -53,13 +50,13 @@ void CEditarSessaoForm::on_btn_criarSessao_clicked()
 
 void CEditarSessaoForm::on_btn_ok_clicked()
 {
-	MagoDB* db = new MagoDB();
-	for(QString sessionToRemove: sessionsToRemove)
-	{
-		db->removeSession(sessionToRemove.toLatin1().data());
-	}
-	MainWindow* parent = (MainWindow*) this->parent();
-	parent->loadSessionComboBox();
-	delete db;
+//	MagoDB* db = new MagoDB();
+//	for(QString sessionToRemove: sessionsToRemove)
+//	{
+//		db->removeSession(sessionToRemove.toLatin1().data());
+//	}
+//	MainWindow* parent = (MainWindow*) this->parent();
+//	parent->loadSessionComboBox();
+//	delete db;
 	this->accept();
 }

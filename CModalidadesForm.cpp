@@ -90,27 +90,27 @@ void CModalidadesForm::loadModalidadesFromFile(QString filePath)
 
 void CModalidadesForm::saveModsToDB()
 {
-	MagoDB* db = new MagoDB();
-	db->clearModalidadeMagoSend();
+//	MagoDB* db = new MagoDB();
+//	db->clearModalidadeMagoSend();
 
 
-	for(int row=0; row<ui->tableWidget->rowCount(); row++)
-	{
-		QString modName = ui->tableWidget->item(row,0)->text();
-		QString modDesc = ui->tableWidget->item(row,1)->text();
-		db->addModalidadeMagoSend(modName.toLatin1().data(), modDesc.toLatin1().data());
-	}
+//	for(int row=0; row<ui->tableWidget->rowCount(); row++)
+//	{
+//		QString modName = ui->tableWidget->item(row,0)->text();
+//		QString modDesc = ui->tableWidget->item(row,1)->text();
+//		db->addModalidadeMagoSend(modName.toLatin1().data(), modDesc.toLatin1().data());
+//	}
 }
 
 void CModalidadesForm::loadModalidadesFromDB()
 {
-	MagoDB* db = new MagoDB();
-	QVector<QPair<QString,QString>> modList = db->getModalidadesMagoSend();
-	for(QPair<QString, QString> modalidade : modList)
-	{
-		addModToTable(modalidade.first, modalidade.second);
-	}
-	delete db;
+//	MagoDB* db = new MagoDB();
+	//QVector<QPair<QString,QString>> modList = db->getModalidadesMagoSend();
+//	for(QPair<QString, QString> modalidade : modList)
+//	{
+//		addModToTable(modalidade.first, modalidade.second);
+//	}
+//	delete db;
 }
 
 void CModalidadesForm::closeEvent(QCloseEvent *event)

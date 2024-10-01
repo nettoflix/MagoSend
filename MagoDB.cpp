@@ -17,13 +17,13 @@
 #include <QMessageBox>
 
 
-MagoDB::MagoDB(QString remoteIp)
+MagoDB::MagoDB(char* IP, bool useRandomConnectionName)
 {
 
 	qDebug("InitMagoDB");
-	if(remoteIp.isEmpty())
+	if(IP == "127.0.0.1")
 	{
-		if (CreateDB("127.0.0.1", QString("magosend"),5432, false))
+		if (CreateDB("127.0.0.1", QString("magosend"),5432, useRandomConnectionName))
 		{
 			qDebug("Criou magosend DB");
 		}
@@ -35,7 +35,7 @@ MagoDB::MagoDB(QString remoteIp)
 	}
 	else
 	{
-		if (CreateDB(remoteIp.toLatin1().data(), QString("magodb"), 5432,false))
+		if (CreateDB(IP, QString("magodb"), 5432,useRandomConnectionName))
 		{
 			qDebug("Criou MagoDB");
 		}
@@ -45,7 +45,6 @@ MagoDB::MagoDB(QString remoteIp)
 			QMessageBox::warning(nullptr, QObject::tr("MagoSend- Falha na conexão com o BD do Mago"), QObject::tr("Não foi possível se conectar com o banco de dados do Mago"));
 		}
 	}
-
 
 }
 
@@ -1428,39 +1427,56 @@ bool MagoDB::RemoveProgram(char* codigo)
 	return resultado;
 }
 
-int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario)
+int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario, QSqlDatabase* connection)
 {
 	int resultado = -1;
-	QSqlQuery query;
-	query.prepare("INSERT INTO historico (numero, titulo, caminho, modalidade, duracao, ip, status, data, usuario) "
+
+
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+	query->prepare("INSERT INTO historico (numero, titulo, caminho, modalidade, duracao, ip, status, data, usuario) "
 				  "VALUES (:val_num, :val_tit, :val_cam, :val_mod, :val_dur, :val_ip, :val_sta, :val_dat, :val_usu) RETURNING id as id");
-	query.bindValue(":val_num", numero);
-	query.bindValue(":val_tit", titulo);
-	query.bindValue(":val_cam", caminho);
-	query.bindValue(":val_mod", modalidade);
-	query.bindValue(":val_dur", duracao);
-	query.bindValue(":val_ip", ip);
-	query.bindValue(":val_sta", status);
-	query.bindValue(":val_ent", data);
-	query.bindValue(":val_usu", usuario);
+	query->bindValue(":val_num", numero);
+	query->bindValue(":val_tit", titulo);
+	query->bindValue(":val_cam", caminho);
+	query->bindValue(":val_mod", modalidade);
+	query->bindValue(":val_dur", duracao);
+	query->bindValue(":val_ip", ip);
+	query->bindValue(":val_sta", status);
+	query->bindValue(":val_ent", data);
+	query->bindValue(":val_usu", usuario);
 
 
 	QDateTime datEnt = QDateTime::fromString(data, "yyyy-MM-dd hh:mm:ss");
 	if (datEnt.isValid())
 	{
-		query.bindValue(":val_dat", datEnt);
+		query->bindValue(":val_dat", datEnt);
 	}
 	else
 	{
-		query.bindValue(":val_dat", QVariant(QVariant::DateTime));
+		query->bindValue(":val_dat", QVariant(QVariant::DateTime));
 		//query.bindValue(":val_ent", "entradaaa");
 	}
 
-	if (query.exec())
+	if (query->exec())
 	{
-		if (query.next())
+		if (query->next())
 		{
-			resultado = query.value("id").toInt();
+			resultado = query->value("id").toInt();
 		}
 	}
 	else
@@ -1468,7 +1484,7 @@ int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char
 		resultado = -1;
 	}
 
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 
 	return resultado;
 }

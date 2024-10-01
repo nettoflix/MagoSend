@@ -51,6 +51,8 @@ public:
 
 	MagoDB *getDb() const;
 
+	Worker *getWorker() const;
+
 signals:
 	void cancel_active_upload(int hostIndex);
 	void triggerWorker();
@@ -72,7 +74,7 @@ private:
 	bool warningAceppted = false;
 	QThread workerThread;
 	//QThread* workerThread2;
-	Worker* worker;
+	Worker* worker = nullptr;
 	QIcon* iconEspera;
 	QIcon* iconSending;
 	QIcon* iconCheck;
