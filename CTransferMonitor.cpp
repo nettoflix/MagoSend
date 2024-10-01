@@ -9,13 +9,6 @@ CTransferMonitor::CTransferMonitor(MainWindow* mainWindow)
 	this->mainWindow = mainWindow;
 
 	qDebug("run- 1");
-	//timer = new QTimer;
-	//QObject::connect(timer, &QTimer::timeout, this, &CTransferMonitor::runLogic);
-	//timer->start(10);
-
-	//this->moveToThread(this);
-
-
 	magoDbCommandsThread = new CMagoDBCommandsThread();
 	QThread::start();
 
@@ -68,31 +61,6 @@ void CTransferMonitor::populateQueue(QString filePath, QString ip)
 		}
 	}
 }
-//void CTransferMonitor::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
-//{
-//	setIsPopulatingQueue(true);
-//	qDebug() << "populateQueueWithPaths: Current thread ID:" << QThread::currentThreadId();
-//	QMutexLocker hostsLocker(&getMainWindow()->getHostControl()->getHostsMutex());
-//	QMutexLocker queueLocker(&queueMutex);
-//	CHostControl* hostControl = getMainWindow()->getHostControl();
-//	for (Host* host : hostControl->getHosts()) {
-//		if(host->getIp() == ip)
-//		{
-//			if(!host->getWasRemovedFromTableWidget())
-//			{
-//				for(QString filePath : pathsToPopulate)
-//				{
-//					//qDebug("host was not removed, [%s]", filePath.toLatin1().data());
-//					int durationInSeconds = CServiceUtils::getVideoDuration(filePath);
-//					VideoFileInfo* file1= new VideoFileInfo(filePath, filePath, filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
-//					this->currentQueue.append(file1);
-//				}
-//			}
-//		}
-//	}
-//	setIsPopulatingQueue(false);
-//	emit queueDonePopulating();
-//}
 
 void CTransferMonitor::removeFromQueue(int row)
 {

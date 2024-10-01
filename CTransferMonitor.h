@@ -70,14 +70,6 @@ public:
 
 
 
-
-	//bool getIsPopulatingQueue() const;
-	//void setIsPopulatingQueue(bool value);
-
-signals:
-	//void hostTableTextColorChanged(QColor color, QString ip);
-	//void queueDonePopulating();
-
 };
 
 #endif // CTRANSFERMONITOR_H

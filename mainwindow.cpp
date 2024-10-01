@@ -346,7 +346,11 @@ void MainWindow::addQueueToTableWidget()
 			QTableWidgetItem* ip = new QTableWidgetItem(videoInfo->host->ip);
 			QTableWidgetItem* modalidade = new QTableWidgetItem(videoInfo->modalidade);
 			id->setTextAlignment(Qt::AlignCenter);
-			id->setTextAlignment(Qt::AlignCenter);
+			titulo->setTextAlignment(Qt::AlignCenter);
+			modalidade->setTextAlignment(Qt::AlignCenter);
+			duration->setTextAlignment(Qt::AlignCenter);
+			ip->setTextAlignment(Qt::AlignCenter);
+
 			//queueLocker.unlock();
 			//QTableWidgetItem* progresso = new QTableWidgetItem(videoInfo.progress);
 			ui->tableWidget->setItem(row,0, id);
@@ -372,6 +376,7 @@ void MainWindow::addQueueToTableWidget()
 			//QIcon icon("/home/mago/Switcher/release/espera.png");
 			iconItem->setIcon(*iconEspera);
 			iconItem->setText("Esperando");
+			iconItem->setTextAlignment(Qt::AlignCenter);
 			//iconItem->setTextColor(QColor(Qt::blue));
 			ui->tableWidget->setItem(row, Columns::ICON, iconItem);
 			//QTableWidgetItem* testIconItem = ui->tableWidget->item(row, Columns::ICON);
