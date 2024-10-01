@@ -836,7 +836,7 @@ public:
         ckbExactNumber->setText(QApplication::translate("CHistoricoForm", "C\303\263digo exato", Q_NULLPTR));
         refreshButton->setText(QApplication::translate("CHistoricoForm", "Atualizar", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("CHistoricoForm", "Filtro por status", Q_NULLPTR));
-        cb_showErrors->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com erro", Q_NULLPTR));
+        cb_showErrors->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com erros", Q_NULLPTR));
         cb_showSuccess->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com sucesso", Q_NULLPTR));
     } // retranslateUi
 

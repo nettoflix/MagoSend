@@ -79,7 +79,8 @@ SOURCES += \
     CustomSelectionModel.cpp \
     CWaitingSpinnerWidget.cpp \
     CSendOptionsForm.cpp \
-    SpinnerThread.cpp
+    SpinnerThread.cpp \
+    CMagoDBCommandsThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -107,7 +108,8 @@ HEADERS += \
     CustomSelectionModel.h \
     CWaitingSpinnerWidget.h \
     CSendOptionsForm.h \
-    SpinnerThread.h
+    SpinnerThread.h \
+    CMagoDBCommandsThread.h
 
 FORMS += \
         mainwindow.ui \

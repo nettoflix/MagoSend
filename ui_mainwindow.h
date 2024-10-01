@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -32,7 +33,12 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QTableWidget *tableWidget;
+    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_10;
+    QHBoxLayout *horizontalLayout_8;
+    QGroupBox *groupBox_3;
+    QHBoxLayout *horizontalLayout_11;
     QWidget *widget;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -52,16 +58,19 @@ public:
     QComboBox *cb_modalidades;
     QPushButton *btn_atualizarDados;
     QTableWidget *hostsTable;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *verticalLayout_2;
-    QPushButton *btn_Enviar;
-    QPushButton *btn_pausar;
-    QPushButton *btn_Remover;
-    QWidget *verticalLayoutWidget_3;
-    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_9;
+    QGroupBox *groupBox_2;
     QPushButton *btn_NovoIP;
     QPushButton *btn_ExcluirIP;
     QPushButton *btn_cancelaAtual;
+    QHBoxLayout *horizontalLayout_7;
+    QGroupBox *groupBox_4;
+    QVBoxLayout *verticalLayout_4;
+    QTableWidget *tableWidget;
+    QGroupBox *groupBox;
+    QPushButton *btn_pausar;
+    QPushButton *btn_Enviar;
+    QPushButton *btn_Remover;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
 
@@ -443,7 +452,7 @@ public:
 "}\n"
 "QTableWidget \n"
 "{\n"
-"	 background-color: #353535;\n"
+"	 background-color: #292929;\n"
 "}\n"
 "\n"
 "\n"
@@ -466,8 +475,9 @@ public:
 "\n"
 "QProgressBar\n"
 "{\n"
-"    border: 2"
-                        "px solid grey;\n"
+"    backgroun"
+                        "d-color: #353535;\n"
+"    border: 2px solid grey;\n"
 "    border-radius: 5px;\n"
 "    text-align: center;\n"
 "}\n"
@@ -519,10 +529,10 @@ public:
 "QCheckBox::indicator{\n"
 "    color: #b1b1b1;\n"
 "    background-color: #323232;\n"
-"    border: 1px solid #b1b1b1;\n"
+"    border: 1px "
+                        "solid #b1b1b1;\n"
 "    width: 9px;\n"
-""
-                        "    height: 9px;\n"
+"    height: 9px;\n"
 "}\n"
 "\n"
 "QRadioButton::indicator\n"
@@ -558,17 +568,39 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
         centralWidget->setSizePolicy(sizePolicy);
-        tableWidget = new QTableWidget(centralWidget);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 240, 861, 351));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        verticalLayout_3 = new QVBoxLayout(centralWidget);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        groupBox_3 = new QGroupBox(centralWidget);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
-        tableWidget->setSizePolicy(sizePolicy1);
-        widget = new QWidget(centralWidget);
+        sizePolicy1.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy1);
+        groupBox_3->setMaximumSize(QSize(16777215, 320));
+        horizontalLayout_11 = new QHBoxLayout(groupBox_3);
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        widget = new QWidget(groupBox_3);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(0, 0, 511, 201));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(1);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy2);
+        widget->setMaximumSize(QSize(16777215, 300));
         horizontalLayout_2 = new QHBoxLayout(widget);
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -590,11 +622,11 @@ public:
 
         cb_sessions = new QComboBox(widget);
         cb_sessions->setObjectName(QStringLiteral("cb_sessions"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(1);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(cb_sessions->sizePolicy().hasHeightForWidth());
-        cb_sessions->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(1);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(cb_sessions->sizePolicy().hasHeightForWidth());
+        cb_sessions->setSizePolicy(sizePolicy3);
 
         horizontalLayout->addWidget(cb_sessions);
 
@@ -659,11 +691,11 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         cb_modalidades = new QComboBox(widget);
         cb_modalidades->setObjectName(QStringLiteral("cb_modalidades"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(cb_modalidades->sizePolicy().hasHeightForWidth());
-        cb_modalidades->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(cb_modalidades->sizePolicy().hasHeightForWidth());
+        cb_modalidades->setSizePolicy(sizePolicy4);
         cb_modalidades->setMinimumSize(QSize(200, 0));
 
         horizontalLayout_5->addWidget(cb_modalidades, 0, Qt::AlignLeft);
@@ -673,82 +705,170 @@ public:
 
         btn_atualizarDados = new QPushButton(widget);
         btn_atualizarDados->setObjectName(QStringLiteral("btn_atualizarDados"));
-        sizePolicy3.setHeightForWidth(btn_atualizarDados->sizePolicy().hasHeightForWidth());
-        btn_atualizarDados->setSizePolicy(sizePolicy3);
-        btn_atualizarDados->setMaximumSize(QSize(200, 100));
+        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(btn_atualizarDados->sizePolicy().hasHeightForWidth());
+        btn_atualizarDados->setSizePolicy(sizePolicy5);
+        btn_atualizarDados->setMaximumSize(QSize(200, 30));
+        btn_atualizarDados->setStyleSheet(QLatin1String("QPushButton {\n"
+"    qproperty-icon: url(:/images/refresh_yellow.png); /* Use icon instead of image */\n"
+"    qproperty-iconSize: 16px 16px; /* Size of the icon */\n"
+"    padding-left: 10px; /* Adjust padding to position the image */\n"
+"    padding-right: 10px; /* Adjust padding to position the image */\n"
+"    padding-top: 5px; /* Adjust vertical position */\n"
+"    padding-bottom: 5px; /* Adjust vertical position */\n"
+"}"));
 
         verticalLayout->addWidget(btn_atualizarDados);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
 
-        hostsTable = new QTableWidget(centralWidget);
+
+        horizontalLayout_11->addWidget(widget);
+
+        hostsTable = new QTableWidget(groupBox_3);
         hostsTable->setObjectName(QStringLiteral("hostsTable"));
-        hostsTable->setGeometry(QRect(510, 10, 361, 221));
-        verticalLayoutWidget_2 = new QWidget(centralWidget);
-        verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(880, 240, 131, 91));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        btn_Enviar = new QPushButton(verticalLayoutWidget_2);
-        btn_Enviar->setObjectName(QStringLiteral("btn_Enviar"));
-        sizePolicy.setHeightForWidth(btn_Enviar->sizePolicy().hasHeightForWidth());
-        btn_Enviar->setSizePolicy(sizePolicy);
-        btn_Enviar->setMaximumSize(QSize(16777215, 16777212));
+        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy6.setHorizontalStretch(1);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(hostsTable->sizePolicy().hasHeightForWidth());
+        hostsTable->setSizePolicy(sizePolicy6);
+        hostsTable->setMinimumSize(QSize(200, 250));
+        hostsTable->setMaximumSize(QSize(16777215, 300));
 
-        verticalLayout_2->addWidget(btn_Enviar);
+        horizontalLayout_11->addWidget(hostsTable);
 
-        btn_pausar = new QPushButton(verticalLayoutWidget_2);
+
+        horizontalLayout_8->addWidget(groupBox_3);
+
+
+        horizontalLayout_10->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        QSizePolicy sizePolicy7(QSizePolicy::Fixed, QSizePolicy::Maximum);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy7);
+        groupBox_2->setMinimumSize(QSize(0, 130));
+        groupBox_2->setMaximumSize(QSize(16777215, 16777215));
+        groupBox_2->setStyleSheet(QLatin1String("QGroupBox {\n"
+"    font: bold;\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 6px;\n"
+"    margin-top: 5px;\n"
+"	margin-right: 15px;\n"
+"	margin-left: 6px;\n"
+"	width: 148px;\n"
+"}"));
+        btn_NovoIP = new QPushButton(groupBox_2);
+        btn_NovoIP->setObjectName(QStringLiteral("btn_NovoIP"));
+        btn_NovoIP->setGeometry(QRect(20, 18, 120, 30));
+        QSizePolicy sizePolicy8(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy8.setHorizontalStretch(0);
+        sizePolicy8.setVerticalStretch(0);
+        sizePolicy8.setHeightForWidth(btn_NovoIP->sizePolicy().hasHeightForWidth());
+        btn_NovoIP->setSizePolicy(sizePolicy8);
+        btn_NovoIP->setMinimumSize(QSize(120, 30));
+        btn_NovoIP->setMaximumSize(QSize(16777215, 16777215));
+        btn_ExcluirIP = new QPushButton(groupBox_2);
+        btn_ExcluirIP->setObjectName(QStringLiteral("btn_ExcluirIP"));
+        btn_ExcluirIP->setGeometry(QRect(20, 53, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_ExcluirIP->sizePolicy().hasHeightForWidth());
+        btn_ExcluirIP->setSizePolicy(sizePolicy8);
+        btn_ExcluirIP->setMinimumSize(QSize(120, 30));
+        btn_ExcluirIP->setMaximumSize(QSize(16777215, 16777215));
+        btn_cancelaAtual = new QPushButton(groupBox_2);
+        btn_cancelaAtual->setObjectName(QStringLiteral("btn_cancelaAtual"));
+        btn_cancelaAtual->setGeometry(QRect(20, 88, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_cancelaAtual->sizePolicy().hasHeightForWidth());
+        btn_cancelaAtual->setSizePolicy(sizePolicy8);
+        btn_cancelaAtual->setMinimumSize(QSize(120, 30));
+        btn_cancelaAtual->setMaximumSize(QSize(16777215, 16777215));
+
+        horizontalLayout_9->addWidget(groupBox_2, 0, Qt::AlignTop);
+
+
+        horizontalLayout_10->addLayout(horizontalLayout_9);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_10);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        QSizePolicy sizePolicy9(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy9.setHorizontalStretch(2);
+        sizePolicy9.setVerticalStretch(2);
+        sizePolicy9.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
+        groupBox_4->setSizePolicy(sizePolicy9);
+        verticalLayout_4 = new QVBoxLayout(groupBox_4);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        tableWidget = new QTableWidget(groupBox_4);
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        sizePolicy9.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
+        tableWidget->setSizePolicy(sizePolicy9);
+        tableWidget->setStyleSheet(QStringLiteral(""));
+
+        verticalLayout_4->addWidget(tableWidget);
+
+
+        horizontalLayout_7->addWidget(groupBox_4);
+
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy);
+        groupBox->setMinimumSize(QSize(0, 130));
+        groupBox->setMaximumSize(QSize(16777215, 16777215));
+        groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
+"    font: bold;\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 6px;\n"
+"    margin-top: 6px;\n"
+"	margin-right: 15px;\n"
+"	margin-left: 6px;\n"
+"	width: 148px;\n"
+"}"));
+        btn_pausar = new QPushButton(groupBox);
         btn_pausar->setObjectName(QStringLiteral("btn_pausar"));
-        sizePolicy.setHeightForWidth(btn_pausar->sizePolicy().hasHeightForWidth());
-        btn_pausar->setSizePolicy(sizePolicy);
+        btn_pausar->setGeometry(QRect(20, 88, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_pausar->sizePolicy().hasHeightForWidth());
+        btn_pausar->setSizePolicy(sizePolicy8);
+        btn_pausar->setMinimumSize(QSize(120, 0));
         btn_pausar->setMaximumSize(QSize(16777215, 16777212));
-
-        verticalLayout_2->addWidget(btn_pausar);
-
-        btn_Remover = new QPushButton(verticalLayoutWidget_2);
+        btn_Enviar = new QPushButton(groupBox);
+        btn_Enviar->setObjectName(QStringLiteral("btn_Enviar"));
+        btn_Enviar->setGeometry(QRect(20, 21, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_Enviar->sizePolicy().hasHeightForWidth());
+        btn_Enviar->setSizePolicy(sizePolicy8);
+        btn_Enviar->setMinimumSize(QSize(120, 30));
+        btn_Enviar->setMaximumSize(QSize(16777215, 16777212));
+        btn_Remover = new QPushButton(groupBox);
         btn_Remover->setObjectName(QStringLiteral("btn_Remover"));
-        sizePolicy.setHeightForWidth(btn_Remover->sizePolicy().hasHeightForWidth());
-        btn_Remover->setSizePolicy(sizePolicy);
+        btn_Remover->setGeometry(QRect(20, 54, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_Remover->sizePolicy().hasHeightForWidth());
+        btn_Remover->setSizePolicy(sizePolicy8);
+        btn_Remover->setMinimumSize(QSize(120, 0));
         btn_Remover->setMaximumSize(QSize(16777215, 16777212));
 
-        verticalLayout_2->addWidget(btn_Remover);
+        horizontalLayout_7->addWidget(groupBox, 0, Qt::AlignHCenter|Qt::AlignTop);
 
-        verticalLayoutWidget_3 = new QWidget(centralWidget);
-        verticalLayoutWidget_3->setObjectName(QStringLiteral("verticalLayoutWidget_3"));
-        verticalLayoutWidget_3->setGeometry(QRect(880, 10, 131, 91));
-        verticalLayout_3 = new QVBoxLayout(verticalLayoutWidget_3);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        btn_NovoIP = new QPushButton(verticalLayoutWidget_3);
-        btn_NovoIP->setObjectName(QStringLiteral("btn_NovoIP"));
-        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(btn_NovoIP->sizePolicy().hasHeightForWidth());
-        btn_NovoIP->setSizePolicy(sizePolicy4);
 
-        verticalLayout_3->addWidget(btn_NovoIP);
+        verticalLayout_2->addLayout(horizontalLayout_7);
 
-        btn_ExcluirIP = new QPushButton(verticalLayoutWidget_3);
-        btn_ExcluirIP->setObjectName(QStringLiteral("btn_ExcluirIP"));
-        sizePolicy4.setHeightForWidth(btn_ExcluirIP->sizePolicy().hasHeightForWidth());
-        btn_ExcluirIP->setSizePolicy(sizePolicy4);
 
-        verticalLayout_3->addWidget(btn_ExcluirIP);
-
-        btn_cancelaAtual = new QPushButton(verticalLayoutWidget_3);
-        btn_cancelaAtual->setObjectName(QStringLiteral("btn_cancelaAtual"));
-        sizePolicy4.setHeightForWidth(btn_cancelaAtual->sizePolicy().hasHeightForWidth());
-        btn_cancelaAtual->setSizePolicy(sizePolicy4);
-
-        verticalLayout_3->addWidget(btn_cancelaAtual);
+        verticalLayout_3->addLayout(verticalLayout_2);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -767,18 +887,22 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        groupBox_3->setTitle(QString());
         label_5->setText(QApplication::translate("MainWindow", "Sess\303\243o", Q_NULLPTR));
         btn_connectSession->setText(QApplication::translate("MainWindow", "Conectar", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "N\303\272mero", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "T\303\255tulo", Q_NULLPTR));
         label_4->setText(QApplication::translate("MainWindow", "Modalidade", Q_NULLPTR));
         btn_atualizarDados->setText(QApplication::translate("MainWindow", "Atualizar Dados", Q_NULLPTR));
-        btn_Enviar->setText(QApplication::translate("MainWindow", "Enviar todos", Q_NULLPTR));
-        btn_pausar->setText(QApplication::translate("MainWindow", "Pausar todos", Q_NULLPTR));
-        btn_Remover->setText(QApplication::translate("MainWindow", "Remover", Q_NULLPTR));
+        groupBox_2->setTitle(QString());
         btn_NovoIP->setText(QApplication::translate("MainWindow", "Novo", Q_NULLPTR));
         btn_ExcluirIP->setText(QApplication::translate("MainWindow", "Excluir", Q_NULLPTR));
         btn_cancelaAtual->setText(QApplication::translate("MainWindow", "Cancela atual", Q_NULLPTR));
+        groupBox_4->setTitle(QString());
+        groupBox->setTitle(QString());
+        btn_pausar->setText(QApplication::translate("MainWindow", "Pausar todos", Q_NULLPTR));
+        btn_Enviar->setText(QApplication::translate("MainWindow", "Enviar todos", Q_NULLPTR));
+        btn_Remover->setText(QApplication::translate("MainWindow", "Remover", Q_NULLPTR));
     } // retranslateUi
 
 };

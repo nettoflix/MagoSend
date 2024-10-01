@@ -2,18 +2,29 @@
 
 #include <QFileInfo>
 
-VideoFileInfo::VideoFileInfo(QString id, QString titulo, QString filename, QString modalidade ,int duration, int progress, Host* host, CVideoStatus status){
+VideoFileInfo::VideoFileInfo(QString filename, QString modalidade ,int duration, int progress, Host* host, CVideoStatus status){
 	QFileInfo fileInfo(filename);
 	this->baseName = fileInfo.baseName() + "." + fileInfo.suffix();
-	this->id = baseName;
+	this->id = fileInfo.baseName();
 	this->filename = filename;
-	this->titulo = baseName;
+	this->titulo = fileInfo.baseName();
 	this->duration=duration;
 	this->progress=progress;
 	this->host = host;
 	this->status = status;
 	this->modalidade = modalidade;
 	this->ip = host->ip;
+	qDebug("id [%s], titulo [%s], filename [%s]", this->id.toLatin1().data(), this->titulo.toLatin1().data(), this->filename.toLatin1().data());
+}
+
+QString VideoFileInfo::getDbTime() const
+{
+	return dbTime;
+}
+
+void VideoFileInfo::setDbTime(const QString &value)
+{
+	dbTime = value;
 }
 
 bool VideoFileInfo::getIsActiveUpload() const

@@ -49,12 +49,15 @@ public:
 	bool getWarningAceppted() const;
 	void setWarningResponse(bool value);
 
+	MagoDB *getDb() const;
+
 signals:
 	void cancel_active_upload(int hostIndex);
 	void triggerWorker();
 	void populateQueueWithPaths(QStringList filePathsToPopulate, QString ip);
 
 private:
+	bool populatingTableWidget = false;
 	QAction* openFilesAction;
 	QStringList filePaths;
 	QMenu* configMenu;
@@ -83,6 +86,7 @@ private:
 	int batchSize;
 	bool waitingUserResponseToAddItems = false;
 	//int populateCount =0;
+	MagoDB* db;
 	void initDB();
 	void updateQueueItemInformation(bool idExists);
 	bool isItemVisible(QTableWidgetItem *item);

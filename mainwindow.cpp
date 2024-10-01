@@ -50,11 +50,24 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	ui->tableWidget->setRowCount(0);
 	ui->tableWidget->setColumnCount(headers.size());
 	ui->tableWidget->setHorizontalHeaderLabels(headers);
-	//ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	//ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 	ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableWidget->setFocusPolicy(Qt::NoFocus);
+	//ui->tableWidget->setAlternatingRowColors(true);
+	ui->tableWidget->setStyleSheet(
+		"QTableWidget {"
+		"    background-color: #353535;"
+		"    alternate-background-color: #292929;"
+		"}"
+	);
+	ui->hostsTable->setStyleSheet(
+				"QTableWidget {"
+				"    background-color: #353535;"
+				"    alternate-background-color: #292929;"
+				"}"
+			);
 	//ui->tableWidget->setItemDelegate(new EfficientItemDelegate(ui->tableWidget));
 	//ui->tableWidget->setSelectionModel(new CustomSelectionModel(ui->tableWidget, ui->tableWidget->model()));
 	//ui->tableWidget->viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
@@ -147,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	batchSize = 2000;
 
 
-	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
+
 
 	//getTransferMonitor()->moveToThread(&workerThread);
 	//	workerThread.start();
@@ -158,7 +171,7 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	//workerThread2->start();
 	connect(this, &MainWindow::populateQueueWithPaths, worker, &Worker::onPopulateQueueWithPaths, Qt::QueuedConnection);
 	connect(worker, &Worker::queueDonePopulating, this, &MainWindow::onQueueDonePopulating, Qt::QueuedConnection);
-	connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
+	//connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
 
 }
 
@@ -227,12 +240,12 @@ bool MainWindow::getWarningAceppted() const
 
 void MainWindow::initDB()
 {
-	MagoDB* db = new MagoDB();
+	db = new MagoDB();
 	db->CreateTableHistorico();
 	db->CreateTableModalidades();
 	db->CreateTableSessions();
 	db->CreateTableOptions();
-	delete db;
+	//delete db;
 }
 
 void MainWindow::updateQueueItemInformation(bool idExists)
@@ -307,13 +320,12 @@ void MainWindow::onItemSelected(const QItemSelection &selected, const QItemSelec
 }
 void MainWindow::addQueueToTableWidget()
 {
-
+   populatingTableWidget = true;
 	qDebug("addQueueToTableWidget -1");
 	//QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 	QVector<VideoFileInfo*> *queue = &getTransferMonitor()->getCurrentQueue();
 	int row = ui->tableWidget->rowCount();
-	int notAddedCount = 0;
-	for(int i=batchIndex; i < queue->size() && i < batchSize+batchIndex; i++)
+	for(int i=0; i < queue->size(); i++)
 	{
 
 		//qDebug("addQueueToTableWidget [%d]", i);
@@ -326,11 +338,13 @@ void MainWindow::addQueueToTableWidget()
 
 			//qDebug("tableWidiget count [%d]", ui->tableWidget->rowCount());
 			ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
-			QTableWidgetItem* id = new QTableWidgetItem(QString(videoInfo->filename.toLatin1()));
-			QTableWidgetItem* titulo = new QTableWidgetItem(QString(videoInfo->filename.toLatin1()));
+			QTableWidgetItem* id = new QTableWidgetItem(QString(videoInfo->getId().toLatin1()));
+			QTableWidgetItem* titulo = new QTableWidgetItem(QString(videoInfo->getTitulo().toLatin1()));
 			QTableWidgetItem* duration = new QTableWidgetItem(QString::number(videoInfo->duration) + " seg");
 			QTableWidgetItem* ip = new QTableWidgetItem(videoInfo->host->ip);
 			QTableWidgetItem* modalidade = new QTableWidgetItem(videoInfo->modalidade);
+			id->setTextAlignment(Qt::AlignCenter);
+			id->setTextAlignment(Qt::AlignCenter);
 			//queueLocker.unlock();
 			//QTableWidgetItem* progresso = new QTableWidgetItem(videoInfo.progress);
 			ui->tableWidget->setItem(row,0, id);
@@ -340,6 +354,14 @@ void MainWindow::addQueueToTableWidget()
 			ui->tableWidget->setItem(row, Columns::MODALIDADE, modalidade);
 			//ui->tableWidget->setItem(row,Columns::PROGRESSO, progresso);
 			QProgressBar* progressBar = new QProgressBar();
+			progressBar->setStyleSheet(
+				"QProgressBar {"
+				"    background-color: #353535;"
+				"    border: 2px solid grey;"
+				"	 border-radius: 5px;"
+				"	 text-align: center;"
+				"}"
+			);
 			progressBar->setTextVisible(true);
 			progressBar->setValue(0);
 			ui->tableWidget->setCellWidget(row, Columns::PROGRESSO, progressBar);
@@ -355,17 +377,17 @@ void MainWindow::addQueueToTableWidget()
 			row++;
 			//			queueLocker.relock();
 			videoInfo->setWasAddedToTableWidget(true);
-			notAddedCount++;
+			//notAddedCount++;
 
 		}
 	}
-	batchIndex += batchSize - notAddedCount;
+	//batchIndex += batchSize - notAddedCount;
 	qDebug("addQueueToTableWidget -2");
 
 	//só vou parar o timer_loadTable se já adicionei todos os items da queue, se não a queue nao está sendo alimentada
 	//e se nao  estou esperando confirmação do usuário pra adicionar mais items
-	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
-	{
+//	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
+//	{
 
 		if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
 		{
@@ -376,7 +398,15 @@ void MainWindow::addQueueToTableWidget()
 				qDebug("STOP SPINNER!");
 				//	qDebug("addQueueToTableWidget -3");
 				timer_loadTable.stop();
-				tableSpinner->stopSpinner();
+				if(tableSpinner != nullptr)
+				{
+					tableSpinner->stopSpinner();
+					tableSpinner->exit();
+					tableSpinner->wait();
+					delete tableSpinner;
+					tableSpinner = nullptr;
+				}
+
 				//workerThread.exit();
 				//workerThread.wait();
 				ui->btn_Enviar->setEnabled(true);
@@ -386,15 +416,15 @@ void MainWindow::addQueueToTableWidget()
 				batchIndex = queue->size();
 			}
 		}
-		batchIndex = queue->size();
-	}
+	//	batchIndex = queue->size();
+//	}
 
 	//populateCount -= 1;
 	//qDebug("addQueueToTableWidget -2");
 	qDebug("batchIndex [%d], queueSize [%d], rowCount [%d],isPopulating [%d], waitingUser [%d]", batchIndex, queue->size(),ui->tableWidget->rowCount(),worker->getIsPopulatingQueue(), waitingUserResponseToAddItems);
 
 
-
+	populatingTableWidget = false;
 
 
 }
@@ -402,11 +432,11 @@ void MainWindow::addQueueToTableWidget()
 void MainWindow::onQueueDonePopulating()
 {
 	qDebug("done populating!");
-	//	worker2->moveToThread(QApplication::instance()->thread());
-	//	workerThread2->quit();
-	//	workerThread2->wait();
-	//	delete workerThread2;
-	timer_loadTable.start(60);
+	if(!populatingTableWidget)
+	{
+	  addQueueToTableWidget();
+	}
+
 }
 
 void MainWindow::onFileSelectionBtnClick()
@@ -447,6 +477,7 @@ void MainWindow::onFileSelectionBtnClick()
 	//							  ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	//	populateListSpinner->show();
 	//	populateListSpinner->start();
+	tableSpinner = new SpinnerThread(this, ui->tableWidget->parentWidget()->pos().x() + ui->tableWidget->parentWidget()->width()/2, ui->tableWidget->parentWidget()->pos().y() + ui->tableWidget->parentWidget()->height()*0.55);
 	tableSpinner->startSpinner();
 
 
@@ -520,7 +551,14 @@ void MainWindow::onFileSelectionBtnClick()
 	}
 	else
 	{
-		tableSpinner->stopSpinner();
+		if(tableSpinner != nullptr)
+		{
+			tableSpinner->stopSpinner();
+			tableSpinner->exit();
+			tableSpinner->wait();
+			delete tableSpinner;
+			tableSpinner = nullptr;
+		}
 		ui->tableWidget->show();
 		//habilita os botões novamente
 		ui->btn_Enviar->setEnabled(true);
@@ -820,10 +858,10 @@ void MainWindow::onTimer()
 			}
 		}
 	}
-	QPair<int,int> rows = getFirstAndLastVisibleRowFromTable();
-
 
 	if(worker->isPopulatingQueue) return; //se a workerThread estiver populando a fila, não podemos tentar pegar o lock da queueLocker, se não a GUI thread vai freezar
+
+	QPair<int,int> rows = getFirstAndLastVisibleRowFromTable();
 	for(int i=rows.first; i<=rows.second; i++)
 	{
 		if(ui->tableWidget->rowCount() <= 0) return;
@@ -978,6 +1016,11 @@ void MainWindow::setWarningResponse(bool value)
 	warningAceppted = value;
 }
 
+MagoDB *MainWindow::getDb() const
+{
+	return db;
+}
+
 void MainWindow::showWarningMessage(const QString &message)
 {
 	if(QMessageBox::warning(this,"Atenção!",message,QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
@@ -1073,6 +1116,18 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 			QString replaceMessage;
 			replaceMessage.sprintf("Não foi possível estabelecer conexão com a máquina \"%s\" (%s). Nenhum vídeo selecionado será enviado para esse destino.\n\n" ,hostName.toStdString().c_str(),ip.toStdString().c_str());
 			QMessageBox::warning(this,"Atenção!",replaceMessage);
+			if(tableSpinner != nullptr)
+			{
+				tableSpinner->stopSpinner();
+				tableSpinner->exit();
+				tableSpinner->wait();
+				delete tableSpinner;
+				tableSpinner = nullptr;
+			}
+			ui->btn_Enviar->setEnabled(true);
+			ui->btn_pausar->setEnabled(true);
+			ui->btn_Remover->setEnabled(true);
+			openFilesAction->setEnabled(true);
 		}
 
 		//se deseja sobreescrever, adiciona todos os file de "filePaths" na table

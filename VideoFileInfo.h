@@ -9,7 +9,7 @@ WAITING=0,SENDING,SENT,CANCELLED, ERROR, TRYING_TO_CONNECT
 };
 class VideoFileInfo {
 public:
-	VideoFileInfo(QString id, QString name, QString filename, QString modalidade ,int duration, int progress, Host* host, CVideoStatus status);
+	VideoFileInfo(QString filename, QString modalidade ,int duration, int progress, Host* host, CVideoStatus status);
 	QString id;
 	QString titulo;
 	QString filename;
@@ -21,6 +21,7 @@ public:
 	CVideoStatus status;
 	QString ip;
 	bool isActiveUpload;
+	QString dbTime;
 	void updateProgress();
 	int getProgress() const;
 	void setId(const QString &value);
@@ -59,6 +60,9 @@ public:
 
 	bool getIsActiveUpload() const;
 	void setIsActiveUpload(bool value);
+
+	QString getDbTime() const;
+	void setDbTime(const QString &value);
 
 private:
 	int progress;

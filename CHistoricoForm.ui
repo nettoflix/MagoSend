@@ -951,7 +951,7 @@ QTableCornerButton::section {
           </rect>
          </property>
          <property name="text">
-          <string>Mostrar registros com erro</string>
+          <string>Mostrar registros com erros</string>
          </property>
         </widget>
         <widget class="QCheckBox" name="cb_showSuccess">

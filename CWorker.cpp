@@ -71,7 +71,8 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 					//qDebug("Worker::onPopulateQueueWithPaths - 1");
 					int durationInSeconds = CServiceUtils::getVideoDuration(filePath);
 					//qDebug("Worker::onPopulateQueueWithPaths - 2");
-					VideoFileInfo* file1= new VideoFileInfo(filePath, filePath, filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
+
+					VideoFileInfo* file1= new VideoFileInfo(filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
 					mw->getTransferMonitor()->getCurrentQueue().append(file1);
 					if(count >=20)
 					{
