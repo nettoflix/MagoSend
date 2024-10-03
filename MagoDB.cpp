@@ -636,60 +636,107 @@ void MagoDB::createRowOnSessionTable(char *sessao, char *ipList, char *nameList)
 	qDebug() << query.lastError();
 }
 
-QStringList MagoDB::getIpListFromSession(char *sessao)
+QStringList MagoDB::getIpListFromSession(char *sessao, QSqlDatabase* connection)
 {
+
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+	}
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QStringList ipList;
-	QSqlQuery query;
 	QString sql;
 	sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	bool result = query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	bool result = query->exec();
+	qDebug() << query->lastError();
 	if (result)
 	{
-		if (query.next())
+		if (query->next())
 		{
-			ipList = query.value("ipList").toString().split(',');
+			ipList = query->value("ipList").toString().split(',');
 		}
 	}
 	return ipList;
 }
-QStringList MagoDB::getNameListFromSession(char *sessao)
+QStringList MagoDB::getNameListFromSession(char *sessao, QSqlDatabase* connection)
 {
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+	}
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QStringList nameList;
-	QSqlQuery query;
 	QString sql;
 	sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	bool result = query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	bool result = query->exec();
+	qDebug() << query->lastError();
 	if (result)
 	{
-		if (query.next())
+		if (query->next())
 		{
-			nameList = query.value("nameList").toString().split(',');
+			nameList = query->value("nameList").toString().split(',');
 		}
 	}
 	return nameList;
 }
 
-QStringList MagoDB::getSessionNames()
+QStringList MagoDB::getSessionNames(QSqlDatabase* connection)
 {
+
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+	}
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QStringList ipList;
-	QSqlQuery query;
+	//QSqlQuery query;
 	QString sql;
 	sql.sprintf("SELECT * FROM sessions");
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	bool result = query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	bool result = query->exec();
+	qDebug() << query->lastError();
 	if (result)
 	{
-		while (query.next())
+		while (query->next())
 		{
-			ipList << query.value("nome").toString();
+			ipList << query->value("nome").toString();
 		}
 	}
 	return ipList;
@@ -733,21 +780,36 @@ void MagoDB::clearModalidadeMagoSend()
 	qDebug() << query.lastError();
 }
 
-QVector<QPair<QString, QString>> MagoDB::getModalidadesMagoSend()
+QVector<QPair<QString, QString>> MagoDB::getModalidadesMagoSend(QSqlDatabase* connection)
 {
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+	}
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QVector<QPair<QString, QString>> modList;
-	QSqlQuery query;
 	QString sql;
 	sql.sprintf("SELECT * FROM modalidade");
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	bool result = query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	bool result = query->exec();
+	qDebug() << query->lastError();
 	if (result)
 	{
-		while (query.next())
+		while (query->next())
 		{
-			modList.append(QPair<QString, QString>(query.value("nome").toString(), query.value("descricao").toString()));
+			modList.append(QPair<QString, QString>(query->value("nome").toString(), query->value("descricao").toString()));
 		}
 	}
 	return modList;

@@ -87,8 +87,8 @@ int CMagoDBCommandsThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_CMagoDBCommandsThreadWorker_t {
-    QByteArrayData data[12];
-    char stringdata0[120];
+    QByteArrayData data[18];
+    char stringdata0[232];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -108,13 +108,22 @@ QT_MOC_LITERAL(7, 89, 7), // "duracao"
 QT_MOC_LITERAL(8, 97, 2), // "ip"
 QT_MOC_LITERAL(9, 100, 6), // "status"
 QT_MOC_LITERAL(10, 107, 4), // "data"
-QT_MOC_LITERAL(11, 112, 7) // "usuario"
+QT_MOC_LITERAL(11, 112, 7), // "usuario"
+QT_MOC_LITERAL(12, 120, 21), // "queuedGetSessionNames"
+QT_MOC_LITERAL(13, 142, 20), // "getIpListFromSession"
+QT_MOC_LITERAL(14, 163, 7), // "session"
+QT_MOC_LITERAL(15, 171, 22), // "getNameListFromSession"
+QT_MOC_LITERAL(16, 194, 22), // "getModalidadesMagoSend"
+QT_MOC_LITERAL(17, 217, 14) // "ModalidadeType"
 
     },
     "CMagoDBCommandsThreadWorker\0"
     "queuedAddHistoricoMagoSend\0\0numero\0"
     "titulo\0caminho\0modalidade\0duracao\0ip\0"
-    "status\0data\0usuario"
+    "status\0data\0usuario\0queuedGetSessionNames\0"
+    "getIpListFromSession\0session\0"
+    "getNameListFromSession\0getModalidadesMagoSend\0"
+    "ModalidadeType"
 };
 #undef QT_MOC_LITERAL
 
@@ -124,7 +133,7 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -132,10 +141,18 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    9,   19,    2, 0x0a /* Public */,
+       1,    9,   39,    2, 0x0a /* Public */,
+      12,    0,   58,    2, 0x0a /* Public */,
+      13,    1,   59,    2, 0x0a /* Public */,
+      15,    1,   62,    2, 0x0a /* Public */,
+      16,    0,   65,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,    4,    5,    6,    7,    8,    9,   10,   11,
+    QMetaType::QStringList,
+    QMetaType::QStringList, QMetaType::QString,   14,
+    QMetaType::QStringList, QMetaType::QString,   14,
+    0x80000000 | 17,
 
        0        // eod
 };
@@ -147,6 +164,14 @@ void CMagoDBCommandsThreadWorker::qt_static_metacall(QObject *_o, QMetaObject::C
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->queuedAddHistoricoMagoSend((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QString(*)>(_a[9]))); break;
+        case 1: { QStringList _r = _t->queuedGetSessionNames();
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
+        case 2: { QStringList _r = _t->getIpListFromSession((*reinterpret_cast< QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
+        case 3: { QStringList _r = _t->getNameListFromSession((*reinterpret_cast< QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
+        case 4: { ModalidadeType _r = _t->getModalidadesMagoSend();
+            if (_a[0]) *reinterpret_cast< ModalidadeType*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     }
@@ -177,13 +202,13 @@ int CMagoDBCommandsThreadWorker::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 5;
     }
     return _id;
 }

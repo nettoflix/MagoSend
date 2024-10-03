@@ -104,13 +104,13 @@ void CModalidadesForm::saveModsToDB()
 
 void CModalidadesForm::loadModalidadesFromDB()
 {
-//	MagoDB* db = new MagoDB();
-	//QVector<QPair<QString,QString>> modList = db->getModalidadesMagoSend();
-//	for(QPair<QString, QString> modalidade : modList)
-//	{
-//		addModToTable(modalidade.first, modalidade.second);
-//	}
-//	delete db;
+
+	QVector<QPair<QString,QString>> modList = CMagoDBCommandsThread::commands->getModalidadesMagoSend();
+	for(QPair<QString, QString> modalidade : modList)
+	{
+		addModToTable(modalidade.first, modalidade.second); //nome e descricao
+	}
+
 }
 
 void CModalidadesForm::closeEvent(QCloseEvent *event)

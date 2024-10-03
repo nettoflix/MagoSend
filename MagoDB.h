@@ -43,13 +43,13 @@ public:
 	bool __stdcall warningWhenOverwriteId();
 	void __stdcall updateSessionIpList(char* sessao, char* ipList, char* nameList);
 	void __stdcall createRowOnSessionTable(char* sessao, char* ipList, char *nameList);
-	QStringList __stdcall getIpListFromSession(char* sessao);
-	QStringList __stdcall getNameListFromSession(char *sessao);
-	QStringList __stdcall getSessionNames();
+	QStringList __stdcall getIpListFromSession(char* sessao,QSqlDatabase* connection);
+	QStringList __stdcall getNameListFromSession(char *sessao,QSqlDatabase* connection);
+	QStringList __stdcall getSessionNames(QSqlDatabase* connection);
 	void __stdcall removeSession(char* sessao);
 	void __stdcall addModalidadeMagoSend(char* nome, char* descricao);
 	void __stdcall clearModalidadeMagoSend();
-	QVector<QPair<QString, QString>> getModalidadesMagoSend();
+	QVector<QPair<QString, QString>> getModalidadesMagoSend(QSqlDatabase* connection);
 	bool __stdcall InitDB();
 	bool __stdcall AddEvent(char* numero, char* caminho, char* titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);
 	bool __stdcall UpdateEvent(char* oldnumero, char* newnumero, char* caminho, char * titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);

@@ -212,11 +212,8 @@ void MainWindow::loadModComboBox()
 void MainWindow::loadSessionComboBox()
 {
 	ui->cb_sessions->clear();
-	//pegar todas as sessoes do DB
-//	MagoDB* db = new MagoDB();
-	//QStringList sessions = db->getSessionNames();
-	//ui->cb_sessions->addItems(sessions);
-	//delete db;
+	QStringList sessions = CMagoDBCommandsThread::commands->queuedGetSessionNames();
+	ui->cb_sessions->addItems(sessions);
 
 }
 
@@ -985,26 +982,26 @@ void MainWindow::on_btn_connectSession_clicked()
 		qDebug("remove i [%d]", i);
 	}
 	ui->hostsTable->setRowCount(0);
-//	MagoDB* db = new MagoDB();
-	//QStringList ipList = db->getIpListFromSession(selectedSession.toLatin1().data());
-	//QStringList nameList = db->getNameListFromSession(selectedSession.toLatin1().data());
-	//delete db;
-//	for(QString ip : ipList)
-//	{
-//		//if(CServiceUtils::isValidIPv4format(ip))
-//		//{
-//		int row = ui->hostsTable->rowCount();
-//		ui->hostsTable->setRowCount(row + 1);
-//		QTableWidgetItem* nameItem = new QTableWidgetItem(nameList.at(row));
-//		QTableWidgetItem* ipItem = new QTableWidgetItem(ip);
-//		QTableWidgetItem* bitRate = new QTableWidgetItem("0.00 MB/s");
-//		ipItem->setTextColor(QColor(Qt::gray));
-//		ui->hostsTable->setItem(row, 0, nameItem);
-//		ui->hostsTable->setItem(row, 1, ipItem);
-//		ui->hostsTable->setItem(row, 2, bitRate);
-//		hostControl->registerIp(ip);
 
-//	}
+	QStringList ipList = CMagoDBCommandsThread::commands->getIpListFromSession(selectedSession);
+	QStringList nameList = CMagoDBCommandsThread::commands->getNameListFromSession(selectedSession);
+
+	for(QString ip : ipList)
+	{
+		//if(CServiceUtils::isValidIPv4format(ip))
+		//{
+		int row = ui->hostsTable->rowCount();
+		ui->hostsTable->setRowCount(row + 1);
+		QTableWidgetItem* nameItem = new QTableWidgetItem(nameList.at(row));
+		QTableWidgetItem* ipItem = new QTableWidgetItem(ip);
+		QTableWidgetItem* bitRate = new QTableWidgetItem("0.00 MB/s");
+		ipItem->setTextColor(QColor(Qt::gray));
+		ui->hostsTable->setItem(row, 0, nameItem);
+		ui->hostsTable->setItem(row, 1, ipItem);
+		ui->hostsTable->setItem(row, 2, bitRate);
+		hostControl->registerIp(ip);
+
+	}
 }
 
 void MainWindow::setWarningResponse(bool value)

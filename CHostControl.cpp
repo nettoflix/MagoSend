@@ -205,7 +205,6 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 	QString nowStr = now.toString("yyyy-MM-dd hh:mm:ss");
 	QMutexLocker hostsLocker(&hostsMutex);
 		qDebug("CHostControl::marVideoAsSent - 2");
-	QMutexLocker queueLocker(&getMainWindow()->getTransferMonitor()->getQueueMutex());
 	for(Host* host : this->getHosts())
 	{
 		if(host->ip == hostIp)
@@ -214,6 +213,7 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 		}
 	}
 	hostsLocker.unlock();
+	QMutexLocker queueLocker(&getMainWindow()->getTransferMonitor()->getQueueMutex());
 	int count = 0;
 	for(VideoFileInfo* videoInfo : getMainWindow()->getTransferMonitor()->getCurrentQueue())
 	{

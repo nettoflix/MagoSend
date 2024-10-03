@@ -67,7 +67,42 @@ void CMagoDBCommandsThread::queuedAddHistoricoMagoSend(QString numero, QString t
 
 qDebug("CMagoDBCommandsThread::queuedAddHistorico - IN");
 //qDebug() << "queuedAddHistoricoMagoSend thread: Current thread ID:" << QThread::currentThreadId();
-	QMetaObject::invokeMethod(worker, "queuedAddHistoricoMagoSend", Qt::QueuedConnection, Q_ARG(QString, numero), Q_ARG(QString, titulo), Q_ARG(QString, caminho), Q_ARG(QString, modalidade), Q_ARG(int, duracao), Q_ARG(QString, ip), Q_ARG(QString, status), Q_ARG(QString, data), Q_ARG(QString, usuario));
+QMetaObject::invokeMethod(worker, "queuedAddHistoricoMagoSend", Qt::QueuedConnection, Q_ARG(QString, numero), Q_ARG(QString, titulo), Q_ARG(QString, caminho), Q_ARG(QString, modalidade), Q_ARG(int, duracao), Q_ARG(QString, ip), Q_ARG(QString, status), Q_ARG(QString, data), Q_ARG(QString, usuario));
+}
+
+QStringList CMagoDBCommandsThread::queuedGetSessionNames()
+{
+	QStringList sessionNames;
+	qDebug("CMagoDBCommandsThread::queuedGetSessionNames - IN");
+	//qDebug() << "queuedAddHistoricoMagoSend thread: Current thread ID:" << QThread::currentThreadId();
+	QMetaObject::invokeMethod(worker, "queuedGetSessionNames", Qt::BlockingQueuedConnection, Q_RETURN_ARG(QStringList, sessionNames));
+	return sessionNames;
+}
+
+QStringList CMagoDBCommandsThread::getNameListFromSession(QString selectedSession)
+{
+	QStringList nameList;
+	qDebug("CMagoDBCommandsThread::getNameListFromSession - IN");
+	//qDebug() << "queuedAddHistoricoMagoSend thread: Current thread ID:" << QThread::currentThreadId();
+	QMetaObject::invokeMethod(worker, "getNameListFromSession", Qt::BlockingQueuedConnection, Q_RETURN_ARG(QStringList, nameList), Q_ARG(QString, selectedSession));
+	return nameList;
+}
+
+QVector<QPair<QString, QString> > CMagoDBCommandsThread::getModalidadesMagoSend()
+{
+	QVector<QPair<QString,QString>> modalidades;
+	qDebug("CMagoDBCommandsThread::getModalidadesMagoSend - IN");
+	QMetaObject::invokeMethod(worker, "getModalidadesMagoSend", Qt::BlockingQueuedConnection, Q_RETURN_ARG(ModalidadeType, modalidades));
+	return modalidades;
+}
+
+QStringList CMagoDBCommandsThread::getIpListFromSession(QString selectedSession)
+{
+	QStringList ipList;
+	qDebug("CMagoDBCommandsThread::getIpListFromSession - IN");
+	//qDebug() << "queuedAddHistoricoMagoSend thread: Current thread ID:" << QThread::currentThreadId();
+	QMetaObject::invokeMethod(worker, "getIpListFromSession", Qt::BlockingQueuedConnection, Q_RETURN_ARG(QStringList, ipList), Q_ARG(QString, selectedSession));
+	return ipList;
 }
 
 
@@ -127,6 +162,133 @@ void CMagoDBCommandsThreadWorker::queuedAddHistoricoMagoSend(QString numero, QSt
 
 
 }
+
+QStringList CMagoDBCommandsThreadWorker::queuedGetSessionNames()
+{
+	qDebug("CMagoDBCommandsThreadWorker::queuedGetSessionNames - IN");
+	QStringList sessionNames;
+	QString dbConnectionName;
+	{
+		QSqlDatabase connection = thread->getRandomConnection();
+
+		dbConnectionName = connection.connectionName();
+
+		try
+		{
+			sessionNames = thread->getMagoDB()->getSessionNames(&connection);
+//			histoId = thread->getMagoDB()->AddHistorico(
+//						numero.toLatin1().data(),
+//						titulo.toLatin1().data(),
+//						duracaoreal,
+//						veiculacao.toLatin1().data(),
+//						roteiro,
+//						data.toLatin1().data(),
+//						entrada.toLatin1().data(),
+//						saida.toLatin1().data(),
+//						posicaomesa,
+//						hPrevisto.toLatin1().data(),
+//						crit1.toLatin1().data(),
+//						&connection
+//						);
+		}
+		catch(...)
+		{
+			qDebug("CMagoDBCommandsThreadWorker::queuedGetSessionNames - Erro exception");
+		}
+
+		connection.close();
+	}
+
+	//thread->deleteRandomConnection(&connection);
+
+	QSqlDatabase::removeDatabase(dbConnectionName);
+	return sessionNames;
+}
+
+QStringList CMagoDBCommandsThreadWorker::getIpListFromSession(QString session)
+{
+	qDebug("CMagoDBCommandsThreadWorker::getIpListFromSession - IN");
+	QStringList ipList;
+	QString dbConnectionName;
+	{
+		QSqlDatabase connection = thread->getRandomConnection();
+
+		dbConnectionName = connection.connectionName();
+
+		try
+		{
+			ipList = thread->getMagoDB()->getIpListFromSession(session.toLatin1().data(),&connection);
+		}
+		catch(...)
+		{
+			qDebug("CMagoDBCommandsThreadWorker::getIpListFromSession - Erro exception");
+		}
+
+		connection.close();
+	}
+
+	//thread->deleteRandomConnection(&connection);
+
+	QSqlDatabase::removeDatabase(dbConnectionName);
+	return ipList;
+}
+
+QStringList CMagoDBCommandsThreadWorker::getNameListFromSession(QString session)
+{
+	qDebug("CMagoDBCommandsThreadWorker::getNameListFromSession - IN");
+	QStringList ipList;
+	QString dbConnectionName;
+	{
+		QSqlDatabase connection = thread->getRandomConnection();
+
+		dbConnectionName = connection.connectionName();
+
+		try
+		{
+			ipList = thread->getMagoDB()->getNameListFromSession(session.toLatin1().data(),&connection);
+		}
+		catch(...)
+		{
+			qDebug("CMagoDBCommandsThreadWorker::getNameListFromSession - Erro exception");
+		}
+
+		connection.close();
+	}
+
+	//thread->deleteRandomConnection(&connection);
+
+	QSqlDatabase::removeDatabase(dbConnectionName);
+	return ipList;
+}
+
+ModalidadeType CMagoDBCommandsThreadWorker::getModalidadesMagoSend()
+{
+	ModalidadeType modalidades;
+	QString dbConnectionName;
+	{
+		QSqlDatabase connection = thread->getRandomConnection();
+
+		dbConnectionName = connection.connectionName();
+
+		try
+		{
+			modalidades = thread->getMagoDB()->getModalidadesMagoSend(&connection);
+		}
+		catch(...)
+		{
+			qDebug("CMagoDBCommandsThreadWorker::getModalidadesMagoSend - Erro exception");
+		}
+
+		connection.close();
+	}
+
+	//thread->deleteRandomConnection(&connection);
+
+	QSqlDatabase::removeDatabase(dbConnectionName);
+	return modalidades;
+}
+
+
 
 
 

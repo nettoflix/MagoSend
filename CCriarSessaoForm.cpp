@@ -2,6 +2,7 @@
 #include "ui_CCriarSessaoForm.h"
 #include "CServiceUtils.h"
 #include "CEditarSessaoForm.h"
+#include "CMagoDBCommandsThread.h"
 
 #include <QMessageBox>
 #include <QSettings>
@@ -34,12 +35,12 @@ CCriarSessaoForm::~CCriarSessaoForm()
 	delete ui;
 	delete db;
 }
-
 void CCriarSessaoForm::loadSessao()
 {
 	//carregar as sessões da DB
-	QStringList ipsList = db->getIpListFromSession(ui->te_Sessao->toPlainText().toLatin1().data());
-	QStringList nameList = db->getNameListFromSession(ui->te_Sessao->toPlainText().toLatin1().data());
+
+	QStringList ipsList = CMagoDBCommandsThread::commands->getIpListFromSession(ui->te_Sessao->toPlainText());
+	QStringList nameList = CMagoDBCommandsThread::commands->getNameListFromSession(ui->te_Sessao->toPlainText());
 	qDebug()<< "CCriarSessaoForm::loadSessao() - nameList: " << nameList;
 	qDebug()<< "CCriarSessaoForm::loadSessao() - ipList: " << ipsList;
 	int row = 0;

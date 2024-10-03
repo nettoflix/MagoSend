@@ -34,8 +34,10 @@ public:
 		return worker;
 	}
 	void queuedAddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario);
-
-
+	QStringList queuedGetSessionNames();
+	QStringList getIpListFromSession(QString selectedSession);
+	QStringList getNameListFromSession(QString selectedSession);
+	QVector<QPair<QString,QString>> getModalidadesMagoSend();
 	inline MagoDB* getMagoDB()
 	{
 		return (MagoDB*) magoDB;
@@ -103,7 +105,7 @@ protected:
 
 	void run();
 };
-
+using ModalidadeType = QVector<QPair<QString, QString>>;
 class CMagoDBCommandsThreadWorker: public QObject
 {
 Q_OBJECT
@@ -122,6 +124,10 @@ public slots:
 
 	//void queuedAddHistorico(QString ticket, QString numero, QString titulo, int duracaoreal, QString veiculacao, int roteiro, QString data, QString entrada, QString saida, int posicaomesa, QString hPrevisto, QString crit1);
 	void queuedAddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario);
+	QStringList queuedGetSessionNames();
+	QStringList getIpListFromSession(QString session);
+	QStringList getNameListFromSession(QString session);
+	ModalidadeType getModalidadesMagoSend();
 
 };
 
