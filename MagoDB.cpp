@@ -288,12 +288,27 @@ bool MagoDB::CreateTableProgramas()
 	return resultado;
 }
 
-bool MagoDB::CreateTableHistorico()
+bool MagoDB::CreateTableHistorico(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	bool resultado;
 
-	resultado = query.exec(QLatin1String("create table Historico(id SERIAL PRIMARY KEY,"
+	resultado = query->exec(QLatin1String("create table Historico(id SERIAL PRIMARY KEY,"
 										 "numero varchar NOT NULL,"
 										 "titulo varchar NOT NULL,"
 										 "caminho varchar NOT NULL,"
@@ -303,19 +318,34 @@ bool MagoDB::CreateTableHistorico()
 										 "status varchar NOT NULL,"
 										 "data timestamp NOT NULL,"
 										 "usuario varchar)"));
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 	return resultado;
 }
 
-bool MagoDB::CreateTableLogin()
+bool MagoDB::CreateTableLogin(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	bool resultado;
 
-	resultado = query.exec(QLatin1String("create table Login(id SERIAL PRIMARY KEY,"
+	resultado = query->exec(QLatin1String("create table Login(id SERIAL PRIMARY KEY,"
 										 "usuario varchar NOT NULL,"
 										 "senha varchar NOT NULL)"));
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 	return resultado;
 }
 
@@ -330,91 +360,172 @@ bool MagoDB::CreateTableVersion()
 	return resultado;
 }
 
-bool MagoDB::CreateTableSessions()
+bool MagoDB::CreateTableSessions(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	qDebug("CreateTableSessions - IN");
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	bool resultado;
 
-	resultado = query.exec(QLatin1String("create table Sessions("
-										 "nome varchar NOT NULL,"
+	resultado = query->exec(QLatin1String("create table Sessions("
+										 "nome TEXT NOT NULL,"
 										 "ipList TEXT NOT NULL,"
 										 "nameList TEXT NOT NULL)"));
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 	return resultado;
 }
 
-bool MagoDB::CreateTableModalidades()
+bool MagoDB::CreateTableModalidades(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	qDebug("CreateTableModalidades - IN");
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	bool resultado;
 
-	resultado = query.exec(QLatin1String("create table modalidade("
-										 "nome varchar NOT NULL,"
+	resultado = query->exec(QLatin1String("create table modalidade("
+										 "nome TEXT NOT NULL,"
 										 "descricao TEXT NOT NULL)"));
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 	return resultado;
 }
 
-bool MagoDB::CreateTableOptions()
+bool MagoDB::CreateTableOptions(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString sql;
 	bool resultado;
 
-	resultado = query.exec(QLatin1String("create table options("
+	resultado = query->exec(QLatin1String("create table options("
 										 "overwritefile boolean NOT NULL,"
 										 "overwriteId boolean NOT NULL,"
 										 "showErrors boolean NOT NULL,"
 										 "showSuccess boolean NOT NULL)"));
-	qDebug() << query.lastError();
+	qDebug() << query->lastError();
 	if(resultado)
 	{
 		sql.sprintf("INSERT INTO options (overwritefile, overwriteid, showErrors, showSuccess) VALUES (false, false, true,true)");
 		qDebug("sql = %s", sql.toLatin1().data());
-		query.prepare(sql);
-		query.exec();
-		qDebug() << query.lastError();
+		query->prepare(sql);
+		query->exec();
+		qDebug() << query->lastError();
 	}
 
 	return resultado;
 }
 
-bool MagoDB::doesSessionExists(char* sessao)
+bool MagoDB::doesSessionExists(QString sessao, QSqlDatabase* connection)
 {
-	QSqlQuery query;
-	QString sql;
-	sql.sprintf("select * from sessions where nome = '%s'", sessao);
-
-	qDebug("sql query = %s", sql.toLatin1().data());
-
-	query.prepare(sql);
-
-	query.exec();
-	if(query.next())
+	if (!connection->isOpen())
 	{
-		qDebug() << query.lastError();
-		return true;
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
 	}
 	else
 	{
-		qDebug() << query.lastError();
-		return false;
+		query = new QSqlQuery(Magodb);
 	}
+	QString sql = "SELECT * FROM sessions WHERE nome = :val_nome";
+
+	qDebug() << "Preparing SQL query:" << sql;
+
+	query->prepare(sql);
+	query->bindValue(":val_nome", sessao);
+
+	if (query->exec())
+	{
+		if (query->next())
+		{
+			// Session existe
+			return true;
+		}
+	}
+	else
+	{
+		qDebug() << "Error executing query:" << query->lastError();
+	}
+
+	// Session nao existe
+	return false;
 }
-bool MagoDB::warningWhenOverwriteFile(){
-	QSqlQuery query;
+bool MagoDB::warningWhenOverwriteFile(QSqlDatabase* connection){
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString sql;
 	sql.sprintf("SELECT overwritefile FROM options LIMIT 1");
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	query.exec();
-	if(query.next())
+	query->exec();
+	if(query->next())
 	{
-		qDebug() << query.lastError();
-		if(query.value("overwritefile").toBool() == true)
+		qDebug() << query->lastError();
+		if(query->value("overwritefile").toBool() == true)
 		{
 			return true;
 		}
@@ -426,26 +537,42 @@ bool MagoDB::warningWhenOverwriteFile(){
 	}
 	else
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return false;
 	}
 }
 
-bool MagoDB::warningWhenOverwriteId()
+bool MagoDB::warningWhenOverwriteId(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QString sql;
 	sql.sprintf("SELECT overwriteid FROM options LIMIT 1");
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	query.exec();
-	if(query.next())
+	query->exec();
+	if(query->next())
 	{
-		qDebug() << query.lastError();
-		if(query.value("overwriteid").toBool() == true)
+		qDebug() << query->lastError();
+		if(query->value("overwriteid").toBool() == true)
 		{
 			return true;
 		}
@@ -457,13 +584,30 @@ bool MagoDB::warningWhenOverwriteId()
 	}
 	else
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return false;
 	}
 }
-bool MagoDB::updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId)
+bool MagoDB::updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId, QSqlDatabase* connection)
 {
-	QSqlQuery query;
+
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QString sql;
 	char* str_shouldOverwriteFile = "false";
 	char* str_shouldOverwriteId = "false";
@@ -477,21 +621,39 @@ bool MagoDB::updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId)
 	}
 
 	sql.sprintf("UPDATE options SET overwritefile = '%s'", str_shouldOverwriteFile);
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 	sql.sprintf("UPDATE options SET overwriteid = '%s'", str_shouldOverwriteId);
 	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 
 }
 
-bool MagoDB::updateStatusFilter(bool showErrors, bool showSuccess)
+bool MagoDB::updateStatusFilter(bool showErrors, bool showSuccess,QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
+
+
 	QString sql;
 	char* str_showErrors = "false";
 	char* str_showSuccess = "false";
@@ -505,32 +667,48 @@ bool MagoDB::updateStatusFilter(bool showErrors, bool showSuccess)
 	}
 
 	sql.sprintf("UPDATE options SET showErrors = '%s'", str_showErrors);
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 	sql.sprintf("UPDATE options SET showSuccess = '%s'", str_showSuccess);
 	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 }
 
-bool MagoDB::shouldShowErrors()
+bool MagoDB::shouldShowErrors(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QString sql;
 	sql.sprintf("SELECT showErrors FROM options LIMIT 1");
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	query.exec();
-	if(query.next())
+	query->exec();
+	if(query->next())
 	{
-		qDebug() << query.lastError();
-		if(query.value("showErrors").toBool() == true)
+		qDebug() << query->lastError();
+		if(query->value("showErrors").toBool() == true)
 		{
 			return true;
 		}
@@ -542,25 +720,40 @@ bool MagoDB::shouldShowErrors()
 	}
 	else
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return false;
 	}
 }
-bool MagoDB::shouldShowSuccess()
+bool MagoDB::shouldShowSuccess(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString sql;
 	sql.sprintf("SELECT showSuccess FROM options LIMIT 1");
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	query.exec();
-	if(query.next())
+	query->exec();
+	if(query->next())
 	{
-		qDebug() << query.lastError();
-		if(query.value("showSuccess").toBool() == true)
+		qDebug() << query->lastError();
+		if(query->value("showSuccess").toBool() == true)
 		{
 			return true;
 		}
@@ -572,7 +765,7 @@ bool MagoDB::shouldShowSuccess()
 	}
 	else
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return false;
 	}
 }
@@ -606,44 +799,84 @@ bool MagoDB::shouldShowSuccess()
 //		return true;
 //	}
 //}
-void MagoDB::updateSessionIpList(char* sessao, char* ipList, char* nameList)
+void MagoDB::updateSessionIpList(QString sessao, QString ipList, QString nameList, QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
+
 	QString sql;
 	qDebug() << "ipList:" << ipList;
-	sql.sprintf("UPDATE sessions SET ipList = '%s' WHERE nome = '%s'", ipList, sessao);
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
-	sql.sprintf("UPDATE sessions SET nameList = '%s' WHERE nome = '%s'", nameList, sessao);
+	//	sql.sprintf("UPDATE sessions SET ipList = '%s' WHERE nome = '%s'", ipList, sessao);
+	query->prepare("UPDATE sessions SET ipList = :val_ipList WHERE nome = :val_nome");
+	query->bindValue(":val_nome", sessao);
+	query->bindValue(":val_ipList", ipList);
+	query->exec();
+	qDebug() << query->lastError();
+	//sql.sprintf("UPDATE sessions SET nameList = '%s' WHERE nome = '%s'", nameList, sessao);
 	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
-	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare("UPDATE sessions SET nameList = :val_nameList WHERE nome = :val_nome");
+	query->bindValue(":val_nome", sessao);
+	query->bindValue(":val_nameList", nameList);
+	query->exec();
+	qDebug() << query->lastError();
 }
 
-void MagoDB::createRowOnSessionTable(char *sessao, char *ipList, char *nameList)
+void MagoDB::createRowOnSessionTable(QString sessao, QString ipList, QString nameList, QSqlDatabase* connection)
 {
-	QSqlQuery query;
-	QString sql;
-	qDebug() << "ipList:" << ipList;
+	qDebug() << "createRowOnSessionTable - IN" ;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
 
-	sql.sprintf("INSERT INTO sessions (nome, ipList, nameList) VALUES ('%s', '%s', '%s')", sessao,ipList, nameList);
-	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
+
+
+	//QString sql;
+
+	query->prepare("INSERT INTO sessions (nome, iplist, namelist) VALUES (:val_nome, :val_ipList, :val_nameList)");
+	query->bindValue(":val_nome", sessao);
+	query->bindValue(":val_ipList",ipList);
+	query->bindValue(":val_nameList", nameList);
+	query->exec();
+	qDebug() << "Last Query: " << query->lastQuery();
+	qDebug() << query->lastError();
 }
 
-QStringList MagoDB::getIpListFromSession(char *sessao, QSqlDatabase* connection)
+QStringList MagoDB::getIpListFromSession(QString sessao, QSqlDatabase* connection)
 {
 
 	if (!connection->isOpen())
 	{
-		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		qDebug("MagoDB::getIpListFromSession() - Conexao estava fechada A");
 		connection->open();
-		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+		qDebug("MagoDB::getIpListFromSession() - Conexao estava fechada B");
 	}
 	QSqlQuery* query = nullptr;
 	if (connection != nullptr)
@@ -657,9 +890,9 @@ QStringList MagoDB::getIpListFromSession(char *sessao, QSqlDatabase* connection)
 
 	QStringList ipList;
 	QString sql;
-	sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
-	qDebug("sql = %s", sql.toLatin1().data());
-	query->prepare(sql);
+	//	sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
+	query->prepare("SELECT * FROM sessions WHERE nome = :val_nome");
+	query->bindValue(":val_nome", sessao);
 	bool result = query->exec();
 	qDebug() << query->lastError();
 	if (result)
@@ -671,13 +904,13 @@ QStringList MagoDB::getIpListFromSession(char *sessao, QSqlDatabase* connection)
 	}
 	return ipList;
 }
-QStringList MagoDB::getNameListFromSession(char *sessao, QSqlDatabase* connection)
+QStringList MagoDB::getNameListFromSession(QString sessao, QSqlDatabase* connection)
 {
 	if (!connection->isOpen())
 	{
-		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
+		qDebug("MagoDB::getNameListFromSession() - Conexao estava fechada A");
 		connection->open();
-		qDebug("MagoDB::getSessionNames() - Conexao estava fechada B");
+		qDebug("MagoDB::getNameListFromSession() - Conexao estava fechada B");
 	}
 	QSqlQuery* query = nullptr;
 	if (connection != nullptr)
@@ -689,10 +922,11 @@ QStringList MagoDB::getNameListFromSession(char *sessao, QSqlDatabase* connectio
 		query = new QSqlQuery(Magodb);
 	}
 	QStringList nameList;
-	QString sql;
-	sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
-	qDebug("sql = %s", sql.toLatin1().data());
-	query->prepare(sql);
+	//QString sql;
+	//sql.sprintf("SELECT * FROM sessions WHERE nome = '%s'", sessao);
+	//	qDebug("sql = %s", sql.toLatin1().data());
+	query->prepare("SELECT * FROM sessions WHERE nome = :val_nome");
+	query->bindValue(":val_nome", sessao);
 	bool result = query->exec();
 	qDebug() << query->lastError();
 	if (result)
@@ -708,6 +942,7 @@ QStringList MagoDB::getNameListFromSession(char *sessao, QSqlDatabase* connectio
 QStringList MagoDB::getSessionNames(QSqlDatabase* connection)
 {
 
+	qDebug("getSessionNames - IN");
 	if (!connection->isOpen())
 	{
 		qDebug("MagoDB::getSessionNames() - Conexao estava fechada A");
@@ -742,42 +977,89 @@ QStringList MagoDB::getSessionNames(QSqlDatabase* connection)
 	return ipList;
 }
 
-void MagoDB::removeSession(char* sessao)
+void MagoDB::removeSession(char* sessao, QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+
 	QString sql;
 	sql.sprintf("DELETE FROM sessions WHERE nome = '%s'", sessao);
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 
 }
 
-void MagoDB::addModalidadeMagoSend(char *nome, char *descricao)
+void MagoDB::addModalidadeMagoSend(QString nome, QString descricao,QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
 
-	QString sql;
-	sql.sprintf("INSERT INTO modalidade (nome, descricao) VALUES ('%s', '%s')", nome, descricao);
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 
-	qDebug("sql query = %s", sql.toLatin1().data());
-
-	query.prepare(sql);
-
-	query.exec();
-	qDebug() << query.lastError();
+	QString sql = "INSERT INTO modalidade (nome, descricao) VALUES (:val_nome, :val_descricao)";
+	query->prepare(sql);
+	query->bindValue(":val_nome", nome);
+	query->bindValue(":val_descricao", descricao);
+	if (!query->exec())
+	{
+		// Log error if the execution fails
+		qDebug() << "Error executing query:" << query->lastError();
+		qDebug("lastQuery:", query->lastQuery());
+	}
 }
 
-void MagoDB::clearModalidadeMagoSend()
+void MagoDB::clearModalidadeMagoSend(QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString sql;
 	sql.sprintf("DELETE FROM modalidade");
 	qDebug("sql = %s", sql.toLatin1().data());
-	query.prepare(sql);
-	query.exec();
-	qDebug() << query.lastError();
+	query->prepare(sql);
+	query->exec();
+	qDebug() << query->lastError();
 }
 
 QVector<QPair<QString, QString>> MagoDB::getModalidadesMagoSend(QSqlDatabase* connection)
@@ -833,18 +1115,13 @@ bool MagoDB::AddDuracaoRealAtHistorico()
 	return query;
 }
 
-bool MagoDB::InitDB()
+bool MagoDB::InitDB(QSqlDatabase* connection)
 {
-	CreateTableEventos();
 
-	CreateTableProgramas();
-
-	CreateTableHistorico();
-
-	CreateTableVersion();
-
-	AddDuracaoRealAtHistorico();
-
+	CreateTableHistorico(connection);
+	CreateTableModalidades(connection);
+	CreateTableSessions(connection);
+	CreateTableOptions(connection);
 	return true;
 }
 
@@ -1037,9 +1314,26 @@ void *MagoDB::getHistoryEntries(char *data, char *data2, char *entrada, char *sa
 	return query;
 }
 
-void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, char *titulo, char *caminho, char *modalidade, int duracao, char *ip, QStringList status, char* usuario)
+void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, char *titulo, char *caminho, char *modalidade, int duracao, char *ip, QStringList status, char* usuario, QSqlDatabase* connection)
 {
-	QSqlQuery* query = new QSqlQuery();
+	qDebug("MagoDB::getMagoSendHistoryEntries - data [%s]", data);
+	qDebug("MagoDB::getMagoSendHistoryEntries - data2 [%s]", data2);
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 
 	QString sql = QString("select * from historico where ");
 	bool validCArg = false;
@@ -1511,7 +1805,7 @@ int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char
 		query = new QSqlQuery(Magodb);
 	}
 	query->prepare("INSERT INTO historico (numero, titulo, caminho, modalidade, duracao, ip, status, data, usuario) "
-				  "VALUES (:val_num, :val_tit, :val_cam, :val_mod, :val_dur, :val_ip, :val_sta, :val_dat, :val_usu) RETURNING id as id");
+				   "VALUES (:val_num, :val_tit, :val_cam, :val_mod, :val_dur, :val_ip, :val_sta, :val_dat, :val_usu) RETURNING id as id");
 	query->bindValue(":val_num", numero);
 	query->bindValue(":val_tit", titulo);
 	query->bindValue(":val_cam", caminho);
@@ -1551,64 +1845,109 @@ int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char
 	return resultado;
 }
 
-int MagoDB::AddUserMagoSend(char *usuario, char* senha)
+int MagoDB::AddUserMagoSend(char *usuario, char* senha, QSqlDatabase* connection)
 {
 	int resultado = -1;
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 
 	QString sql;
 	sql.sprintf("INSERT INTO login (usuario, senha) VALUES ('%s', '%s') RETURNING id as id", usuario, senha);
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	resultado = query.exec();
-	qDebug() << query.lastError();
+	resultado = query->exec();
+	qDebug() << query->lastError();
 	return resultado;
 }
 
-bool MagoDB::userAlreadyExists(char *usuario)
+bool MagoDB::userAlreadyExists(char *usuario, QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString sql;
 	sql.sprintf("select * from login where usuario = '%s'", usuario);
 
 	qDebug("sql query = %s", sql.toLatin1().data());
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	query.exec();
-	if(query.next())
+	query->exec();
+	if(query->next())
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return true;
 	}
 	else
 	{
-		qDebug() << query.lastError();
+		qDebug() << query->lastError();
 		return false;
 	}
 
 }
 
-QString MagoDB::getUserPassword(char *usuario)
+QString MagoDB::getUserPassword(char *usuario, QSqlDatabase* connection)
 {
-	QSqlQuery query;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
 	QString passwordHash;
 	QString sql;
 	sql.sprintf("select * from login where usuario = '%s'", usuario);
 
-	query.prepare(sql);
+	query->prepare(sql);
 
-	bool result = query.exec();
+	bool result = query->exec();
 
 	if (result)
 	{
-		if (query.next())
+		if (query->next())
 		{
 			//ja retornamos no fortmato certo para ser utilziado como QString
-			passwordHash = QString::fromLatin1(query.value("senha").toString().toUtf8().data());
+			passwordHash = QString::fromLatin1(query->value("senha").toString().toUtf8().data());
 			return passwordHash;
 		}
 	}

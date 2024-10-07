@@ -194,4 +194,9 @@ bool CServiceUtils::isValidFilename(QString filename) {
 	if(countDot > 1) return false; //nao aceita nomes de arquivos com pontos (o unico ponto permitido é do da extensao)
 	return !filename.contains(invalidPattern);
 }
-
+bool CServiceUtils::isValidIDname(QString filename) {
+	QRegularExpression invalidPattern("[/\\\\:*?\"<>|\\^%&;\\[\\]{}\`'~$+,]");//caracteres especiais
+	int countDot = filename.count('.'); //tambem nao aceita pontos
+	if(countDot > 0) return false;
+	return !filename.contains(invalidPattern);
+}

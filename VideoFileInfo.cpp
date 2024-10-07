@@ -1,7 +1,8 @@
 #include "VideoFileInfo.h"
 
+#include <CUploadServiceClient.h>
 #include <QFileInfo>
-
+#include "Host.h"
 VideoFileInfo::VideoFileInfo(QString filename, QString modalidade ,int duration, int progress, Host* host, CVideoStatus status){
 	QFileInfo fileInfo(filename);
 	this->baseName = fileInfo.baseName() + "." + fileInfo.suffix();
@@ -14,6 +15,7 @@ VideoFileInfo::VideoFileInfo(QString filename, QString modalidade ,int duration,
 	this->status = status;
 	this->modalidade = modalidade;
 	this->ip = host->ip;
+	this->setIsActiveUpload(false);
 	//qDebug("id [%s], titulo [%s], filename [%s]", this->id.toLatin1().data(), this->titulo.toLatin1().data(), this->filename.toLatin1().data());
 }
 
@@ -132,19 +134,11 @@ void VideoFileInfo::setWasAddedToTableWidget(bool value)
 	wasAddedToTableWidget = value;
 }
 
-void VideoFileInfo:: updateProgress()
+void VideoFileInfo:: updateProgress(int progresso)
 {
-	CUploadServiceClientProgressResult progressResult = this->host->getProgressResult();
-	if(progressResult.filename == this->filename) //só atualiza o progresso se o host tiver realmente upando esse arquivo
-	{
 		setIsActiveUpload(true);
 		//qDebug("VideoFileInfo::updateProgress - progressResult: [%s] [%d]", filename.toLatin1().data(), progressResult.progress);
-		this->progress = progressResult.progress;
-	}
-	else
-	{
-		setIsActiveUpload(false);
-	}
+		this->progress = progresso;
 }
 int VideoFileInfo:: getProgress() const
 {

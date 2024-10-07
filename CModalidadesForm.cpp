@@ -90,16 +90,14 @@ void CModalidadesForm::loadModalidadesFromFile(QString filePath)
 
 void CModalidadesForm::saveModsToDB()
 {
-//	MagoDB* db = new MagoDB();
-//	db->clearModalidadeMagoSend();
 
-
-//	for(int row=0; row<ui->tableWidget->rowCount(); row++)
-//	{
-//		QString modName = ui->tableWidget->item(row,0)->text();
-//		QString modDesc = ui->tableWidget->item(row,1)->text();
-//		db->addModalidadeMagoSend(modName.toLatin1().data(), modDesc.toLatin1().data());
-//	}
+	CMagoDBCommandsThread::commands->clearModalidadeMagoSend();
+	for(int row=0; row<ui->tableWidget->rowCount(); row++)
+	{
+		QString modName = ui->tableWidget->item(row,0)->text();
+		QString modDesc = ui->tableWidget->item(row,1)->text();
+		CMagoDBCommandsThread::commands->addModalidadeMagoSend(modName, modDesc);
+	}
 }
 
 void CModalidadesForm::loadModalidadesFromDB()

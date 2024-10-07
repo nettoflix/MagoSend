@@ -9,7 +9,7 @@
 #define MAGODB_H_
 
 #include "IMagoDB.h"
-#include <QSqlDatabase>
+
 #include <QtSql>
 #include <QDate>
 
@@ -27,30 +27,30 @@ public:
 	bool __stdcall CreateDB(char* IP, QString dbName,int dbPort, bool useRandomConnectionName);
 	bool __stdcall CreateTableEventos();
 	bool __stdcall CreateTableProgramas();
-	bool __stdcall CreateTableHistorico();
-	bool __stdcall CreateTableLogin();
+	bool __stdcall CreateTableHistorico(QSqlDatabase* connection);
+	bool __stdcall CreateTableLogin(QSqlDatabase* connection);
 	bool __stdcall CreateTableVersion();
-	bool __stdcall CreateTableSessions();
-	bool __stdcall CreateTableModalidades();
-	bool __stdcall CreateTableOptions();
-	bool __stdcall updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId);
-	bool __stdcall updateStatusFilter(bool showErrors = false, bool showSuccess = false);
-	bool __stdcall shouldShowErrors();
-	bool __stdcall shouldShowSuccess();
+	bool __stdcall CreateTableSessions(QSqlDatabase* connection);
+	bool __stdcall CreateTableModalidades(QSqlDatabase* connection);
+	bool __stdcall CreateTableOptions(QSqlDatabase* connection);
+	bool __stdcall updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId, QSqlDatabase* connection);
+	bool __stdcall updateStatusFilter(bool showErrors = false, bool showSuccess = false, QSqlDatabase* connection= nullptr);
+	bool __stdcall shouldShowErrors(QSqlDatabase* connection);
+	bool __stdcall shouldShowSuccess(QSqlDatabase* connection);
 	//bool __stdcall ensureColumnExists(const QString &table_name,const QString &columnName, const QString &columnType);
-	bool __stdcall doesSessionExists(char* sessao);
-	bool __stdcall warningWhenOverwriteFile();
-	bool __stdcall warningWhenOverwriteId();
-	void __stdcall updateSessionIpList(char* sessao, char* ipList, char* nameList);
-	void __stdcall createRowOnSessionTable(char* sessao, char* ipList, char *nameList);
-	QStringList __stdcall getIpListFromSession(char* sessao,QSqlDatabase* connection);
-	QStringList __stdcall getNameListFromSession(char *sessao,QSqlDatabase* connection);
+	bool __stdcall doesSessionExists(QString sessao, QSqlDatabase* connection);
+	bool __stdcall warningWhenOverwriteFile(QSqlDatabase* connection);
+	bool __stdcall warningWhenOverwriteId(QSqlDatabase* connection);
+	void __stdcall updateSessionIpList(QString sessao, QString ipList, QString nameList, QSqlDatabase* connection);
+	void __stdcall createRowOnSessionTable(QString sessao, QString ipList, QString nameList, QSqlDatabase* connection);
+	QStringList __stdcall getIpListFromSession(QString sessao,QSqlDatabase* connection);
+	QStringList __stdcall getNameListFromSession(QString sessao,QSqlDatabase* connection);
 	QStringList __stdcall getSessionNames(QSqlDatabase* connection);
-	void __stdcall removeSession(char* sessao);
-	void __stdcall addModalidadeMagoSend(char* nome, char* descricao);
-	void __stdcall clearModalidadeMagoSend();
+	void __stdcall removeSession(char* sessao, QSqlDatabase* connection);
+	void __stdcall addModalidadeMagoSend(QString nome, QString descricao, QSqlDatabase* connection);
+	void __stdcall clearModalidadeMagoSend(QSqlDatabase* connection);
 	QVector<QPair<QString, QString>> getModalidadesMagoSend(QSqlDatabase* connection);
-	bool __stdcall InitDB();
+	bool __stdcall InitDB(QSqlDatabase* connection);
 	bool __stdcall AddEvent(char* numero, char* caminho, char* titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);
 	bool __stdcall UpdateEvent(char* oldnumero, char* newnumero, char* caminho, char * titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);
 	bool __stdcall RenameEvent(char* oldnumero, char* newnumero);
@@ -68,9 +68,9 @@ public:
 	bool __stdcall UpdateProgram(char* oldcodigo, char* newcodigo, char* titulo, int breaks, int frames, int posicaomesa);
 	bool __stdcall RemoveProgram(char* codigo);
 	int __stdcall AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario, QSqlDatabase* connection);
-	int __stdcall AddUserMagoSend(char* usuario, char* senha);
-	bool __stdcall userAlreadyExists(char* usuario);
-	QString __stdcall getUserPassword(char* usuario);
+	int __stdcall AddUserMagoSend(char* usuario, char* senha, QSqlDatabase* connection);
+	bool __stdcall userAlreadyExists(char* usuario, QSqlDatabase* connection);
+	QString __stdcall getUserPassword(char* usuario, QSqlDatabase* connection);
 	int __stdcall AddHistorico(char* numero, int duracaoreal, char* veiculacao, int roteiro, char* data, char* entrada, char* saida, int posicaomesa);
 	bool __stdcall ChangeHistoricoSaida(int id, char* saida);
 	bool __stdcall CleanHistorico();
@@ -81,7 +81,7 @@ public:
 	void* __stdcall loadAllEventsOrderBy(char* fieldName);
 	void* __stdcall loadAllEventsOrderByWithValueEqual(char* fieldName, char* fieldNameEqual, char* fieldValue);
 	void* __stdcall getHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* entrada = nullptr, char* saida = nullptr, char* numero = nullptr, char* titulo = nullptr, int roteiro = -1, int posicaoMesa = -1, char* veiculacao =nullptr);
-	void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, QStringList status = QStringList(), char* usuario=nullptr);
+	void* __stdcall getMagoSendHistoryEntries(char* data = nullptr, char *data2 = nullptr, char* numero = nullptr, char* titulo = nullptr, char* caminho = nullptr, char* modalidade = nullptr, int duracao = -1, char* ip = nullptr, QStringList status = QStringList(), char* usuario=nullptr, QSqlDatabase* connection=nullptr);
 	void* __stdcall getHistoryFieldValues(char * fieldName);
     QString __stdcall GetEventTitulo(char* number);
     QString __stdcall GetEventModalidade(char* number);

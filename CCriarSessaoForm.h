@@ -18,7 +18,6 @@ public:
 	explicit CCriarSessaoForm(QWidget *parent = 0, QString sessionName="", bool readOnly=false);
 	~CCriarSessaoForm();
 	void loadSessao();
-	MagoDB* db;
 
 private slots:
 	void on_btn_adicionarIP_clicked();

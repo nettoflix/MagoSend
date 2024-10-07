@@ -14,6 +14,7 @@
 
 #include <IMagoDB.h>
 
+#include "CBDQuery.h"
 #include "CWaiter.h"
 #include "MagoDB.h"
 
@@ -21,7 +22,7 @@ class CMagoDBCommandsThreadWorker;
 
 class CMagoDBCommandsThread: public QThread
 {
-Q_OBJECT
+	Q_OBJECT
 public:
 
 	static CMagoDBCommandsThread* commands;
@@ -33,11 +34,28 @@ public:
 	{
 		return worker;
 	}
+	QList<CDBHistoryEntry> getMagoSendHistoryEntries(QString data=QString(""), QString data2=QString(""), QString numero=QString(""), QString titulo=QString(""), QString caminho=QString(""), QString modalidade=QString(""), int duracao=-1, QString ip=QString(""), QStringList status=QStringList(), QString usuario=QString(""));
 	void queuedAddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario);
 	QStringList queuedGetSessionNames();
 	QStringList getIpListFromSession(QString selectedSession);
 	QStringList getNameListFromSession(QString selectedSession);
+	void clearModalidadeMagoSend();
+	void addModalidadeMagoSend(QString nome, QString desc);
+	QStringList getSessionNames();
+	bool historicoShouldShowErrors();
+	bool historicoShouldShowSuccess();
+	void updateStatusFilter(bool shouldShowSuccess, bool shouldShowErrors);
 	QVector<QPair<QString,QString>> getModalidadesMagoSend();
+	bool doesSessionExists(QString session);
+	void updateSessionIpList(QString sessao, QString ipList, QString nameList);
+	void createRowOnSessionTable(QString sessionName, QString ipList, QString nameList);
+	void removeSession(QString session);
+	bool warningWhenOverwriteFile();
+	bool warningWhenOverwriteId();
+	void updateSendOptions(bool shouldOverwriteFile=true, bool shouldOverwriteId=true);
+	bool userAlreadyExists(QString usuario);
+	QString getUserPassword(QString usuario);
+	bool AddUserMagoSend(QString usuario, QByteArray password);
 	inline MagoDB* getMagoDB()
 	{
 		return (MagoDB*) magoDB;
@@ -108,7 +126,7 @@ protected:
 using ModalidadeType = QVector<QPair<QString, QString>>;
 class CMagoDBCommandsThreadWorker: public QObject
 {
-Q_OBJECT
+	Q_OBJECT
 public:
 	QHash<QString, int> historyIds;
 
@@ -128,7 +146,23 @@ public slots:
 	QStringList getIpListFromSession(QString session);
 	QStringList getNameListFromSession(QString session);
 	ModalidadeType getModalidadesMagoSend();
-
+	bool historicoShouldShowErrors();
+	bool historicoShouldShowSuccess();
+	void updateStatusFilter(bool shouldShowSuccess, bool shouldShowErrors);
+	QList<CDBHistoryEntry> getMagoSendHistoryEntries(QString data=QString(""), QString data2=QString(""), QString numero=QString(""), QString titulo=QString(""), QString caminho=QString(""), QString modalidade=QString(""), int duracao=-1, QString ip=QString(""), QStringList status=QStringList(), QString usuario=QString(""));
+	void clearModalidadeMagoSend();
+	void addModalidadeMagoSend(QString nome,QString desc);
+	QStringList getSessionNames();
+	bool doesSessionExists(QString session);
+	void updateSessionIpList(QString sessao, QString nameList, QString ipList);
+	void createRowOnSessionTable(QString sessao, QString nameList, QString ipList);
+	void removeSession(QString sessao);
+	bool warningWhenOverwriteFile();
+	bool warningWhenOverwriteId();
+	void updateSendOptions(bool shouldOverwriteFile, bool shouldOverwriteId);
+	bool userAlreadyExists(QString usuario);
+	QString getUserPassword(QString usuario);
+	bool AddUserMagoSend(QString usuario, QByteArray password);
 };
 
 #endif /* CMAGODBCOMMANDSTHREAD_H_ */

@@ -1,9 +1,12 @@
 #ifndef VIDEOFILEINFO_H
 #define VIDEOFILEINFO_H
 
-#include "Host.h"
+#include <QString>
 
 
+//#include "Host.h"
+
+class Host;
 enum CVideoStatus {
 WAITING=0,SENDING,SENT,CANCELLED, ERROR, TRYING_TO_CONNECT
 };
@@ -22,7 +25,7 @@ public:
 	QString ip;
 	bool isActiveUpload;
 	QString dbTime;
-	void updateProgress();
+	void updateProgress(int progresso);
 	int getProgress() const;
 	void setId(const QString &value);
 

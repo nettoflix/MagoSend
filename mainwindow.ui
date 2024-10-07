@@ -16,46 +16,35 @@
   <property name="styleSheet">
    <string notr="true">QToolTip
 {
-     border: 2px solid cyan;
-     background-color:  white;
+     border: 1px solid black;
+     background-color: #ffa02f;
      padding: 1px;
      border-radius: 3px;
-     font-size: 11px;
+     opacity: 100;
 }
+
+QLabel { background-color: rgba(255, 255, 255, 10); 
+    color: #f0f0f0;  /* Light text for contrast */
+    font-size: 12pt;
+    font-weight: bold;  /* Make the text bold to stand out */
+}
+
 
 QWidget
 {
-       color: #dddddd;	
-		background-color: #282828;
-		border-color: transparent;
-		border-width: 0px;
+    color: #b1b1b1;
+    background-color: #323232;
 }
-
-QLabel
-{
-        border-color: transparent;
-}
-
 
 QWidget:item:hover
 {
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #ca0619);
-    color: #000000;
+ 
 }
 
 QWidget:item:selected
 {
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
-}
-
-
-QDateTimeEdit
-{
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0 #646464, stop: 1 #5d5d5d);
-    padding: 1px;
-    border-style: solid;
-    border: 1px solid #1e1e1e;
-    border-radius: 5;
 }
 
 QMenuBar::item
@@ -75,11 +64,11 @@ QMenuBar::item:pressed
     border: 1px solid #000;
     background-color: QLinearGradient(
         x1:0, y1:0,
-	x2:0, y2:1,
-	stop:1 #212121,
-	stop:0.4 #343434/*,
-	stop:0.2 #343434,
-	stop:0.1 #ffaa00*/
+        x2:0, y2:1,
+        stop:1 #212121,
+        stop:0.4 #343434/*,
+        stop:0.2 #343434,
+        stop:0.1 #ffaa00*/
     );
     margin-bottom:-1px;
     padding-bottom:1px;
@@ -89,7 +78,6 @@ QMenu
 {
     border: 1px solid #000;
 }
-
 
 QMenu::item
 {
@@ -107,24 +95,9 @@ QWidget:disabled
     background-color: #323232;
 }
 
-
-
-QDateTimeEdit::drop-down
+QAbstractItemView
 {
-     subcontrol-origin: padding;
-     subcontrol-position: top right;
-     width: 15px;
-
-     border-left-width: 0px;
-     border-left-color: darkgray;
-     border-left-style: solid; /* just a single line */
-     border-top-right-radius: 3px; /* same radius as the QComboBox */
-     border-bottom-right-radius: 3px;
- }
-
-QDateTimeEdit::down-arrow
-{
-     image: url(:/images/down_arrow.png);
+    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0.1 #646464, stop: 1 #5d5d5d);
 }
 
 QWidget:focus
@@ -134,11 +107,11 @@ QWidget:focus
 
 QLineEdit
 {
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0 #646464, stop: 1 #5d5d5d);
-    padding: 1px;
-    border-style: solid;
-    border: 1px solid #1e1e1e;
-    border-radius: 0;
+    background-color: #3d3d3d;
+    color: #f0f0f0;
+    border: 1px solid #5a5a5a;  /* Subtle border */
+    border-radius: 6px;
+    font-size: 11pt;
 }
 
 QPushButton
@@ -148,7 +121,7 @@ QPushButton
     border-width: 1px;
     border-color: #1e1e1e;
     border-style: solid;
-    border-radius: 0;
+    border-radius: 6;
     padding: 3px;
     font-size: 12px;
     padding-left: 5px;
@@ -204,12 +177,20 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-     image: url(:/images/down_arrow.png);
+     image: url(:/down_arrow.png);
 }
 
-QGroupBox:focus
-{
-border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
+QGroupBox {
+    font: bold;
+    border: 1px solid gray;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: 0px 5px 0px 5px;
 }
 
 QTextEdit:focus
@@ -219,14 +200,14 @@ QTextEdit:focus
 
 QScrollBar:horizontal {
      border: 1px solid #222222;
-     background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #101010, stop: 1 #303030);
+     background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);
      height: 12px;
      margin: 0px 16px 0 16px;
 }
 
 QScrollBar::handle:horizontal
 {
-      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #303030, stop: 1 #404040);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);
       min-height: 20px;
       border-radius: 2px;
 }
@@ -234,7 +215,7 @@ QScrollBar::handle:horizontal
 QScrollBar::add-line:horizontal {
       border: 1px solid #1b1b19;
       border-radius: 2px;
-      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #101010);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);
       width: 14px;
       subcontrol-position: right;
       subcontrol-origin: margin;
@@ -243,7 +224,7 @@ QScrollBar::add-line:horizontal {
 QScrollBar::sub-line:horizontal {
       border: 1px solid #1b1b19;
       border-radius: 2px;
-      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #101010);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);
       width: 14px;
      subcontrol-position: left;
      subcontrol-origin: margin;
@@ -264,15 +245,15 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
 
 QScrollBar:vertical
 {
-      background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #101010, stop: 1 #303030);
-      width: 15px;
+      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);
+      width: 7px;
       margin: 16px 0 16px 0;
       border: 1px solid #222222;
 }
 
 QScrollBar::handle:vertical
 {
-      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #303030, stop: 1 #404040);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);
       min-height: 20px;
       border-radius: 2px;
 }
@@ -281,7 +262,7 @@ QScrollBar::add-line:vertical
 {
       border: 1px solid #1b1b19;
       border-radius: 2px;
-      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #000000, stop: 1 #101010);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
       height: 14px;
       subcontrol-position: bottom;
       subcontrol-origin: margin;
@@ -291,7 +272,7 @@ QScrollBar::sub-line:vertical
 {
       border: 1px solid #1b1b19;
       border-radius: 2px;
-      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #000000);
+      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #d7801a, stop: 1 #ffa02f);
       height: 14px;
       subcontrol-position: top;
       subcontrol-origin: margin;
@@ -313,7 +294,8 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
 
 QTextEdit
 {
-    background-color: #242424;
+    background-color:  #242424;
+	border: 0px solid #6c6c6c;
 }
 
 QPlainTextEdit
@@ -323,7 +305,7 @@ QPlainTextEdit
 
 QHeaderView::section
 {
-    background-color: #303030
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #616161, stop: 0.5 #505050, stop: 0.6 #434343, stop:1 #656565);
     color: white;
     padding-left: 4px;
     border: 1px solid #6c6c6c;
@@ -376,12 +358,6 @@ QMainWindow::separator:hover
     border: 1px solid #6c6c6c;
     spacing: 3px; /* spacing between items in the tool bar */
 }
-QTableWidget 
-{
-	 background-color: #292929;
-}
-
-
 
 QToolBar::handle
 {
@@ -399,39 +375,72 @@ QMenu::separator
     margin-right: 5px;
 }
 
-QProgressBar
-{
-    background-color: #353535;
-    border: 2px solid grey;
-    border-radius: 5px;
+QProgressBar {
+    border: 1px solid #404040;
     text-align: center;
+    background-color: #3E3E3E;
 }
 
-QProgressBar::chunk
-{
-    background-color: #d7801a;
-    width: 2.15px;
-    margin: 0.5px;
+QProgressBar::chunk {
+    background-color: #0534cc;
+    width: 2px;
 }
 
 
+QTabBar::tab {
+    color: #b1b1b1;
+    border: 1px solid #444;
+    border-bottom-style: none;
+    background-color: #323232;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    margin-right: -1px;
+}
 
+QTabWidget::pane {
+    border: 1px solid #444;
+    top: 1px;
+}
 
 QTabBar::tab:last
 {
-    margin-right: 0; 
+    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
     border-top-right-radius: 3px;
 }
 
 QTabBar::tab:first:!selected
 {
- 	margin-left: 0px; 
+ margin-left: 0px; /* the last selected tab has nothing to overlap with on the right */
+
 
     border-top-left-radius: 3px;
 }
 
+QTabBar::tab:!selected
+{
+    color: #b1b1b1;
+    border-bottom-style: solid;
+    margin-top: 3px;
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:.4 #343434);
+}
 
+QTabBar::tab:selected
+{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 0px;
+}
 
+QTabBar::tab:!selected:hover
+{
+    /*border-top: 2px solid #ffaa00;
+    padding-bottom: 3px;*/
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #ffaa00);
+}
 
 QRadioButton::indicator:checked, QRadioButton::indicator:unchecked{
     color: #b1b1b1;
@@ -444,10 +453,10 @@ QRadioButton::indicator:checked
 {
     background-color: qradialgradient(
         cx: 0.5, cy: 0.5,
-	fx: 0.5, fy: 0.5,
-	radius: 1.0,
-	stop: 0.25 #ffaa00,
-	stop: 0.3 #323232
+        fx: 0.5, fy: 0.5,
+        radius: 1.0,
+        stop: 0.25 #ffaa00,
+        stop: 0.3 #323232
     );
 }
 
@@ -479,11 +488,123 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     border: 1px solid #444;
 }
 
+QComboBox:hover
+{
+    border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
+}
+
+QAbstractSpinBox {
+    padding: 5px;
+    border: 1px solid #76797C;
+    background-color: #232629;
+    color: #eff0f1;
+    border-radius: 2px;
+    min-width: 75px;
+}
+
+QAbstractSpinBox:up-button
+{
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: center right;
+}
+
+QAbstractSpinBox:down-button
+{
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: center left;
+}
+
+QAbstractSpinBox::up-arrow,QAbstractSpinBox::up-arrow:disabled,QAbstractSpinBox::up-arrow:off {
+    image: url(:/images/up_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+QAbstractSpinBox::up-arrow:hover
+{
+    image: url(:/images/up_arrow.png);
+}
+QAbstractSpinBox::down-arrow,QAbstractSpinBox::down-arrow:disabled,QAbstractSpinBox::down-arrow:off
+{
+    image: url(:/images/down_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+QAbstractSpinBox::down-arrow:hover
+{
+    image: url(:/images/down_arrow.png);
+}
+
+QTableWidget {
+    background-color: #3d3d3d;  /* Dark gray background */
+    color: #f0f0f0;  /* Light text color for readability */
+    gridline-color: #5a5a5a;  /* Softer grid line color */
+    selection-background-color: #ff9100;  /* Orange for selected row */
+    selection-color: #000000;  /* Black text when selected */
+    border: 1px solid #2a2a2a;  /* Border to match overall theme */
+}
+
+QHeaderView::section {
+    background-color: #2a2a2a;  /* Darker header background */
+    color: #ffffff;  /* White text in headers */
+    padding: 4px;
+    border: 1px solid #4d4d4d;  /* Subtle border around headers */
+    font-weight: bold;
+}
+
+QTableCornerButton::section {
+    background-color: #2a2a2a;  /* Corner button matching header */
+    border: 1px solid #4d4d4d; 
+}
+
+QHeaderView
+{
+    border-radius: 1px;
+}
+
+QTableWidget::item:pressed, QListView::item:pressed, QTreeView::item:pressed  {
+    background: #334E5E;
+    color: #eff0f1;
+	border: 0px solid #76797C;
+}
+
+QTableWidget::item:selected:active, QTreeView::item:selected:active, QListView::item:selected:active  {
+    background: #334E5E;
+    color: #eff0f1;
+ 	border: 0px solid #76797C;
+}
+
+QTableWidget::item::selected {
+background-color: #transparent;
+border: 0px solid #76797C;
+}
+
+QTableWidget::row::selected {
+background-color: #334E5E;
+border: 0px solid #76797C;
+}
+
+QTableWidget::item:hover {
+    background-color: transparent;
+}  
 
 
+ /* style the sort indicator */
+QHeaderView::down-arrow {
+    image: url(:/qss_icons/rc/down_arrow.png);
+}
+
+QHeaderView::up-arrow {
+    image: url(:/qss_icons/rc/up_arrow.png);
+}
 
 
-
+QTableCornerButton::section {
+    background-color: #31363b;
+    border: 1px transparent #76797C;
+    border-radius: 0px;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -514,6 +635,11 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
               <height>320</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox {
+ border: 1px solid gray;
+}</string>
+            </property>
             <property name="title">
              <string/>
             </property>
@@ -541,6 +667,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
                      <widget class="QLabel" name="label_5">
                       <property name="font">
                        <font>
+                        <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -570,37 +697,47 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
                    </layout>
                   </item>
                   <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_5"/>
+                  </item>
+                  <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
                     <property name="sizeConstraint">
                      <enum>QLayout::SetNoConstraint</enum>
                     </property>
                     <item>
-                     <widget class="QLabel" name="label">
-                      <property name="text">
-                       <string>Número</string>
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <property name="sizeConstraint">
+                       <enum>QLayout::SetNoConstraint</enum>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_2">
-                      <property name="text">
-                       <string>Título</string>
-                      </property>
-                     </widget>
+                      <item>
+                       <widget class="QLabel" name="label">
+                        <property name="text">
+                         <string>Número</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_2">
+                        <property name="text">
+                         <string>Título</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </item>
                    </layout>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                    <property name="sizeConstraint">
-                     <enum>QLayout::SetNoConstraint</enum>
+                    <property name="spacing">
+                     <number>6</number>
                     </property>
                     <item>
                      <widget class="QTextEdit" name="te_ID">
                       <property name="maximumSize">
                        <size>
                         <width>16777215</width>
-                        <height>25</height>
+                        <height>30</height>
                        </size>
                       </property>
                      </widget>
@@ -610,7 +747,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
                       <property name="maximumSize">
                        <size>
                         <width>16777215</width>
-                        <height>25</height>
+                        <height>30</height>
                        </size>
                       </property>
                      </widget>
@@ -618,38 +755,27 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
                    </layout>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_6">
-                    <property name="sizeConstraint">
-                     <enum>QLayout::SetNoConstraint</enum>
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>Modalidade</string>
                     </property>
-                    <item>
-                     <widget class="QLabel" name="label_4">
-                      <property name="text">
-                       <string>Modalidade</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_5">
-                    <item alignment="Qt::AlignLeft">
-                     <widget class="QComboBox" name="cb_modalidades">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item alignment="Qt::AlignLeft">
+                   <widget class="QComboBox" name="cb_modalidades">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="btn_atualizarDados">
@@ -705,6 +831,13 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
                  <height>300</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">  QTableWidget {
+        background-color: #3E3E3E;
+        border: 1px solid gray;
+        margin: 5px; /* Adding margin for spacing */
+    }</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -725,7 +858,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>130</height>
+              <height>147</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -739,7 +872,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     font: bold;
     border: 1px solid gray;
     border-radius: 6px;
-    margin-top: 5px;
+    margin-top: 20px;
 	margin-right: 15px;
 	margin-left: 6px;
 	width: 148px;
@@ -748,98 +881,92 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
             <property name="title">
              <string/>
             </property>
-            <widget class="QPushButton" name="btn_NovoIP">
+            <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
               <rect>
                <x>20</x>
-               <y>18</y>
-               <width>120</width>
-               <height>30</height>
+               <y>30</y>
+               <width>122</width>
+               <height>107</height>
               </rect>
              </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>120</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Novo</string>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="btn_ExcluirIP">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>53</y>
-               <width>120</width>
-               <height>30</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>120</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Excluir</string>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="btn_cancelaAtual">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>88</y>
-               <width>120</width>
-               <height>30</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>120</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Cancela atual</string>
-             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QPushButton" name="btn_NovoIP">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Novo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_ExcluirIP">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Excluir</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_cancelaAtual">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Cancela atual</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </widget>
           </item>
@@ -850,34 +977,22 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
         <item>
-         <widget class="QGroupBox" name="groupBox_4">
+         <widget class="QTableWidget" name="tableWidget">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>2</horstretch>
             <verstretch>2</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
-           <string/>
+          <property name="styleSheet">
+           <string notr="true">  QTableWidget {
+        background-color: #3E3E3E;
+        border: 1px solid gray;
+    }</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QTableWidget" name="tableWidget">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>2</horstretch>
-               <verstretch>2</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <item alignment="Qt::AlignRight|Qt::AlignTop">
          <widget class="QGroupBox" name="groupBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -888,7 +1003,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>130</height>
+            <height>139</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -899,10 +1014,10 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           </property>
           <property name="styleSheet">
            <string notr="true">QGroupBox {
+ border: 1px solid gray;
     font: bold;
-    border: 1px solid gray;
     border-radius: 6px;
-    margin-top: 6px;
+    margin-top: 10px;
 	margin-right: 15px;
 	margin-left: 6px;
 	width: 148px;
@@ -911,42 +1026,11 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           <property name="title">
            <string/>
           </property>
-          <widget class="QPushButton" name="btn_pausar">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>88</y>
-             <width>120</width>
-             <height>30</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777212</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Pausar todos</string>
-           </property>
-          </widget>
           <widget class="QPushButton" name="btn_Enviar">
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>21</y>
+             <y>20</y>
              <width>120</width>
              <height>30</height>
             </rect>
@@ -973,11 +1057,42 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
             <string>Enviar todos</string>
            </property>
           </widget>
+          <widget class="QPushButton" name="btn_pausar">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>60</y>
+             <width>120</width>
+             <height>30</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777212</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Pausar todos</string>
+           </property>
+          </widget>
           <widget class="QPushButton" name="btn_Remover">
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>54</y>
+             <y>100</y>
              <width>120</width>
              <height>30</height>
             </rect>

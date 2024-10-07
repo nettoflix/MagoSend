@@ -811,9 +811,11 @@ release/qrc_qrc.cpp: qrc.qrc \
 		qss_icons/rc/checkbox_indeterminate_focus.png \
 		qss_icons/rc/checkbox_unchecked_focus.png \
 		qss_icons/rc/up_arrow_disabled.png \
+		images/hourglass.png \
 		images/up_arrow_disabled.png \
 		images/down_arrow.png \
 		images/folder.png \
+		images/clockwise.png \
 		images/warning.png \
 		images/history.png \
 		images/_mago.png \
@@ -821,6 +823,7 @@ release/qrc_qrc.cpp: qrc.qrc \
 		images/history.ico \
 		images/handle.png \
 		images/exit.png \
+		images/sand-clock.png \
 		images/up_arrow.png \
 		images/icon.png \
 		images/settings.png \
@@ -981,26 +984,25 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		mainwindow.h \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -1016,7 +1018,6 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -1086,6 +1087,7 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -1131,7 +1133,14 @@ release/moc_mainwindow.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindo
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		mainwindow.h \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -1212,11 +1221,220 @@ release/moc_CTransferMonitor.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariant.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdebug.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlocale.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qset.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontiguouscache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracttransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcollator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdiriterator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeasingcurve.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qendian.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventtransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qexception.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfactoryinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileselector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QObject \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringList \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfinalstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuture.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfutureinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrunnable.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresultstore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturewatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhistorystate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qisenum.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonvalue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsondocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibrary.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibraryinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversionnumber.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlinkedlist.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlockfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qloggingcategory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmargins.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmetaobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimetype.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpauseanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpluginloader.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpropertyanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrect.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsize.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsettings.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedmemory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignalmapper.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignaltransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsocketnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstack.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstandardpaths.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporaryfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextcodec.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurlquery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/quuid.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwineventnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qxmlstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtcoreversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriver.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriverplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlerror.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlfield.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlindex.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrecord.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpaintdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpalette.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qbrush.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qmatrix.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpolygon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qregion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtransform.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainterpath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qimage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixelformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfont.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontmetrics.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qkeysequence.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qevent.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvector2d.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtouchdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcombobox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
 		../XmlRPC/XmlRpc/XmlRpcClient.h \
 		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../XmlRPC/XmlRpc/XmlRpcSource.h \
 		../XmlRPC/XmlRpc/XmlRpcException.h \
 		../XmlRPC/XmlRpc/XmlRpcServer.h \
@@ -1226,20 +1444,9 @@ release/moc_CTransferMonitor.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		Host.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVector \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
 		CTransferMonitor.h \
 		release/moc_predefs.h \
 		../Qt5.9.6/5.9.6/gcc_64/bin/moc
@@ -2120,25 +2327,25 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -2154,7 +2361,6 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -2224,6 +2430,7 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -2269,7 +2476,13 @@ release/moc_CLoginForm.cpp: mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -2544,25 +2757,25 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -2578,7 +2791,6 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -2646,6 +2858,7 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -2691,7 +2904,13 @@ release/moc_CWorker.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -3144,10 +3363,210 @@ release/moc_CMagoDBCommandsThread.cpp: ../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QT
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
 		IMagoDB.h \
 		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariant.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdebug.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlocale.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qset.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontiguouscache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracttransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcollator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdiriterator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeasingcurve.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qendian.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventtransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qexception.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfactoryinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileselector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QObject \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringList \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfinalstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuture.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfutureinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrunnable.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresultstore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturewatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhistorystate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qisenum.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonvalue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsondocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibrary.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibraryinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversionnumber.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlinkedlist.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlockfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qloggingcategory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmargins.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmetaobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimetype.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpauseanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpluginloader.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpropertyanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrect.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsize.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsettings.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedmemory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignalmapper.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignaltransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsocketnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstack.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstandardpaths.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporaryfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextcodec.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurlquery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/quuid.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwineventnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qxmlstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtcoreversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriver.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriverplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlerror.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlfield.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlindex.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrecord.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpaintdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpalette.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qbrush.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qmatrix.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpolygon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qregion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtransform.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainterpath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qimage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixelformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfont.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontmetrics.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qkeysequence.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qevent.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvector2d.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtouchdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcombobox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
 		CWaiter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
 		CMagoDBCommandsThread.h \
 		release/moc_predefs.h \
 		../Qt5.9.6/5.9.6/gcc_64/bin/moc
@@ -3337,25 +3756,25 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -3371,7 +3790,6 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -3441,6 +3859,7 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -3486,7 +3905,13 @@ release/main.o: main.cpp CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -3649,25 +4074,25 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -3683,7 +4108,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -3753,6 +4177,7 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -3798,7 +4223,13 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -3823,30 +4254,18 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QWidget \
 		CWorker.h \
 		SpinnerThread.h \
-		ui_mainwindow.h \
+		../4SMagoTransferServer/ui_mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QComboBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QGroupBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgroupbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QFrame \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMenuBar \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmenubar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmenu.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QStatusBar \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstatusbar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
 		HostListDelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QPainter \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainter.h \
@@ -3858,7 +4277,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QInputDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qinputdialog.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QModelIndexList \
@@ -3867,8 +4285,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDialog \
 		CEditarSessaoForm.h \
 		CHistoricoForm.h \
-		CBDQuery.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
 		CModalidadesForm.h \
 		CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QScrollBar \
@@ -4045,109 +4461,40 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		../4SMagoTransferServer/CUploadServiceClient.h \
-		../XmlRPC/XmlRpc/XmlRpc.h \
-		../XmlRPC/XmlRpc/XmlRpcClient.h \
-		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
-		../XmlRPC/XmlRpc/XmlRpcSource.h \
-		../XmlRPC/XmlRpc/XmlRpcException.h \
-		../XmlRPC/XmlRpc/XmlRpcServer.h \
-		../XmlRPC/XmlRpc/XmlRpcServerMethod.h \
-		../XmlRPC/XmlRpc/XmlRpcValue.h \
-		../XmlRPC/XmlRpc/XmlRpcUtil.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
-		Host.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVector \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
-		CHostControl.h \
-		CServiceUtils.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs_win.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsize.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmargins.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpaintdevice.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrect.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpalette.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qbrush.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qmatrix.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpolygon.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qregion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qline.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtransform.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainterpath.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qimage.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixelformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixmap.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfont.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontmetrics.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontinfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qsizepolicy.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qkeysequence.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qevent.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariant.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmap.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdebug.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextstream.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlocale.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qset.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontiguouscache.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurl.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurlquery.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvector2d.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtouchdevice.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDebug \
-		mainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariant.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdebug.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlocale.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qset.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontiguouscache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -4162,12 +4509,15 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcollator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdiriterator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeasingcurve.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qendian.h \
@@ -4196,9 +4546,11 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibrary.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibraryinfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversionnumber.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qline.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlinkedlist.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlockfile.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qloggingcategory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmargins.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmath.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmessageauthenticationcode.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmetaobject.h \
@@ -4212,10 +4564,13 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qplugin.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpointer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpluginloader.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpropertyanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrect.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsize.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
@@ -4233,6 +4588,7 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -4245,6 +4601,8 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurlquery.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/quuid.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwineventnotifier.h \
@@ -4260,14 +4618,46 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpaintdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpalette.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qbrush.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qmatrix.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpolygon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qregion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtransform.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainterpath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qimage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixelformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfont.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontmetrics.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qkeysequence.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qevent.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvector2d.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtouchdevice.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
@@ -4278,7 +4668,39 @@ release/CTransferMonitor.o: CTransferMonitor.cpp CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		../4SMagoTransferServer/CUploadServiceClient.h \
+		../XmlRPC/XmlRpc/XmlRpc.h \
+		../XmlRPC/XmlRpc/XmlRpcClient.h \
+		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
+		../XmlRPC/XmlRpc/XmlRpcSource.h \
+		../XmlRPC/XmlRpc/XmlRpcException.h \
+		../XmlRPC/XmlRpc/XmlRpcServer.h \
+		../XmlRPC/XmlRpc/XmlRpcServerMethod.h \
+		../XmlRPC/XmlRpc/XmlRpcValue.h \
+		../XmlRPC/XmlRpc/XmlRpcUtil.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
+		Host.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVector \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CHostControl.h \
+		CServiceUtils.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDebug \
+		mainwindow.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -4439,30 +4861,25 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		mainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -4478,7 +4895,6 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -4548,6 +4964,7 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -4579,10 +4996,12 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
@@ -4593,7 +5012,16 @@ release/CHostControl.o: CHostControl.cpp CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		mainwindow.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -4754,30 +5182,25 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		mainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -4793,7 +5216,6 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -4863,6 +5285,7 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -4894,10 +5317,12 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
@@ -4908,7 +5333,16 @@ release/CXmlTransferFinished.o: CXmlTransferFinished.cpp CXmlTransferFinished.h 
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		mainwindow.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -4998,7 +5432,8 @@ release/Host.o: Host.cpp Host.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontainerfwd.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
+		VideoFileInfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Host.o Host.cpp
 
 release/HostListDelegate.o: HostListDelegate.cpp HostListDelegate.h \
@@ -5300,59 +5735,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		ui_CModalidadesForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTextStream \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDebug \
@@ -5363,12 +5745,21 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
 		CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVector \
 		CServiceUtils.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
 		../XmlRPC/XmlRpc/XmlRpcClient.h \
@@ -5386,24 +5777,25 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -5419,7 +5811,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdiriterator.h \
@@ -5442,6 +5833,7 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhistorystate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qidentityproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qisenum.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonvalue.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsondocument.h \
@@ -5469,6 +5861,7 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qscopedvaluerollback.h \
@@ -5485,6 +5878,7 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -5512,19 +5906,51 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcombobox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidgetItem \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QToolBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtoolbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
 		CWaitingSpinnerWidget.h \
 		CWorker.h \
 		SpinnerThread.h
@@ -5787,60 +6213,33 @@ release/CCriarSessaoForm.o: CCriarSessaoForm.cpp CCriarSessaoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QWidget \
 		ui_CCriarSessaoForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
+		CServiceUtils.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
-		CServiceUtils.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
 		CEditarSessaoForm.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSettings
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CCriarSessaoForm.o CCriarSessaoForm.cpp
 
 release/VideoFileInfo.o: VideoFileInfo.cpp VideoFileInfo.h \
-		Host.h \
-		../4SMagoTransferServer/CUploadServiceClient.h \
-		../XmlRPC/XmlRpc/XmlRpc.h \
-		../XmlRPC/XmlRpc/XmlRpcClient.h \
-		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmutex.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstring.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qchar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qglobal.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig-bootstrapped.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig.h \
@@ -5859,24 +6258,29 @@ release/VideoFileInfo.o: VideoFileInfo.cpp VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic_cxx11.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qatomic_msvc.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qglobalstatic.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmutex.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnumeric.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversiontagging.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrefcount.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnamespace.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringbuilder.h \
+		../4SMagoTransferServer/CUploadServiceClient.h \
+		../XmlRPC/XmlRpc/XmlRpc.h \
+		../XmlRPC/XmlRpc/XmlRpcClient.h \
+		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../XmlRPC/XmlRpc/XmlRpcSource.h \
 		../XmlRPC/XmlRpc/XmlRpcException.h \
 		../XmlRPC/XmlRpc/XmlRpcServer.h \
 		../XmlRPC/XmlRpc/XmlRpcServerMethod.h \
 		../XmlRPC/XmlRpc/XmlRpcValue.h \
 		../XmlRPC/XmlRpc/XmlRpcUtil.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstring.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qchar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearray.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrefcount.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnamespace.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydata.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringbuilder.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFileInfo \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectdefs.h \
@@ -5898,10 +6302,9 @@ release/VideoFileInfo.o: VideoFileInfo.cpp VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFileInfo \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfile.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfiledevice.h
+		Host.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/VideoFileInfo.o VideoFileInfo.cpp
 
 release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
@@ -6190,6 +6593,12 @@ release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		CTransferMonitor.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		Host.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
@@ -6219,21 +6628,6 @@ release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
 		CWorker.h \
 		SpinnerThread.h \
 		ui_CEditarSessaoForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QComboBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSettings
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CEditarSessaoForm.o CEditarSessaoForm.cpp
 
@@ -6260,7 +6654,6 @@ release/IMagoDB.o: IMagoDB.cpp IMagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmutex.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnumeric.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversiontagging.h \
-		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
@@ -6271,6 +6664,7 @@ release/IMagoDB.o: IMagoDB.cpp IMagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnamespace.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydata.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringbuilder.h \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
@@ -7014,7 +7408,13 @@ release/CBDQuery.o: CBDQuery.cpp CBDQuery.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTime \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CBDQuery.o CBDQuery.cpp
 
 release/CDateUtils.o: CDateUtils.cpp CDateUtils.h \
@@ -7407,58 +7807,14 @@ release/CHistoricoForm.o: CHistoricoForm.cpp CHistoricoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
 		VideoFileInfo.h \
-		Host.h \
-		../4SMagoTransferServer/CUploadServiceClient.h \
-		../XmlRPC/XmlRpc/XmlRpc.h \
-		../XmlRPC/XmlRpc/XmlRpcClient.h \
-		../XmlRPC/XmlRpc/XmlRpcDispatch.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
-		../XmlRPC/XmlRpc/XmlRpcSource.h \
-		../XmlRPC/XmlRpc/XmlRpcException.h \
-		../XmlRPC/XmlRpc/XmlRpcServer.h \
-		../XmlRPC/XmlRpc/XmlRpcServerMethod.h \
-		../XmlRPC/XmlRpc/XmlRpcValue.h \
-		../XmlRPC/XmlRpc/XmlRpcUtil.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		ui_CHistoricoForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QCheckBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcheckbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDateEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdatetimeedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QGroupBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgroupbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTimeEdit \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CHistoricoForm.o CHistoricoForm.cpp
@@ -7604,25 +7960,25 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -7638,7 +7994,6 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -7708,6 +8063,7 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -7753,7 +8109,13 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -7778,22 +8140,6 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		CWorker.h \
 		SpinnerThread.h \
 		ui_CLoginForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CLoginForm.o CLoginForm.cpp
@@ -8055,36 +8401,14 @@ release/CCadastrarLoginForm.o: CCadastrarLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
 		ui_CCadastrarLoginForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CCadastrarLoginForm.o CCadastrarLoginForm.cpp
@@ -8228,25 +8552,25 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTimer \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
-		Host.h \
-		VideoFileInfo.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
-		CustomStringListModel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+		CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -8262,7 +8586,6 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -8330,6 +8653,7 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
@@ -8375,7 +8699,13 @@ release/CWorker.o: CWorker.cpp CWorker.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		Host.h \
+		VideoFileInfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
+		CustomStringListModel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
@@ -8760,10 +9090,12 @@ release/CWaitingSpinnerWidget.o: CWaitingSpinnerWidget.cpp CWaitingSpinnerWidget
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CWaitingSpinnerWidget.o CWaitingSpinnerWidget.cpp
 
-release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
-		MagoDB.h \
-		IMagoDB.h \
-		lindows.h \
+release/CSendOptionsForm.o: CSendOptionsForm.cpp CMagoDBCommandsThread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectdefs.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnamespace.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qglobal.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig-bootstrapped.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qconfig.h \
@@ -8785,24 +9117,13 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmutex.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnumeric.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversiontagging.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectdefs_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstring.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qchar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrefcount.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qnamespace.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydata.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringbuilder.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectdefs.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectdefs_impl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlist.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qalgorithms.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiterator.h \
@@ -8818,17 +9139,33 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvarlengtharray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcontainerfwd.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobject_impl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlglobal.h \
+		IMagoDB.h \
+		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariant.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmap.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdebug.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhash.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextstream.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qiodevice.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlocale.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qshareddata.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvector.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpoint.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qset.h \
@@ -8853,7 +9190,6 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
@@ -8937,7 +9273,6 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporaryfile.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextboundaryfinder.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextcodec.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthread.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
@@ -9012,31 +9347,13 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		CWaiter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
+		CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
-		ui_CSendOptionsForm.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QCheckBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcheckbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h
+		ui_CSendOptionsForm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CSendOptionsForm.o CSendOptionsForm.cpp
 
 release/SpinnerThread.o: SpinnerThread.cpp SpinnerThread.h \
@@ -9225,12 +9542,193 @@ release/CMagoDBCommandsThread.o: CMagoDBCommandsThread.cpp ../Qt5.9.6/5.9.6/gcc_
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QSqlDatabase \
 		IMagoDB.h \
 		lindows.h \
+		CBDQuery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDateTime \
+		MagoDB.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSql \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/QtSqlDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCore \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracttransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydataops.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qarraydatapointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbasictimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbitarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbuffer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcache.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcollator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcommandlineparser.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcryptographichash.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatastream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdiriterator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeasingcurve.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qendian.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventtransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qexception.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfactoryinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileselector.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QObject \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringList \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfinalstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuture.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfutureinterface.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrunnable.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresultstore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfuturewatcher.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhistorystate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qisenum.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonarray.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonvalue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsondocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibrary.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlibraryinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qversionnumber.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlinkedlist.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qlockfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qloggingcategory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmargins.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmetaobject.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedata.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimedatabase.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qmimetype.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpauseanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpointer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpluginloader.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qpropertyanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qrect.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsize.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsettings.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsharedmemory.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignalmapper.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsignaltransition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsocketnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstack.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstandardpaths.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstatemachine.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstorageinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qstringlistmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporarydir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QScopedPointer \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtemporaryfile.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtextcodec.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadpool.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qthreadstorage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimeline.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimer.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtimezone.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtranslator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtypetraits.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurl.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qurlquery.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/quuid.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwineventnotifier.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qxmlstream.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qtcoreversion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriver.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqldriverplugin.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlerror.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlfield.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlindex.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrecord.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtguiglobal.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtgui-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpaintdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpalette.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcolor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgb.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qrgba64.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qbrush.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qmatrix.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpolygon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qregion.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtransform.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainterpath.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qimage.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixelformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpixmap.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfont.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontmetrics.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qfontinfo.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qkeysequence.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qevent.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvector2d.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtouchdevice.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcombobox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlresult.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
 		CWaiter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qwaitcondition.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdatetime.h
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CMagoDBCommandsThread.o CMagoDBCommandsThread.cpp
 
 release/CWaiter.o: CWaiter.cpp CWaiter.h \

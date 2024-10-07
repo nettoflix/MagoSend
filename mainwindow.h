@@ -52,7 +52,9 @@ public:
 	MagoDB *getDb() const;
 
 	Worker *getWorker() const;
-
+protected:
+	void resizeEvent(QResizeEvent *event) override;
+	void showEvent(QShowEvent *event) override;
 signals:
 	void cancel_active_upload(int hostIndex);
 	void triggerWorker();
@@ -79,6 +81,7 @@ private:
 	QIcon* iconSending;
 	QIcon* iconCheck;
 	QIcon* iconError;
+	QIcon* scaledIcon;
 	QToolBar* toolBar;
 	CWaitingSpinnerWidget* populateListSpinner;
 	SpinnerThread* tableSpinner;
@@ -88,8 +91,6 @@ private:
 	int batchSize;
 	bool waitingUserResponseToAddItems = false;
 	//int populateCount =0;
-	MagoDB* db;
-	void initDB();
 	void updateQueueItemInformation(bool idExists);
 	bool isItemVisible(QTableWidgetItem *item);
 	QPair<int,int>  getFirstAndLastVisibleRowFromTable();

@@ -46,30 +46,30 @@ public:
     QLabel *label_5;
     QComboBox *cb_sessions;
     QPushButton *btn_connectSession;
+    QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout_3;
+    QHBoxLayout *horizontalLayout_6;
     QLabel *label;
     QLabel *label_2;
     QHBoxLayout *horizontalLayout_4;
     QTextEdit *te_ID;
     QTextEdit *te_titulo;
-    QHBoxLayout *horizontalLayout_6;
     QLabel *label_4;
-    QHBoxLayout *horizontalLayout_5;
     QComboBox *cb_modalidades;
     QPushButton *btn_atualizarDados;
     QTableWidget *hostsTable;
     QHBoxLayout *horizontalLayout_9;
     QGroupBox *groupBox_2;
+    QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout_6;
     QPushButton *btn_NovoIP;
     QPushButton *btn_ExcluirIP;
     QPushButton *btn_cancelaAtual;
     QHBoxLayout *horizontalLayout_7;
-    QGroupBox *groupBox_4;
-    QVBoxLayout *verticalLayout_4;
     QTableWidget *tableWidget;
     QGroupBox *groupBox;
-    QPushButton *btn_pausar;
     QPushButton *btn_Enviar;
+    QPushButton *btn_pausar;
     QPushButton *btn_Remover;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
@@ -81,31 +81,30 @@ public:
         MainWindow->resize(1024, 640);
         MainWindow->setStyleSheet(QLatin1String("QToolTip\n"
 "{\n"
-"     border: 2px solid cyan;\n"
-"     background-color:  white;\n"
+"     border: 1px solid black;\n"
+"     background-color: #ffa02f;\n"
 "     padding: 1px;\n"
 "     border-radius: 3px;\n"
-"     font-size: 11px;\n"
+"     opacity: 100;\n"
 "}\n"
+"\n"
+"QLabel { background-color: rgba(255, 255, 255, 10); \n"
+"    color: #f0f0f0;  /* Light text for contrast */\n"
+"    font-size: 12pt;\n"
+"    font-weight: bold;  /* Make the text bold to stand out */\n"
+"}\n"
+"\n"
 "\n"
 "QWidget\n"
 "{\n"
-"       color: #dddddd;	\n"
-"		background-color: #282828;\n"
-"		border-color: transparent;\n"
-"		border-width: 0px;\n"
+"    color: #b1b1b1;\n"
+"    background-color: #323232;\n"
 "}\n"
-"\n"
-"QLabel\n"
-"{\n"
-"        border-color: transparent;\n"
-"}\n"
-"\n"
 "\n"
 "QWidget:item:hover\n"
 "{\n"
 "    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #ca0619);\n"
-"    color: #000000;\n"
+" \n"
 "}\n"
 "\n"
 "QWidget:item:selected\n"
@@ -113,20 +112,9 @@ public:
 "    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
 "}\n"
 "\n"
-"\n"
-"QDateTimeEdit\n"
-"{\n"
-"    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0 #646464, stop: 1 #5d5d5d);\n"
-"    padding: 1px;\n"
-"    border-style: solid;\n"
-"    border: 1px solid #1e1e1e;\n"
-"    border-radius: 5;\n"
-"}\n"
-"\n"
 "QMenuBar::item\n"
 "{\n"
-"    backgr"
-                        "ound: transparent;\n"
+"    background: transparent;\n"
 "}\n"
 "\n"
 "QMenuBar::item:selected\n"
@@ -138,14 +126,15 @@ public:
 "QMenuBar::item:pressed\n"
 "{\n"
 "    background: #444;\n"
-"    border: 1px solid #000;\n"
+" "
+                        "   border: 1px solid #000;\n"
 "    background-color: QLinearGradient(\n"
 "        x1:0, y1:0,\n"
-"	x2:0, y2:1,\n"
-"	stop:1 #212121,\n"
-"	stop:0.4 #343434/*,\n"
-"	stop:0.2 #343434,\n"
-"	stop:0.1 #ffaa00*/\n"
+"        x2:0, y2:1,\n"
+"        stop:1 #212121,\n"
+"        stop:0.4 #343434/*,\n"
+"        stop:0.2 #343434,\n"
+"        stop:0.1 #ffaa00*/\n"
 "    );\n"
 "    margin-bottom:-1px;\n"
 "    padding-bottom:1px;\n"
@@ -155,7 +144,6 @@ public:
 "{\n"
 "    border: 1px solid #000;\n"
 "}\n"
-"\n"
 "\n"
 "QMenu::item\n"
 "{\n"
@@ -173,25 +161,9 @@ public:
 "    background-color: #323232;\n"
 "}\n"
 "\n"
-"\n"
-"\n"
-"QDateTimeEdit::drop-down\n"
+"QAbstractItemView\n"
 "{\n"
-"     subcontrol-origin: padding;\n"
-"     subcontrol-position: top right;\n"
-"     width: 15px;\n"
-"\n"
-"     border-left-width: 0px;\n"
-"     border-left-color: darkgray;\n"
-"     border-lef"
-                        "t-style: solid; /* just a single line */\n"
-"     border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
-"     border-bottom-right-radius: 3px;\n"
-" }\n"
-"\n"
-"QDateTimeEdit::down-arrow\n"
-"{\n"
-"     image: url(:/images/down_arrow.png);\n"
+"    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0.1 #646464, stop: 1 #5d5d5d);\n"
 "}\n"
 "\n"
 "QWidget:focus\n"
@@ -201,11 +173,12 @@ public:
 "\n"
 "QLineEdit\n"
 "{\n"
-"    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0 #646464, stop: 1 #5d5d5d);\n"
-"    padding: 1px;\n"
-"    border-style: solid;\n"
-"    border: 1px solid #1e1e1e;\n"
-"    border-radius: 0;\n"
+"    background-color: #3d3d3d;\n"
+"    color: #f0f0f0;\n"
+"    border: 1px solid #5a"
+                        "5a5a;  /* Subtle border */\n"
+"    border-radius: 6px;\n"
+"    font-size: 11pt;\n"
 "}\n"
 "\n"
 "QPushButton\n"
@@ -215,10 +188,9 @@ public:
 "    border-width: 1px;\n"
 "    border-color: #1e1e1e;\n"
 "    border-style: solid;\n"
-"    border-radius: 0;\n"
+"    border-radius: 6;\n"
 "    padding: 3px;\n"
-"    "
-                        "font-size: 12px;\n"
+"    font-size: 12px;\n"
 "    padding-left: 5px;\n"
 "    padding-right: 5px;\n"
 "}\n"
@@ -234,7 +206,8 @@ public:
 "    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #565656, stop: 0.1 #525252, stop: 0.5 #4e4e4e, stop: 0.9 #4a4a4a, stop: 1 #464646);\n"
 "    border-style: solid;\n"
 "    border: 1px solid #1e1e1e;\n"
-"    border-radius: 5;\n"
+""
+                        "    border-radius: 5;\n"
 "}\n"
 "\n"
 "QComboBox:hover,QPushButton:hover\n"
@@ -248,8 +221,7 @@ public:
 "    padding-top: 3px;\n"
 "    padding-left: 4px;\n"
 "    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #2d2d2d, stop: 0.1 #2b2b2b, stop: 0.5 #292929, stop: 0.9 #282828, stop: 1 #252525);\n"
-""
-                        "    selection-background-color: #ffaa00;\n"
+"    selection-background-color: #ffaa00;\n"
 "}\n"
 "\n"
 "QComboBox QAbstractItemView\n"
@@ -267,18 +239,27 @@ public:
 "     border-left-width: 0px;\n"
 "     border-left-color: darkgray;\n"
 "     border-left-style: solid; /* just a single line */\n"
-"     border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+"     border-top-right-radius: 3px; /* same radius as the QC"
+                        "omboBox */\n"
 "     border-bottom-right-radius: 3px;\n"
 " }\n"
 "\n"
 "QComboBox::down-arrow\n"
 "{\n"
-"     image: url(:/images/down_arrow.png);\n"
+"     image: url(:/down_arrow.png);\n"
 "}\n"
 "\n"
-"QGroupBox:focus\n"
-"{\n"
-"border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
+"QGroupBox {\n"
+"    font: bold;\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 6px;\n"
+"    margin-top: 6px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    left: 7px;\n"
+"    padding: 0px 5px 0px 5px;\n"
 "}\n"
 "\n"
 "QTextEdit:focus\n"
@@ -286,25 +267,25 @@ public:
 "    border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
 "}\n"
 "\n"
-"QS"
-                        "crollBar:horizontal {\n"
+"QScrollBar:horizontal {\n"
 "     border: 1px solid #222222;\n"
-"     background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #101010, stop: 1 #303030);\n"
+"     background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);\n"
 "     height: 12px;\n"
 "     margin: 0px 16px 0 16px;\n"
 "}\n"
 "\n"
 "QScrollBar::handle:horizontal\n"
 "{\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #303030, stop: 1 #404040);\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);\n"
 "      min-height: 20px;\n"
 "      border-radius: 2px;\n"
 "}\n"
-"\n"
+""
+                        "\n"
 "QScrollBar::add-line:horizontal {\n"
 "      border: 1px solid #1b1b19;\n"
 "      border-radius: 2px;\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #101010);\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
 "      width: 14px;\n"
 "      subcontrol-position: right;\n"
 "      subcontrol-origin: margin;\n"
@@ -313,11 +294,10 @@ public:
 "QScrollBar::sub-line:horizontal {\n"
 "      border: 1px solid #1b1b19;\n"
 "      border-radius: 2px;\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #101010);\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
 "      width: 14px;\n"
 "     subcontrol-position: left;\n"
-""
-                        "     subcontrol-origin: margin;\n"
+"     subcontrol-origin: margin;\n"
 "}\n"
 "\n"
 "QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal\n"
@@ -335,15 +315,16 @@ public:
 "\n"
 "QScrollBar:vertical\n"
 "{\n"
-"      background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #101010, stop: 1 #303030);\n"
-"      width: 15px;\n"
+"      background: QLinearGradient( x1: 0, y1: 0"
+                        ", x2: 1, y2: 0, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);\n"
+"      width: 7px;\n"
 "      margin: 16px 0 16px 0;\n"
 "      border: 1px solid #222222;\n"
 "}\n"
 "\n"
 "QScrollBar::handle:vertical\n"
 "{\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #303030, stop: 1 #404040);\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);\n"
 "      min-height: 20px;\n"
 "      border-radius: 2px;\n"
 "}\n"
@@ -352,9 +333,8 @@ public:
 "{\n"
 "      border: 1px solid #1b1b19;\n"
 "      border-radius: 2px;\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #000000, stop: 1 #101010);\n"
-"      hei"
-                        "ght: 14px;\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
+"      height: 14px;\n"
 "      subcontrol-position: bottom;\n"
 "      subcontrol-origin: margin;\n"
 "}\n"
@@ -363,10 +343,11 @@ public:
 "{\n"
 "      border: 1px solid #1b1b19;\n"
 "      border-radius: 2px;\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000000, stop: 1 #000000);\n"
+"      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #d7801a, stop: 1 #ffa02f);\n"
 "      height: 14px;\n"
 "      subcontrol-position: top;\n"
-"      subcontrol-origin: margin;\n"
+"      subcontrol-origin: marg"
+                        "in;\n"
 "}\n"
 "\n"
 "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical\n"
@@ -385,7 +366,8 @@ public:
 "\n"
 "QTextEdit\n"
 "{\n"
-"    background-color: #242424;\n"
+"    background-color:  #242424;\n"
+"	border: 0px solid #6c6c6c;\n"
 "}\n"
 "\n"
 "QPlainTextEdit\n"
@@ -395,14 +377,13 @@ public:
 "\n"
 "QHeaderView::section\n"
 "{\n"
-"    background-color: #303030\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #616161, stop: 0.5 #505050, stop: 0.6 #434343, stop:1 #656565);\n"
 "    color: white;\n"
 "    padding-left: 4px;\n"
 "    border: 1px solid #6c6c6c;\n"
 "}\n"
 "\n"
-"Q"
-                        "CheckBox:disabled\n"
+"QCheckBox:disabled\n"
 "{\n"
 "color: #414141;\n"
 "}\n"
@@ -411,7 +392,8 @@ public:
 "{\n"
 "    text-align: center;\n"
 "    spacing: 3px; /* spacing between items in the tool bar */\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #323232, stop: 0.5 #242424, stop:1 #323232);\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #323232, stop"
+                        ": 0.5 #242424, stop:1 #323232);\n"
 "}\n"
 "\n"
 "QDockWidget::close-button, QDockWidget::float-button\n"
@@ -434,8 +416,7 @@ public:
 "QMainWindow::separator\n"
 "{\n"
 "    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #161616, stop: 0.5 #151515, stop: 0.6 #212121, stop:1 #343434);\n"
-"    color: white;"
-                        "\n"
+"    color: white;\n"
 "    padding-left: 4px;\n"
 "    border: 1px solid #4c4c4c;\n"
 "    spacing: 3px; /* spacing between items in the tool bar */\n"
@@ -444,18 +425,13 @@ public:
 "QMainWindow::separator:hover\n"
 "{\n"
 "\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #d7801a, stop:0.5 #b56c17 stop:1 #ffa02f);\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #d7801a"
+                        ", stop:0.5 #b56c17 stop:1 #ffa02f);\n"
 "    color: white;\n"
 "    padding-left: 4px;\n"
 "    border: 1px solid #6c6c6c;\n"
 "    spacing: 3px; /* spacing between items in the tool bar */\n"
 "}\n"
-"QTableWidget \n"
-"{\n"
-"	 background-color: #292929;\n"
-"}\n"
-"\n"
-"\n"
 "\n"
 "QToolBar::handle\n"
 "{\n"
@@ -473,40 +449,74 @@ public:
 "    margin-right: 5px;\n"
 "}\n"
 "\n"
-"QProgressBar\n"
-"{\n"
-"    backgroun"
-                        "d-color: #353535;\n"
-"    border: 2px solid grey;\n"
-"    border-radius: 5px;\n"
+"QProgressBar {\n"
+"    border: 1px solid #404040;\n"
 "    text-align: center;\n"
+"    background-color: #3E3E3E;\n"
 "}\n"
 "\n"
-"QProgressBar::chunk\n"
-"{\n"
-"    background-color: #d7801a;\n"
-"    width: 2.15px;\n"
-"    margin: 0.5px;\n"
+"QProgressBar::chunk {\n"
+"    background-color: #0534cc;\n"
+"    width: 2px;\n"
 "}\n"
 "\n"
 "\n"
+"QTabBar::tab {\n"
+"    color: #b1b1b1;\n"
+"    border: 1px solid #444;\n"
+"    border-bottom-style: none;\n"
+"    background-color: #323232;\n"
+"   "
+                        " padding-left: 10px;\n"
+"    padding-right: 10px;\n"
+"    padding-top: 3px;\n"
+"    padding-bottom: 2px;\n"
+"    margin-right: -1px;\n"
+"}\n"
 "\n"
+"QTabWidget::pane {\n"
+"    border: 1px solid #444;\n"
+"    top: 1px;\n"
+"}\n"
 "\n"
 "QTabBar::tab:last\n"
 "{\n"
-"    margin-right: 0; \n"
+"    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
 "    border-top-right-radius: 3px;\n"
 "}\n"
 "\n"
 "QTabBar::tab:first:!selected\n"
 "{\n"
-" 	margin-left: 0px; \n"
+" margin-left: 0px; /* the last selected tab has nothing to overlap with on the right */\n"
+"\n"
 "\n"
 "    border-top-left-radius: 3px;\n"
 "}\n"
 "\n"
+"QTabBar::tab:!selected\n"
+"{\n"
+"    color: #b1b1b1;\n"
+"    border-bottom-style: solid;\n"
+"    margin-top: 3px;\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:.4 #343434);\n"
+"}\n"
 "\n"
+"QTabBar::tab:selected\n"
+"{\n"
+"    border-top-left-radius: 3px;\n"
+"    border-top-right-radius: 3px;\n"
+"    margin-bottom: 0px;\n"
+"}\n"
 "\n"
+"QTabBar::tab:!selected:hover\n"
+"{\n"
+"    /*border-top: 2"
+                        "px solid #ffaa00;\n"
+"    padding-bottom: 3px;*/\n"
+"    border-top-left-radius: 3px;\n"
+"    border-top-right-radius: 3px;\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #ffaa00);\n"
+"}\n"
 "\n"
 "QRadioButton::indicator:checked, QRadioButton::indicator:unchecked{\n"
 "    color: #b1b1b1;\n"
@@ -519,18 +529,17 @@ public:
 "{\n"
 "    background-color: qradialgradient(\n"
 "        cx: 0.5, cy: 0.5,\n"
-"	fx: 0.5, fy: 0.5,\n"
-"	radius: 1.0,\n"
-"	stop: 0.25 #ffaa00,\n"
-"	stop: 0.3 #323232\n"
+"        fx: 0.5, fy: 0.5,\n"
+"        radius: 1.0,\n"
+"        stop: 0.25 #ffaa00,\n"
+"        stop: 0.3 #323232\n"
 "    );\n"
 "}\n"
 "\n"
 "QCheckBox::indicator{\n"
 "    color: #b1b1b1;\n"
 "    background-color: #323232;\n"
-"    border: 1px "
-                        "solid #b1b1b1;\n"
+"    border: 1px solid #b1b1b1;\n"
 "    width: 9px;\n"
 "    height: 9px;\n"
 "}\n"
@@ -540,7 +549,8 @@ public:
 "    border-radius: 6px;\n"
 "}\n"
 "\n"
-"QRadioButton::indicator:hover, QCheckBox::indicator:hover\n"
+"QRadioButton::indicator:hover, QCheckBox::ind"
+                        "icator:hover\n"
 "{\n"
 "    border: 1px solid #ffaa00;\n"
 "}\n"
@@ -555,11 +565,126 @@ public:
 "    border: 1px solid #444;\n"
 "}\n"
 "\n"
+"QComboBox:hover\n"
+"{\n"
+"    border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);\n"
+"}\n"
+"\n"
+"QAbstractSpinBox {\n"
+"    padding: 5px;\n"
+"    border: 1px solid #76797C;\n"
+"    background-color: #232629;\n"
+"    color: #eff0f1;\n"
+"    border-radius: 2px;\n"
+"    min-width: 75px;\n"
+"}\n"
+"\n"
+"QAbstractSpinBox:up-button\n"
+"{\n"
+"    background-color: transparent;\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: center right;\n"
+"}\n"
+"\n"
+"QAbstractSpinBox:down-button\n"
+"{\n"
+"    background-color: transparent;\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: center left;\n"
+"}\n"
+"\n"
+"QAbstractSpinBox::up-arrow,QAbstractSpinBox::up-arrow:disabled,QAbstra"
+                        "ctSpinBox::up-arrow:off {\n"
+"    image: url(:/images/up_arrow_disabled.png);\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"QAbstractSpinBox::up-arrow:hover\n"
+"{\n"
+"    image: url(:/images/up_arrow.png);\n"
+"}\n"
+"QAbstractSpinBox::down-arrow,QAbstractSpinBox::down-arrow:disabled,QAbstractSpinBox::down-arrow:off\n"
+"{\n"
+"    image: url(:/images/down_arrow_disabled.png);\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"QAbstractSpinBox::down-arrow:hover\n"
+"{\n"
+"    image: url(:/images/down_arrow.png);\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    background-color: #3d3d3d;  /* Dark gray background */\n"
+"    color: #f0f0f0;  /* Light text color for readability */\n"
+"    gridline-color: #5a5a5a;  /* Softer grid line color */\n"
+"    selection-background-color: #ff9100;  /* Orange for selected row */\n"
+"    selection-color: #000000;  /* Black text when selected */\n"
+"    border: 1px solid #2a2a2a;  /* Border to match overall theme */\n"
+"}\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color: #2a2a"
+                        "2a;  /* Darker header background */\n"
+"    color: #ffffff;  /* White text in headers */\n"
+"    padding: 4px;\n"
+"    border: 1px solid #4d4d4d;  /* Subtle border around headers */\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QTableCornerButton::section {\n"
+"    background-color: #2a2a2a;  /* Corner button matching header */\n"
+"    border: 1px solid #4d4d4d; \n"
+"}\n"
+"\n"
+"QHeaderView\n"
+"{\n"
+"    border-radius: 1px;\n"
+"}\n"
+"\n"
+"QTableWidget::item:pressed, QListView::item:pressed, QTreeView::item:pressed  {\n"
+"    background: #334E5E;\n"
+"    color: #eff0f1;\n"
+"	border: 0px solid #76797C;\n"
+"}\n"
+"\n"
+"QTableWidget::item:selected:active, QTreeView::item:selected:active, QListView::item:selected:active  {\n"
+"    background: #334E5E;\n"
+"    color: #eff0f1;\n"
+" 	border: 0px solid #76797C;\n"
+"}\n"
+"\n"
+"QTableWidget::item::selected {\n"
+"background-color: #transparent;\n"
+"border: 0px solid #76797C;\n"
+"}\n"
+"\n"
+"QTableWidget::row::selected {\n"
+"background-color: #334E5E;\n"
+"border: 0px solid #76797"
+                        "C;\n"
+"}\n"
+"\n"
+"QTableWidget::item:hover {\n"
+"    background-color: transparent;\n"
+"}  \n"
 "\n"
 "\n"
+" /* style the sort indicator */\n"
+"QHeaderView::down-arrow {\n"
+"    image: url(:/qss_icons/rc/down_arrow.png);\n"
+"}\n"
+"\n"
+"QHeaderView::up-arrow {\n"
+"    image: url(:/qss_icons/rc/up_arrow.png);\n"
+"}\n"
 "\n"
 "\n"
-"\n"
+"QTableCornerButton::section {\n"
+"    background-color: #31363b;\n"
+"    border: 1px transparent #76797C;\n"
+"    border-radius: 0px;\n"
+"}\n"
 ""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -589,6 +714,9 @@ public:
         sizePolicy1.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
         groupBox_3->setSizePolicy(sizePolicy1);
         groupBox_3->setMaximumSize(QSize(16777215, 320));
+        groupBox_3->setStyleSheet(QLatin1String("QGroupBox {\n"
+" border: 1px solid gray;\n"
+"}"));
         horizontalLayout_11 = new QHBoxLayout(groupBox_3);
         horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
@@ -614,6 +742,7 @@ public:
         label_5 = new QLabel(widget);
         label_5->setObjectName(QStringLiteral("label_5"));
         QFont font;
+        font.setPointSize(12);
         font.setBold(true);
         font.setWeight(75);
         label_5->setFont(font);
@@ -638,19 +767,32 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+
+        verticalLayout->addLayout(horizontalLayout_5);
+
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout_6->setSizeConstraint(QLayout::SetNoConstraint);
         label = new QLabel(widget);
         label->setObjectName(QStringLiteral("label"));
 
-        horizontalLayout_3->addWidget(label);
+        horizontalLayout_6->addWidget(label);
 
         label_2 = new QLabel(widget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        horizontalLayout_3->addWidget(label_2);
+        horizontalLayout_6->addWidget(label_2);
+
+
+        horizontalLayout_3->addLayout(horizontalLayout_6);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
@@ -658,37 +800,26 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setSizeConstraint(QLayout::SetNoConstraint);
         te_ID = new QTextEdit(widget);
         te_ID->setObjectName(QStringLiteral("te_ID"));
-        te_ID->setMaximumSize(QSize(16777215, 25));
+        te_ID->setMaximumSize(QSize(16777215, 30));
 
         horizontalLayout_4->addWidget(te_ID);
 
         te_titulo = new QTextEdit(widget);
         te_titulo->setObjectName(QStringLiteral("te_titulo"));
-        te_titulo->setMaximumSize(QSize(16777215, 25));
+        te_titulo->setMaximumSize(QSize(16777215, 30));
 
         horizontalLayout_4->addWidget(te_titulo);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
 
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        horizontalLayout_6->setSizeConstraint(QLayout::SetNoConstraint);
         label_4 = new QLabel(widget);
         label_4->setObjectName(QStringLiteral("label_4"));
 
-        horizontalLayout_6->addWidget(label_4);
+        verticalLayout->addWidget(label_4);
 
-
-        verticalLayout->addLayout(horizontalLayout_6);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         cb_modalidades = new QComboBox(widget);
         cb_modalidades->setObjectName(QStringLiteral("cb_modalidades"));
         QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -698,10 +829,7 @@ public:
         cb_modalidades->setSizePolicy(sizePolicy4);
         cb_modalidades->setMinimumSize(QSize(200, 0));
 
-        horizontalLayout_5->addWidget(cb_modalidades, 0, Qt::AlignLeft);
-
-
-        verticalLayout->addLayout(horizontalLayout_5);
+        verticalLayout->addWidget(cb_modalidades, 0, Qt::AlignLeft);
 
         btn_atualizarDados = new QPushButton(widget);
         btn_atualizarDados->setObjectName(QStringLiteral("btn_atualizarDados"));
@@ -737,6 +865,11 @@ public:
         hostsTable->setSizePolicy(sizePolicy6);
         hostsTable->setMinimumSize(QSize(200, 250));
         hostsTable->setMaximumSize(QSize(16777215, 300));
+        hostsTable->setStyleSheet(QLatin1String("  QTableWidget {\n"
+"        background-color: #3E3E3E;\n"
+"        border: 1px solid gray;\n"
+"        margin: 5px; /* Adding margin for spacing */\n"
+"    }"));
 
         horizontalLayout_11->addWidget(hostsTable);
 
@@ -756,20 +889,27 @@ public:
         sizePolicy7.setVerticalStretch(0);
         sizePolicy7.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
         groupBox_2->setSizePolicy(sizePolicy7);
-        groupBox_2->setMinimumSize(QSize(0, 130));
+        groupBox_2->setMinimumSize(QSize(0, 147));
         groupBox_2->setMaximumSize(QSize(16777215, 16777215));
         groupBox_2->setStyleSheet(QLatin1String("QGroupBox {\n"
 "    font: bold;\n"
 "    border: 1px solid gray;\n"
 "    border-radius: 6px;\n"
-"    margin-top: 5px;\n"
+"    margin-top: 20px;\n"
 "	margin-right: 15px;\n"
 "	margin-left: 6px;\n"
 "	width: 148px;\n"
 "}"));
-        btn_NovoIP = new QPushButton(groupBox_2);
+        layoutWidget = new QWidget(groupBox_2);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(20, 30, 122, 107));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        btn_NovoIP = new QPushButton(layoutWidget);
         btn_NovoIP->setObjectName(QStringLiteral("btn_NovoIP"));
-        btn_NovoIP->setGeometry(QRect(20, 18, 120, 30));
         QSizePolicy sizePolicy8(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy8.setHorizontalStretch(0);
         sizePolicy8.setVerticalStretch(0);
@@ -777,20 +917,27 @@ public:
         btn_NovoIP->setSizePolicy(sizePolicy8);
         btn_NovoIP->setMinimumSize(QSize(120, 30));
         btn_NovoIP->setMaximumSize(QSize(16777215, 16777215));
-        btn_ExcluirIP = new QPushButton(groupBox_2);
+
+        verticalLayout_6->addWidget(btn_NovoIP);
+
+        btn_ExcluirIP = new QPushButton(layoutWidget);
         btn_ExcluirIP->setObjectName(QStringLiteral("btn_ExcluirIP"));
-        btn_ExcluirIP->setGeometry(QRect(20, 53, 120, 30));
         sizePolicy8.setHeightForWidth(btn_ExcluirIP->sizePolicy().hasHeightForWidth());
         btn_ExcluirIP->setSizePolicy(sizePolicy8);
         btn_ExcluirIP->setMinimumSize(QSize(120, 30));
         btn_ExcluirIP->setMaximumSize(QSize(16777215, 16777215));
-        btn_cancelaAtual = new QPushButton(groupBox_2);
+
+        verticalLayout_6->addWidget(btn_ExcluirIP);
+
+        btn_cancelaAtual = new QPushButton(layoutWidget);
         btn_cancelaAtual->setObjectName(QStringLiteral("btn_cancelaAtual"));
-        btn_cancelaAtual->setGeometry(QRect(20, 88, 120, 30));
         sizePolicy8.setHeightForWidth(btn_cancelaAtual->sizePolicy().hasHeightForWidth());
         btn_cancelaAtual->setSizePolicy(sizePolicy8);
         btn_cancelaAtual->setMinimumSize(QSize(120, 30));
         btn_cancelaAtual->setMaximumSize(QSize(16777215, 16777215));
+
+        verticalLayout_6->addWidget(btn_cancelaAtual);
+
 
         horizontalLayout_9->addWidget(groupBox_2, 0, Qt::AlignTop);
 
@@ -803,66 +950,58 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        groupBox_4 = new QGroupBox(centralWidget);
-        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        tableWidget = new QTableWidget(centralWidget);
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy9(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy9.setHorizontalStretch(2);
         sizePolicy9.setVerticalStretch(2);
-        sizePolicy9.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
-        groupBox_4->setSizePolicy(sizePolicy9);
-        verticalLayout_4 = new QVBoxLayout(groupBox_4);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        tableWidget = new QTableWidget(groupBox_4);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
         sizePolicy9.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
         tableWidget->setSizePolicy(sizePolicy9);
-        tableWidget->setStyleSheet(QStringLiteral(""));
+        tableWidget->setStyleSheet(QLatin1String("  QTableWidget {\n"
+"        background-color: #3E3E3E;\n"
+"        border: 1px solid gray;\n"
+"    }"));
 
-        verticalLayout_4->addWidget(tableWidget);
-
-
-        horizontalLayout_7->addWidget(groupBox_4);
+        horizontalLayout_7->addWidget(tableWidget);
 
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
         groupBox->setSizePolicy(sizePolicy);
-        groupBox->setMinimumSize(QSize(0, 130));
+        groupBox->setMinimumSize(QSize(0, 139));
         groupBox->setMaximumSize(QSize(16777215, 16777215));
         groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
+" border: 1px solid gray;\n"
 "    font: bold;\n"
-"    border: 1px solid gray;\n"
 "    border-radius: 6px;\n"
-"    margin-top: 6px;\n"
+"    margin-top: 10px;\n"
 "	margin-right: 15px;\n"
 "	margin-left: 6px;\n"
 "	width: 148px;\n"
 "}"));
-        btn_pausar = new QPushButton(groupBox);
-        btn_pausar->setObjectName(QStringLiteral("btn_pausar"));
-        btn_pausar->setGeometry(QRect(20, 88, 120, 30));
-        sizePolicy8.setHeightForWidth(btn_pausar->sizePolicy().hasHeightForWidth());
-        btn_pausar->setSizePolicy(sizePolicy8);
-        btn_pausar->setMinimumSize(QSize(120, 0));
-        btn_pausar->setMaximumSize(QSize(16777215, 16777212));
         btn_Enviar = new QPushButton(groupBox);
         btn_Enviar->setObjectName(QStringLiteral("btn_Enviar"));
-        btn_Enviar->setGeometry(QRect(20, 21, 120, 30));
+        btn_Enviar->setGeometry(QRect(20, 20, 120, 30));
         sizePolicy8.setHeightForWidth(btn_Enviar->sizePolicy().hasHeightForWidth());
         btn_Enviar->setSizePolicy(sizePolicy8);
         btn_Enviar->setMinimumSize(QSize(120, 30));
         btn_Enviar->setMaximumSize(QSize(16777215, 16777212));
+        btn_pausar = new QPushButton(groupBox);
+        btn_pausar->setObjectName(QStringLiteral("btn_pausar"));
+        btn_pausar->setGeometry(QRect(20, 60, 120, 30));
+        sizePolicy8.setHeightForWidth(btn_pausar->sizePolicy().hasHeightForWidth());
+        btn_pausar->setSizePolicy(sizePolicy8);
+        btn_pausar->setMinimumSize(QSize(120, 0));
+        btn_pausar->setMaximumSize(QSize(16777215, 16777212));
         btn_Remover = new QPushButton(groupBox);
         btn_Remover->setObjectName(QStringLiteral("btn_Remover"));
-        btn_Remover->setGeometry(QRect(20, 54, 120, 30));
+        btn_Remover->setGeometry(QRect(20, 100, 120, 30));
         sizePolicy8.setHeightForWidth(btn_Remover->sizePolicy().hasHeightForWidth());
         btn_Remover->setSizePolicy(sizePolicy8);
         btn_Remover->setMinimumSize(QSize(120, 0));
         btn_Remover->setMaximumSize(QSize(16777215, 16777212));
 
-        horizontalLayout_7->addWidget(groupBox, 0, Qt::AlignHCenter|Qt::AlignTop);
+        horizontalLayout_7->addWidget(groupBox, 0, Qt::AlignRight|Qt::AlignTop);
 
 
         verticalLayout_2->addLayout(horizontalLayout_7);
@@ -898,10 +1037,9 @@ public:
         btn_NovoIP->setText(QApplication::translate("MainWindow", "Novo", Q_NULLPTR));
         btn_ExcluirIP->setText(QApplication::translate("MainWindow", "Excluir", Q_NULLPTR));
         btn_cancelaAtual->setText(QApplication::translate("MainWindow", "Cancela atual", Q_NULLPTR));
-        groupBox_4->setTitle(QString());
         groupBox->setTitle(QString());
-        btn_pausar->setText(QApplication::translate("MainWindow", "Pausar todos", Q_NULLPTR));
         btn_Enviar->setText(QApplication::translate("MainWindow", "Enviar todos", Q_NULLPTR));
+        btn_pausar->setText(QApplication::translate("MainWindow", "Pausar todos", Q_NULLPTR));
         btn_Remover->setText(QApplication::translate("MainWindow", "Remover", Q_NULLPTR));
     } // retranslateUi
 

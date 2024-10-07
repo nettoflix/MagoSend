@@ -16,6 +16,9 @@ CCriarSessaoForm::CCriarSessaoForm(QWidget *parent, QString sessionName, bool re
 	ui->listWidget_ips->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
 	ui->listWidget_ips->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->listWidget_ips->setSelectionMode(QAbstractItemView::NoSelection);
+	QStringList hostTableHeaders;
+	hostTableHeaders << "Nome" << tr("IP");
+	ui->listWidget_ips->setHorizontalHeaderLabels(hostTableHeaders);
 
 //	db = new MagoDB();
 	this->setWindowTitle("Criar Sessão");
@@ -33,7 +36,6 @@ CCriarSessaoForm::CCriarSessaoForm(QWidget *parent, QString sessionName, bool re
 CCriarSessaoForm::~CCriarSessaoForm()
 {
 	delete ui;
-	delete db;
 }
 void CCriarSessaoForm::loadSessao()
 {
@@ -131,13 +133,13 @@ void CCriarSessaoForm::on_btn_Salvar_clicked()
 		//salvar a lista de ip's na row da sessão
 
 
-		if(db->doesSessionExists(sessionName.toLatin1().data())) //se sessao ja existe na db, atualiza a ipList dessa sessao
+		if(CMagoDBCommandsThread::commands->doesSessionExists(sessionName)) //se sessao ja existe na db, atualiza a ipList dessa sessao
 		{
-			db->updateSessionIpList(sessionName.toLatin1().data(),ipList.join(",").toLatin1().data(), nameList.join(',').toLatin1().data());
+			CMagoDBCommandsThread::commands->updateSessionIpList(sessionName,ipList.join(","), nameList.join(','));
 		}
 		else	//se a sessao nao existe na db, cria ela
 		{
-			db->createRowOnSessionTable(sessionName.toLatin1().data(), ipList.join(',').toLatin1().data(), nameList.join(',').toLatin1().data());
+			CMagoDBCommandsThread::commands->createRowOnSessionTable(sessionName, ipList.join(','), nameList.join(','));
 		}
 
 		CEditarSessaoForm* parent = static_cast<CEditarSessaoForm*> (this->parent());

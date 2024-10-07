@@ -24,7 +24,7 @@ void Worker::startCheckTimer()
 {
 	checkConnectionTimer = new QTimer();
 	connect(checkConnectionTimer, &QTimer::timeout, this,&Worker::onCheckConnection);
-	checkConnectionTimer->start(100);
+	checkConnectionTimer->start(500);
 
 }
 
@@ -85,10 +85,10 @@ void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
 
 void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
 {
-	//	MagoDB* magodb = new MagoDB(ip);
-	//	bool exists = magodb->EventExistsByNumber(id.toLatin1().data());
+		MagoDB* magodb = new MagoDB(ip.toLatin1().data(), false);
+		bool exists = magodb->EventExistsByNumber(id.toLatin1().data());
 	//	qDebug("Worker::checkIfIdExistsOnHosts - exists [%d]", exists);
-	//	emit idAlreadyExistOnHost(exists);
+		emit idAlreadyExistOnHost(exists);
 }
 void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 {
@@ -117,17 +117,6 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 
 					VideoFileInfo* file1= new VideoFileInfo(filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
 					mw->getTransferMonitor()->getCurrentQueue().append(file1);
-					if(count >=20)
-					{
-						count = 0;
-						//qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
-						//						if(ip == "192.168.0.145")
-						//						{
-						//							qDebug("Worker::onPopulateQueueWithPaths - SLEEP");
-
-						//						}
-						QThread::msleep(10);
-					}
 				}
 			}
 		}

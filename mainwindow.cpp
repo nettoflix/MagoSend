@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	this->usuario = usuario;
 	setWindowTitle("MagoSend - " + usuario);
 	//cria as tables no banco de dados se elas ainda nao existirem
-	initDB();
 	connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
 	// Connect the button's clicked() signal to the slot buttonClicked() in MyWidget
 	//	QObject::connect(ui->btn_fileSelection, SIGNAL(clicked()), this, SLOT(onFileSelectionBtnClick()));
@@ -50,28 +49,13 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	ui->tableWidget->setRowCount(0);
 	ui->tableWidget->setColumnCount(headers.size());
 	ui->tableWidget->setHorizontalHeaderLabels(headers);
-	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	//ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+
+
+	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 	ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	ui->tableWidget->setFocusPolicy(Qt::NoFocus);
-	//ui->tableWidget->setAlternatingRowColors(true);
-	ui->tableWidget->setStyleSheet(
-		"QTableWidget {"
-		"    background-color: #353535;"
-		"    alternate-background-color: #292929;"
-		"}"
-	);
-	ui->hostsTable->setStyleSheet(
-				"QTableWidget {"
-				"    background-color: #353535;"
-				"    alternate-background-color: #292929;"
-				"}"
-			);
-	//ui->tableWidget->setItemDelegate(new EfficientItemDelegate(ui->tableWidget));
-	//ui->tableWidget->setSelectionModel(new CustomSelectionModel(ui->tableWidget, ui->tableWidget->model()));
-	//ui->tableWidget->viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
-	///
+
+
 
 	QStringList hostTableHeaders;
 	hostTableHeaders << "Nome" << tr("IP") << tr("Bitrate");
@@ -154,26 +138,26 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	QObject::connect(worker, &Worker::idAlreadyExistOnHost, this, &MainWindow::updateQueueItemInformation);
 	qRegisterMetaType<QList<CFilesOnHost>>("QList<CFilesOnHost>");
 
+	ui->tableWidget->setIconSize(QSize(24, 24));
 	iconEspera = new QIcon(":images/espera.png");
+	QPixmap pixmap = iconEspera->pixmap(QSize(24, 24)); // Set your desired size
+	scaledIcon = new QIcon(pixmap);
+
 	iconSending = new QIcon(":images/sending.png");
 	iconCheck = new QIcon(":images/check.png");
 	iconError = new QIcon(":images/error.png");
-
 	batchSize = 2000;
 
 
 
-
-	//getTransferMonitor()->moveToThread(&workerThread);
-	//	workerThread.start();
-	//connect(this, &MainWindow::populateQueueWithPaths, getTransferMonitor(), &CTransferMonitor::onPopulateQueueWithPaths, Qt::QueuedConnection);
-	//qDebug() << "MainWIndow: Current thread ID:" << QThread::currentThreadId();
-	//workerThread2 = new QThread();
-	//worker2->moveToThread(workerThread2);
-	//workerThread2->start();
 	connect(this, &MainWindow::populateQueueWithPaths, worker, &Worker::onPopulateQueueWithPaths, Qt::QueuedConnection);
 	connect(worker, &Worker::queueDonePopulating, this, &MainWindow::onQueueDonePopulating, Qt::QueuedConnection);
 	//connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
+	QObject::connect(this, &MainWindow::triggerWorker, worker ,[this]()
+	{
+		worker->getFilesAlreadyPresentOnHosts(this->filePaths);
+	});
+	QObject::connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
 
 }
 
@@ -201,12 +185,10 @@ void MainWindow::changeHostsTableTextColor(QColor color, QString ip)
 void MainWindow::loadModComboBox()
 {
 	ui->cb_modalidades->clear();
-//	MagoDB* db = new MagoDB();
-//	QVector<QPair<QString, QString>> modList = db->getModalidadesMagoSend();
-//	delete db;
-//	for(QPair<QString, QString> modalidade : modList) {
-//		ui->cb_modalidades->addItem(modalidade.first);
-//	}
+	QVector<QPair<QString, QString>> modList = CMagoDBCommandsThread::commands->getModalidadesMagoSend();
+	for(QPair<QString, QString> modalidade : modList) {
+		ui->cb_modalidades->addItem(modalidade.first);
+	}
 }
 
 void MainWindow::loadSessionComboBox()
@@ -237,79 +219,71 @@ bool MainWindow::getWarningAceppted() const
 	return warningAceppted;
 }
 
-void MainWindow::initDB()
-{
-//	db = new MagoDB();
-//	db->CreateTableHistorico();
-//	db->CreateTableModalidades();
-//	db->CreateTableSessions();
-//	db->CreateTableOptions();
-	//delete db;
-}
 
 void MainWindow::updateQueueItemInformation(bool idExists)
 {
+	qDebug("updateQueueInformation [%d]", idExists);
+	int currentRow = ui->tableWidget->currentRow();
+	QString newID = ui->te_ID->toPlainText();
+	QString newTitulo = ui->te_titulo->toPlainText();
+	QString newModalidade = ui->cb_modalidades->currentText();
+	qDebug("newId [%s]", newID.toLatin1().data());
+	QTableWidgetItem *id = ui->tableWidget->item(currentRow,Columns::ID);
+	QTableWidgetItem *titulo = ui->tableWidget->item(currentRow,Columns::TITULO);
+	QTableWidgetItem *modalidade = ui->tableWidget->item(currentRow,Columns::MODALIDADE);
+
+	bool valido = true;
+	if(newID.isEmpty() || newTitulo.isEmpty()) valido = false;
 	if(idExists)
 	{
 		int result = QMessageBox::warning(this,tr("Espere!"),tr("Esse ID já está cadastrado no mago. Você gostaria de atualizar esse cadastro?"),
 										  QMessageBox::Yes | QMessageBox::No);
 		if(result == QMessageBox::Yes)
 		{
-			int currentRow = ui->tableWidget->currentRow();
-			QString newId = ui->te_ID->toPlainText();
-			QString newTitulo = ui->te_titulo->toPlainText();
-			QString newModalidade = ui->cb_modalidades->currentText();
-			qDebug("newId [%s]", newId.toLatin1().data());
-			QTableWidgetItem *id = ui->tableWidget->item(currentRow,Columns::ID);
-			QTableWidgetItem *titulo = ui->tableWidget->item(currentRow,Columns::TITULO);
-			QTableWidgetItem *modalidade = ui->tableWidget->item(currentRow,Columns::MODALIDADE);
-			QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
-			VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(currentRow);
-			if(newId != "")
+			if(!CServiceUtils::isValidIDname(newID))
 			{
-				id->setText(newId);
-				videoInfo->setId(newId);
+				valido = false;
 			}
-			if(newTitulo != "")
+			if(!CServiceUtils::isValidIDname(newTitulo))
 			{
-				titulo->setText(newTitulo);
-				videoInfo->setTitulo(newTitulo);
+				valido = false;
 			}
-			if(newModalidade != "")
-			{
-				modalidade->setText(newModalidade);
-				videoInfo->setModalidade(newModalidade);
-			}
+		}else
+		{
+			valido = false;
 		}
 	}
 	else
 	{
-		int currentRow = ui->tableWidget->currentRow();
-		QString newId = ui->te_ID->toPlainText();
-		QString newTitulo = ui->te_titulo->toPlainText();
-		QString newModalidade = ui->cb_modalidades->currentText();
-		qDebug("newId [%s]", newId.toLatin1().data());
-		QTableWidgetItem *id = ui->tableWidget->item(currentRow,Columns::ID);
-		QTableWidgetItem *titulo = ui->tableWidget->item(currentRow,Columns::TITULO);
-		QTableWidgetItem *modalidade = ui->tableWidget->item(currentRow,Columns::MODALIDADE);
+		if(!CServiceUtils::isValidIDname(newID))
+		{
+			valido = false;
+		}
+		if(!CServiceUtils::isValidIDname(newTitulo))
+		{
+			valido = false;
+		}
+
+
+	}
+
+	if(valido)
+	{
 		QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 		VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(currentRow);
-		if(newId != "")
-		{
-			id->setText(newId);
-			videoInfo->setId(newId);
-		}
-		if(newTitulo != "")
-		{
-			titulo->setText(newTitulo);
-			videoInfo->setTitulo(newTitulo);
-		}
+
+		id->setText(newID);
+		videoInfo->setId(newID);
+		titulo->setText(newTitulo);
+		videoInfo->setTitulo(newTitulo);
 		if(newModalidade != "")
 		{
 			modalidade->setText(newModalidade);
 			videoInfo->setModalidade(newModalidade);
+
 		}
 	}
+
 }
 
 
@@ -319,7 +293,7 @@ void MainWindow::onItemSelected(const QItemSelection &selected, const QItemSelec
 }
 void MainWindow::addQueueToTableWidget()
 {
-   populatingTableWidget = true;
+	populatingTableWidget = true;
 	qDebug("addQueueToTableWidget -1");
 	//QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 	QVector<VideoFileInfo*> *queue = &getTransferMonitor()->getCurrentQueue();
@@ -355,23 +329,32 @@ void MainWindow::addQueueToTableWidget()
 			ui->tableWidget->setItem(row,Columns::DURACAO, duration);
 			ui->tableWidget->setItem(row,Columns::IP, ip);
 			ui->tableWidget->setItem(row, Columns::MODALIDADE, modalidade);
+			//ui->tableWidget->setRowHeight(row, 120);
 			//ui->tableWidget->setItem(row,Columns::PROGRESSO, progresso);
 			QProgressBar* progressBar = new QProgressBar();
+			QString progressBarStyle = R"(
+									   QProgressBar {
+									   background-color: #3E3E3E;
+									   color: white;
+									   border: 2px solid #3E3E3E;
+									   border-radius: 5px;
+									   text-align: center;
+									   }
+									   QProgressBar::chunk {
+									   background-color: #4A90E2; /* Blue color */
+									   border-radius: 5px;
+									   }
+									   )";
 			progressBar->setStyleSheet(
-				"QProgressBar {"
-				"    background-color: #353535;"
-				"    border: 2px solid grey;"
-				"	 border-radius: 5px;"
-				"	 text-align: center;"
-				"}"
-			);
+						progressBarStyle
+						);
 			progressBar->setTextVisible(true);
 			progressBar->setValue(0);
 			ui->tableWidget->setCellWidget(row, Columns::PROGRESSO, progressBar);
 
 			QTableWidgetItem *iconItem = new QTableWidgetItem();
 			//QIcon icon("/home/mago/Switcher/release/espera.png");
-			iconItem->setIcon(*iconEspera);
+			iconItem->setIcon(*scaledIcon);
 			iconItem->setText("Esperando");
 			iconItem->setTextAlignment(Qt::AlignCenter);
 			//iconItem->setTextColor(QColor(Qt::blue));
@@ -390,39 +373,39 @@ void MainWindow::addQueueToTableWidget()
 
 	//só vou parar o timer_loadTable se já adicionei todos os items da queue, se não a queue nao está sendo alimentada
 	//e se nao  estou esperando confirmação do usuário pra adicionar mais items
-//	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
-//	{
+	//	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
+	//	{
 
-		if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
-		{
+	if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
+	{
 		qDebug("addQueueToTableWidget -3");
-			if(!worker->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
+		if(!worker->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
+		{
+			qDebug("addQueueToTableWidget -4");
+			ui->tableWidget->show();
+			qDebug("STOP SPINNER!");
+			//	qDebug("addQueueToTableWidget -3");
+			timer_loadTable.stop();
+			if(tableSpinner != nullptr)
 			{
-					qDebug("addQueueToTableWidget -4");
-				ui->tableWidget->show();
-				qDebug("STOP SPINNER!");
-				//	qDebug("addQueueToTableWidget -3");
-				timer_loadTable.stop();
-				if(tableSpinner != nullptr)
-				{
-					tableSpinner->stopSpinner();
-					tableSpinner->exit();
-					tableSpinner->wait();
-					delete tableSpinner;
-					tableSpinner = nullptr;
-				}
-
-				//workerThread.exit();
-				//workerThread.wait();
-				ui->btn_Enviar->setEnabled(true);
-				ui->btn_pausar->setEnabled(true);
-				ui->btn_Remover->setEnabled(true);
-				openFilesAction->setEnabled(true);
-				batchIndex = queue->size();
+				tableSpinner->stopSpinner();
+				tableSpinner->exit();
+				tableSpinner->wait();
+				delete tableSpinner;
+				tableSpinner = nullptr;
 			}
+
+			//workerThread.exit();
+			//workerThread.wait();
+			ui->btn_Enviar->setEnabled(true);
+			ui->btn_pausar->setEnabled(true);
+			ui->btn_Remover->setEnabled(true);
+			openFilesAction->setEnabled(true);
+			batchIndex = queue->size();
 		}
+	}
 	//	batchIndex = queue->size();
-//	}
+	//	}
 
 	//populateCount -= 1;
 	//qDebug("addQueueToTableWidget -2");
@@ -437,7 +420,7 @@ void MainWindow::addQueueToTableWidget()
 void MainWindow::onQueueDonePopulating()
 {
 	qDebug("done populating!");
-	 addQueueToTableWidget();
+	addQueueToTableWidget();
 
 
 
@@ -514,44 +497,39 @@ void MainWindow::onFileSelectionBtnClick()
 
 
 	if (!filePaths.isEmpty()) {
-//		MagoDB* db = new MagoDB();
-//		bool shouldWarn = db->warningWhenOverwriteFile();
-//		delete db;
-//		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
-//		{
-//			qDebug("shouldAlwaysOverWriteFile = false");
-//			if(!workerThread.isRunning())
-//			{
+		bool shouldWarn = CMagoDBCommandsThread::commands->warningWhenOverwriteFile();
+		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
+		{
+			qDebug("shouldAlwaysOverWriteFile = false");
+			//	if(!workerThread.isRunning())
+			//	{
 
-//				qDebug("MainWindow::onFileSelectionBtnClick-2");
-//				workerThread.start();
-//				//worker->moveToThread(&workerThread);
-//				QObject::connect(this, &MainWindow::triggerWorker, worker ,[this]()
-//				{
-//					worker->getFilesAlreadyPresentOnHosts(this->filePaths);
-//				});
-//				QObject::connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
-//			}
+			qDebug("MainWindow::onFileSelectionBtnClick-2");
+			//workerThread.start();
+			//worker->moveToThread(&workerThread);
 
-//			qDebug("MainWindow::onFileSelectionBtnClick-3");
-//			qDebug("emit triggerWork!!");
-//			emit triggerWorker();
-//		}
-	//	else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
-		//{
+			//	}
+
+			qDebug("MainWindow::onFileSelectionBtnClick-3");
+			qDebug("emit triggerWork!!");
+			emit triggerWorker();
+		}
+		else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
+		{
 			qDebug("shouldAlwaysOverWriteFile = true");
-				//qDebug() << "onFileSelectionBtnClick: Current thread ID: " << QThread::currentThreadId();
+			//qDebug() << "onFileSelectionBtnClick: Current thread ID: " << QThread::currentThreadId();
 			for(int i=0; i<ui->hostsTable->rowCount(); i++)
 			{
 
-				workerThread.start();
+				//workerThread.start();
 				QString ip = ui->hostsTable->item(i,1)->text();
 				ui->tableWidget->hide();
+				qDebug("emite populateQueueWithPaths");
 				emit populateQueueWithPaths(filePaths, ip);
 
 			}
 
-		//}
+		}
 	}
 	else
 	{
@@ -752,26 +730,23 @@ void MainWindow::onAtualizarDadosBtnClick()
 		int currentRow = ui->tableWidget->currentRow();
 		if(currentRow != -1)
 		{
-//			MagoDB* db = new MagoDB();
-//			bool shouldWarn = db->warningWhenOverwriteId();
-//			delete db;
-//			if(!shouldWarn)
-//			{
-//				updateQueueItemInformation(false);
-//			}
-		//	else
-		//	{
+			bool shouldWarn = CMagoDBCommandsThread::commands->warningWhenOverwriteId();
+
+			if(!shouldWarn)
+			{
+				updateQueueItemInformation(false);
+			}
+			else
+			{
 				QString newId = ui->te_ID->toPlainText();
 				QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 				VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(currentRow);
 				QString ip = videoInfo->host->getIp();
 				queueLocker.unlock();
 				//checa se o ID ja existe no banco
-				worker->moveToThread(&workerThread);
-				workerThread.start();
 				worker->checkIfIdExistsOnHosts(ip, newId);
 				qDebug("onAtualizarDadosBtnClick - OUT");
-			//}
+			}
 
 		}
 	}
@@ -848,7 +823,7 @@ QPair<int,int> MainWindow:: getFirstAndLastVisibleRowFromTable()
 void MainWindow::onTimer()
 {
 	//qDebug("MainWindow - onTimer!!");
-//qDebug() << "onTimer: Current thread ID:" << QThread::currentThreadId();
+	//qDebug() << "onTimer: Current thread ID:" << QThread::currentThreadId();
 	for(int i=0; i<ui->hostsTable->rowCount(); i++)
 	{
 		QString ip = ui->hostsTable->item(i, 1)->text();
@@ -942,13 +917,13 @@ void MainWindow::onTimer()
 			else if(videoInfo->getStatus() == CVideoStatus::WAITING)
 			{
 				QTableWidgetItem *item = ui->tableWidget->item(i,Columns::ICON);
-				item->setIcon(*iconEspera);
+				item->setIcon(*scaledIcon);
 				item->setText("Em espera");
 			}
 			else if(videoInfo->getStatus() == CVideoStatus::CANCELLED)
 			{
 				QTableWidgetItem *item = ui->tableWidget->item(i,Columns::ICON);
-				item->setIcon(*iconEspera);
+				item->setIcon(*scaledIcon);
 				item->setText("Cancelado");
 			}
 			else if(videoInfo->getStatus() == CVideoStatus::TRYING_TO_CONNECT)
@@ -1009,14 +984,32 @@ void MainWindow::setWarningResponse(bool value)
 	warningAceppted = value;
 }
 
-MagoDB *MainWindow::getDb() const
-{
-	return db;
-}
 
 Worker *MainWindow::getWorker() const
 {
 	return worker;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+	QMainWindow::resizeEvent(event);
+	int tableWidth = ui->tableWidget->viewport()->width();
+	int columnCount = ui->tableWidget->columnCount();
+	int columnWidth = tableWidth / columnCount;
+	for (int i = 0; i < columnCount; ++i) {
+		ui->tableWidget->setColumnWidth(i, columnWidth);
+	}
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+	QMainWindow::showEvent(event);
+	int tableWidth = ui->tableWidget->viewport()->width();
+	int columnCount = ui->tableWidget->columnCount();
+	int columnWidth = tableWidth / columnCount;
+	for (int i = 0; i < columnCount; ++i) {
+		ui->tableWidget->setColumnWidth(i, columnWidth);
+	}
 }
 
 void MainWindow::showWarningMessage(const QString &message)

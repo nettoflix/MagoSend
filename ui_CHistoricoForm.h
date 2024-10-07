@@ -56,7 +56,7 @@ public:
     {
         if (CHistoricoForm->objectName().isEmpty())
             CHistoricoForm->setObjectName(QStringLiteral("CHistoricoForm"));
-        CHistoricoForm->resize(1300, 821);
+        CHistoricoForm->resize(1450, 821);
         CHistoricoForm->setStyleSheet(QLatin1String("QToolTip\n"
 "{\n"
 "     border: 1px solid black;\n"

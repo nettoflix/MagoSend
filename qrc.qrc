@@ -66,5 +66,8 @@
         <file>images/espera.png</file>
         <file>images/warning.png</file>
         <file>images/sending.png</file>
+        <file>images/clockwise.png</file>
+        <file>images/sand-clock.png</file>
+        <file>images/hourglass.png</file>
     </qresource>
 </RCC>

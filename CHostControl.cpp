@@ -12,7 +12,7 @@ CHostControl::CHostControl(MainWindow* mainWindow) : mainWindow(mainWindow)
 	for(int i=0; i<((endPort - startPort)/2); i++)
 	{
 		portasDisponiveis.append(startPort + (i*2)); //
-		qDebug("port: [%d]", portasDisponiveis.at(i));
+		//qDebug("port: [%d]", portasDisponiveis.at(i));
 	}
 }
 
@@ -100,7 +100,7 @@ void CHostControl::deleteHostIfItsNotBeingUsed()
 	QMutexLocker locker(&hostsMutex);
 	for (int i=0; i<hosts.size(); i++) {
 		Host* host = hosts.at(i);
-		if(host->getWasRemovedFromTableWidget() && !host->isBeingUsed())
+		if(host->getWasRemovedFromTableWidget() && !host->isBusy())
 		{
 			qDebug("hosts size: [%d]", hosts.size());
 			freePort(host->port);
@@ -210,6 +210,7 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 		if(host->ip == hostIp)
 		{
 			host->setBusy(false);
+			host->setCurrentUpload(nullptr);
 		}
 	}
 	hostsLocker.unlock();
@@ -218,7 +219,7 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 	for(VideoFileInfo* videoInfo : getMainWindow()->getTransferMonitor()->getCurrentQueue())
 	{
 
-		qDebug("CHostControl::marVideoAsSent - count [%d]", count);
+		//qDebug("CHostControl::marVideoAsSent - count [%d]", count);
 		count++;
 		QFileInfo fileInfo(videoInfo->filename);
 		QString videoInfo_fileName = fileInfo.fileName();
@@ -238,33 +239,28 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 				videoInfo->setStatus(CVideoStatus::SENT);
 				//qDebug("nowStr: [%s]", nowStr.toLatin1().data());
 				//cadastra no banco de dados da máquina local (magosenddb)
-//				MagoDB* db = new MagoDB();
-
-
-
-//				db->AddHistoricoMagoSend(videoInfo->getId().toLatin1().data(),videoInfo->getTitulo().toLatin1().data(), videoInfo->getFilename().toLatin1().data(),videoInfo->getModalidade().toLatin1().data(),
-//										videoInfo->getDuration(), videoInfo->getIp().toLatin1().data(),videoInfo->getStatusString().toLatin1().data(), nowStr.toLatin1().data(), getMainWindow()->getUsuario().toLatin1().data());
-//				delete db;
+				CMagoDBCommandsThread::commands->queuedAddHistoricoMagoSend(videoInfo->getId(),videoInfo->getTitulo(), videoInfo->getFilename(),videoInfo->getModalidade(),
+										videoInfo->getDuration(), videoInfo->getIp(),videoInfo->getStatusString(), nowStr, getMainWindow()->getUsuario());
 				//cadastra o evento no banco de dados do Mago Host
 
-//				MagoDB* magodb = new MagoDB(hostIp);
-//				QString magosendIniFileName = QApplication::applicationDirPath() + "/Arquivos/MagoSend.ini";
-//				QSettings settings(magosendIniFileName, QSettings::IniFormat);
-//				QString magoMediaPath = settings.value("magoMediaPath").toString();
-//				QString path = magoMediaPath + "/"+ baseName;
-//				qDebug("CHostControl::markVideoAsSent -  gonna save in db the path: [%s]", path.toLatin1().data());
-//				if(magodb->EventExistsByNumber(numero.toLatin1().data()))
-//				{
-//					qDebug("EventExistsByNumber");
-//					magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toLatin1().data());
-//				}
-//				else
-//				{
+				MagoDB* magodb = new MagoDB(hostIp.toLatin1().data(), false);
+				QString magosendIniFileName = QApplication::applicationDirPath() + "/Arquivos/MagoSend.ini";
+				QSettings settings(magosendIniFileName, QSettings::IniFormat);
+				QString magoMediaPath = settings.value("magoMediaPath").toString();
+				QString path = magoMediaPath + "/"+ baseName;
+				qDebug("CHostControl::markVideoAsSent -  gonna save in db the path: [%s]", path.toLatin1().data());
+				if(magodb->EventExistsByNumber(numero.toLatin1().data()))
+				{
+					qDebug("EventExistsByNumber");
+					magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toLatin1().data());
+				}
+				else
+				{
 
-//					qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
-//					magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toLatin1().data());
-//				}
-//				delete magodb;
+					qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
+					magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toLatin1().data());
+				}
+				delete magodb;
 			}
 		}
 

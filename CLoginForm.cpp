@@ -36,39 +36,37 @@ void CLoginForm::on_btn_entrar_clicked()
 	}
 	QString hashPasswordInformed = QString::fromUtf8(QCryptographicHash::hash(senha.toUtf8(), QCryptographicHash::Sha256).toHex());
 	//qDebug("CLoginForm::on_btn_entrar_clicked passwordInformed: [%s]", hashPassword.toLatin1().data());
-//	MagoDB* db = new MagoDB();
-//	if(db->userAlreadyExists(usuario.toLatin1().data()))
-//	{
-//		QString hashPasswordRetrivied = db->getUserPassword(usuario.toLatin1().data());
-//		qDebug("hash informed: [%s]", hashPasswordInformed.toLatin1().data());
-//		qDebug("hash retrivied: [%s]", hashPasswordRetrivied.toLatin1().data());
-//		if(hashPasswordInformed == hashPasswordRetrivied)
-//		{
-//			MainWindow* mw = new MainWindow(0,usuario);
-//			mw->show();
-//			this->hide();
-//			delete db;
-//		}
-//		else
-//		{
-//			QMessageBox::warning(
-//						this,
-//						"Senha inválida",
-//						"A senha informada está incorreta. Verifique se você digitou a senha corretamente.",
-//						QMessageBox::Ok
-//						);
-//		}
-//		//qDebug("CLoginForm::on_btn_entrar_clicked passwordRetrivied: [%s]", hashPasswordRetrivied.toLatin1().data());
-//	}
-//	else
-//	{
-//		QMessageBox::warning(
-//					this,
-//					"Usuário inválido",
-//					"Esse usuário ainda não existe",
-//					QMessageBox::Ok
-//					);
-//	}
+	if(CMagoDBCommandsThread::commands->userAlreadyExists(usuario))
+	{
+		QString hashPasswordRetrivied = CMagoDBCommandsThread::commands->getUserPassword(usuario.toLatin1().data());
+		qDebug("hash informed: [%s]", hashPasswordInformed.toLatin1().data());
+		qDebug("hash retrivied: [%s]", hashPasswordRetrivied.toLatin1().data());
+		if(hashPasswordInformed == hashPasswordRetrivied)
+		{
+			MainWindow* mw = new MainWindow(0,usuario);
+			mw->show();
+			this->hide();
+		}
+		else
+		{
+			QMessageBox::warning(
+						this,
+						"Senha inválida",
+						"A senha informada está incorreta. Verifique se você digitou a senha corretamente.",
+						QMessageBox::Ok
+						);
+		}
+		//qDebug("CLoginForm::on_btn_entrar_clicked passwordRetrivied: [%s]", hashPasswordRetrivied.toLatin1().data());
+	}
+	else
+	{
+		QMessageBox::warning(
+					this,
+					"Usuário inválido",
+					"Esse usuário ainda não existe",
+					QMessageBox::Ok
+					);
+	}
 
 }
 

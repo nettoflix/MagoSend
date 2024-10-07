@@ -24,10 +24,8 @@ void CEditarSessaoForm::init()
 	sessionsToRemove.clear();
 	ui->cb_Sessoes->clear();
 	//pegar o nome de todas as sessoes do DB
-//	MagoDB* db = new MagoDB();
-	//QStringList sessoes = db->getSessionNames();
-//	delete db;
-//	ui->cb_Sessoes->addItems(sessoes);
+	QStringList sessoes = CMagoDBCommandsThread::commands->getSessionNames();
+	ui->cb_Sessoes->addItems(sessoes);
 }
 
 void CEditarSessaoForm::on_pushButton_clicked()
@@ -50,13 +48,11 @@ void CEditarSessaoForm::on_btn_criarSessao_clicked()
 
 void CEditarSessaoForm::on_btn_ok_clicked()
 {
-//	MagoDB* db = new MagoDB();
-//	for(QString sessionToRemove: sessionsToRemove)
-//	{
-//		db->removeSession(sessionToRemove.toLatin1().data());
-//	}
-//	MainWindow* parent = (MainWindow*) this->parent();
-//	parent->loadSessionComboBox();
-//	delete db;
+	for(QString sessionToRemove: sessionsToRemove)
+	{
+		CMagoDBCommandsThread::commands->removeSession(sessionToRemove.toLatin1().data());
+	}
+	MainWindow* parent = (MainWindow*) this->parent();
+	parent->loadSessionComboBox();
 	this->accept();
 }

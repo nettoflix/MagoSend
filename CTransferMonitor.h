@@ -50,7 +50,7 @@ private:
 public:
 	CTransferMonitor(MainWindow* mainWindow);
 	~CTransferMonitor();
-	CMagoDBCommandsThread* magoDbCommandsThread;
+	//CMagoDBCommandsThread* magoDbCommandsThread;
 	QThread workerThread;
 	void populateQueue(QString filePath, QString ip);
 	//void onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip);

@@ -3,6 +3,8 @@
 #include <CUploadServiceClient.h>
 #include <QProcess>
 #include <QString>
+#include "VideoFileInfo.h"
+class VideoFileInfo;
 enum CHostState{
 	UNVERIFIED = 0, HOST_ERROR, CONNECTED
 };
@@ -20,6 +22,7 @@ public:
 	bool wasRemovedFromTableWidget;
 	bool shouldCancelUpload;
 	bool isConnected;
+	VideoFileInfo* currentUpload;
 	const bool isBusy();
 	void setBusy(bool busy);
 	void setBitRate(float value);
@@ -40,6 +43,9 @@ public:
 	QString getIp() const;
 
 	bool getIsConnected() const;
+
+	VideoFileInfo *getCurrentUpload() const;
+	void setCurrentUpload(VideoFileInfo *value);
 
 private:
 	CUploadServiceClientProgressResult progressResult;

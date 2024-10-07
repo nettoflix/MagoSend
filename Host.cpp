@@ -7,6 +7,7 @@ Host::Host(QString ip, int port) : QObject(), ip(ip), port(port) {
 	bitRate = 0.0f;
 	shouldCancelUpload = false;
 	wasRemovedFromTableWidget = false;
+	this->currentUpload = nullptr;
 
 }
 Host::~Host()
@@ -16,14 +17,33 @@ Host::~Host()
 	process = nullptr;
 }
 
+VideoFileInfo *Host::getCurrentUpload() const
+{
+    return currentUpload;
+}
+
+void Host::setCurrentUpload(VideoFileInfo *value)
+{
+
+	if(value!=nullptr)
+	{
+		value->setIsActiveUpload(true);
+	}
+	else if(value==nullptr && currentUpload!=nullptr)
+	{
+		currentUpload->setIsActiveUpload(false);
+	}
+		currentUpload = value;
+}
+
 bool Host::getIsConnected() const
 {
-	return isConnected;
+    return isConnected;
 }
 
 QString Host::getIp() const
 {
-	return ip;
+    return ip;
 }
 
 bool Host::getWasRemovedFromTableWidget() const
@@ -67,7 +87,7 @@ CUploadServiceClientProgressResult Host::getProgressResult() const
 //	qDebug << "Get progress reesult: thread: " << QThread::currentThread();
 	return progressResult;
 }
-
+class UploadFileStatus;
 void Host::setProgressResult(const CUploadServiceClientProgressResult &value)
 {
 	progressResult = value;

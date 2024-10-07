@@ -1,7 +1,7 @@
 #include "CHistoricoForm.h"
 #include "VideoFileInfo.h"
 #include "ui_CHistoricoForm.h"
-
+#include "CMagoDBCommandsThread.h"
 #include <QMessageBox>
 
 CHistoricoForm::CHistoricoForm(QWidget *parent) :
@@ -15,8 +15,10 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 	initTable();
 
 //	db = new MagoDB();
-	ui->cb_showErrors->setChecked(db->shouldShowErrors());
-	ui->cb_showSuccess->setChecked(db->shouldShowSuccess());
+	bool shouldShowErrors = CMagoDBCommandsThread::commands->historicoShouldShowErrors();
+	bool shouldShowSuccess = CMagoDBCommandsThread::commands->historicoShouldShowSuccess();
+	ui->cb_showErrors->setChecked(shouldShowErrors);
+	ui->cb_showSuccess->setChecked(shouldShowSuccess);
 
 	//populateTable(entries);
 
@@ -24,9 +26,9 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 
 CHistoricoForm::~CHistoricoForm()
 {
-	db->updateStatusFilter(ui->cb_showErrors->isChecked(), ui->cb_showSuccess->isChecked());
+	 CMagoDBCommandsThread::commands->updateStatusFilter(ui->cb_showSuccess->isChecked(), ui->cb_showErrors->isChecked());
 	delete ui;
-	delete db;
+	//delete db;
 }
 
 void CHistoricoForm::populateTable(QList<CDBHistoryEntry> entries)
@@ -128,6 +130,7 @@ void CHistoricoForm::initTable()
 	ui->tableWidget->setHorizontalHeaderLabels(headers);
 	ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
 	ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 	//ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
@@ -211,10 +214,40 @@ void CHistoricoForm::refresh()
 		statusList.append(getErrorStatus());
 	}
 
-	 entries = query.getEntries(dateTimeStart, dateTimeEnd, "","","","",-1,"",statusList,"");
+	 //entries = query.getEntries(dateTimeStart, dateTimeEnd, "","","","",-1,"",statusList,"");
+	 entries = CMagoDBCommandsThread::commands->getMagoSendHistoryEntries(dateTimeStart.toString("dd/MM/yyyy hh:mm:ss"),
+																									dateTimeEnd.toString("dd/MM/yyyy hh:mm:ss"),
+																									"",
+																									"",
+																									"",
+																									"",
+																									-1,
+																									"",
+																									statusList,
+																									"");
 	//QList<CDBHistoryEntry> entriesFiltered = filterEntriesByStatus(entries);
 	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries );
 	populateTable(entriesFinal);
+}
+
+void CHistoricoForm::resizeEvent(QResizeEvent *event)
+{
+	int tableWidth = ui->tableWidget->viewport()->width();
+	int columnCount = ui->tableWidget->columnCount();
+	int columnWidth = tableWidth / columnCount;
+	for (int i = 0; i < columnCount; ++i) {
+		ui->tableWidget->setColumnWidth(i, columnWidth);
+	}
+}
+
+void CHistoricoForm::showEvent(QShowEvent *event)
+{
+	int tableWidth = ui->tableWidget->viewport()->width();
+	int columnCount = ui->tableWidget->columnCount();
+	int columnWidth = tableWidth / columnCount;
+	for (int i = 0; i < columnCount; ++i) {
+		ui->tableWidget->setColumnWidth(i, columnWidth);
+	}
 }
 
 void CHistoricoForm::on_refreshButton_clicked()
@@ -224,23 +257,24 @@ void CHistoricoForm::on_refreshButton_clicked()
 
 void CHistoricoForm::on_okButton_clicked()
 {
-	ui->tableWidget->setSortingEnabled(false);
-	ui->tableWidget->clearContents();
-	ui->tableWidget->setRowCount(0);
-	QDate dateStart = ui->dateEdit_1->date();
-	QDate dateEnd = ui->dateEdit_2->date();
-	QTime timeStart = ui->timeEdit_1->time();
-	QTime timeEnd = ui->timeEdit_2->time();
-	QDateTime dateTimeStart(dateStart, timeStart);
-	QDateTime dateTimeEnd(dateEnd, timeEnd);
-	//qDebug("dateStart [%s]", dateStart.toString("yyyy-MM-dd").toLatin1().data());
-	//qDebug("dateEnd [%s]", dateEnd.toString("yyyy-MM-dd").toLatin1().data());
-	//qDebug("dateTimeStart [%s]", dateTimeStart.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
-	//qDebug("dateTimeEnd [%s]", dateTimeEnd.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
-	CBDQuery query;
-	QList<CDBHistoryEntry> entries = query.getEntries(dateTimeStart,dateTimeEnd);
-	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries);
-	populateTable(entriesFinal);
+//	ui->tableWidget->setSortingEnabled(false);
+//	ui->tableWidget->clearContents();
+//	ui->tableWidget->setRowCount(0);
+//	QDate dateStart = ui->dateEdit_1->date();
+//	QDate dateEnd = ui->dateEdit_2->date();
+//	QTime timeStart = ui->timeEdit_1->time();
+//	QTime timeEnd = ui->timeEdit_2->time();
+//	QDateTime dateTimeStart(dateStart, timeStart);
+//	QDateTime dateTimeEnd(dateEnd, timeEnd);
+//	//qDebug("dateStart [%s]", dateStart.toString("yyyy-MM-dd").toLatin1().data());
+//	//qDebug("dateEnd [%s]", dateEnd.toString("yyyy-MM-dd").toLatin1().data());
+//	//qDebug("dateTimeStart [%s]", dateTimeStart.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
+//	//qDebug("dateTimeEnd [%s]", dateTimeEnd.toString("yyyy-MM-dd hh:mm:ss").toLatin1().data());
+//	CBDQuery query;
+//	QList<CDBHistoryEntry> entries = query.getEntries(dateTimeStart,dateTimeEnd);
+//	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries);
+//	populateTable(entriesFinal);
+	refresh();
 }
 
 

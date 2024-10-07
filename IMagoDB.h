@@ -13,13 +13,13 @@
 #endif
 
 #include <QtCore/qglobal.h>
-
+#include <QSqlDatabase>
 class IMagoDB
 {
 
 public:
 
-	virtual bool __stdcall InitDB() = 0;
+	virtual bool __stdcall InitDB(QSqlDatabase* connection) = 0;
 	//data e validade = dd/MM/yyyy
 	virtual bool __stdcall AddEvent(char* numero, char* caminho, char* titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char*  modalidade) = 0;
 	//data e validade = dd/MM/yyyy

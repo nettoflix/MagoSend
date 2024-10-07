@@ -18,7 +18,6 @@ public:
 	~CSendOptionsForm();
 
 private:
-	MagoDB* db;
 	Ui::CSendOptionsForm *ui;
 protected:
 	void closeEvent(QCloseEvent *event) override;

@@ -27,6 +27,7 @@ public:
 	static int getVideoDuration(QString filePath);
 	static bool isValidIPv4format(QString ip);
 	static bool isValidFilename(QString filename);
+	static bool isValidIDname(QString filename);
 
 };
 
