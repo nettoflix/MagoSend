@@ -9,6 +9,7 @@ CCadastrarLoginForm::CCadastrarLoginForm(QWidget *parent) :
 	ui(new Ui::CCadastrarLoginForm)
 {
 	ui->setupUi(this);
+	setWindowTitle("Cadastro");
 }
 
 CCadastrarLoginForm::~CCadastrarLoginForm()

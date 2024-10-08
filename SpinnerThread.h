@@ -13,6 +13,8 @@ public:
 	SpinnerThread(QWidget* parent=nullptr, int x=0, int y=0);
 	void startSpinner();
 	void stopSpinner();
+	CWaitingSpinnerWidget *getSpinner() const;
+
 protected:
 	CWaitingSpinnerWidget* spinner = nullptr;
 	void run();

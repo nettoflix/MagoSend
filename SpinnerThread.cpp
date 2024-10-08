@@ -14,6 +14,7 @@ SpinnerThread::SpinnerThread(QWidget* parent, int x, int y) : QThread()
 	spinner->setColor(QColor(255, 140, 26));
 	spinner->move(x, y);
 	spinner->moveToThread(this);
+	qDebug("SpinnerThread constrcutor - OUT");
 }
 
 void SpinnerThread::startSpinner()
@@ -30,6 +31,17 @@ void SpinnerThread::stopSpinner()
 	spinner->hide();
 	QThread::exit();
 }
+
+CWaitingSpinnerWidget *SpinnerThread::getSpinner() const
+{
+	if (!spinner) {
+		return nullptr;
+	}
+	return spinner;
+
+}
+
+
 
 void SpinnerThread::run()
 {

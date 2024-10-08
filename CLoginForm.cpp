@@ -10,6 +10,7 @@ CLoginForm::CLoginForm(QWidget *parent, MainWindow* mw) :
 	ui(new Ui::CLoginForm)
 {
 	ui->setupUi(this);
+	setWindowTitle("Login");
 //	MagoDB* db = new MagoDB();
 //	db->CreateTableLogin();
 	//delete db;

@@ -40,6 +40,7 @@ public:
 	QStringList getIpListFromSession(QString selectedSession);
 	QStringList getNameListFromSession(QString selectedSession);
 	void clearModalidadeMagoSend();
+	QStringList getUsersFromHistorico();
 	void addModalidadeMagoSend(QString nome, QString desc);
 	QStringList getSessionNames();
 	bool historicoShouldShowErrors();
@@ -163,6 +164,7 @@ public slots:
 	bool userAlreadyExists(QString usuario);
 	QString getUserPassword(QString usuario);
 	bool AddUserMagoSend(QString usuario, QByteArray password);
+	QStringList getUsersFromHistorico();
 };
 
 #endif /* CMAGODBCOMMANDSTHREAD_H_ */

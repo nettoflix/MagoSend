@@ -21,11 +21,13 @@ CEditarSessaoForm::~CEditarSessaoForm()
 
 void CEditarSessaoForm::init()
 {
+	this->setWindowTitle("Sessões");
 	sessionsToRemove.clear();
 	ui->cb_Sessoes->clear();
 	//pegar o nome de todas as sessoes do DB
 	QStringList sessoes = CMagoDBCommandsThread::commands->getSessionNames();
 	ui->cb_Sessoes->addItems(sessoes);
+
 }
 
 void CEditarSessaoForm::on_pushButton_clicked()
@@ -50,7 +52,7 @@ void CEditarSessaoForm::on_btn_ok_clicked()
 {
 	for(QString sessionToRemove: sessionsToRemove)
 	{
-		CMagoDBCommandsThread::commands->removeSession(sessionToRemove.toLatin1().data());
+		CMagoDBCommandsThread::commands->removeSession(sessionToRemove);
 	}
 	MainWindow* parent = (MainWindow*) this->parent();
 	parent->loadSessionComboBox();

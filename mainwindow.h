@@ -84,7 +84,7 @@ private:
 	QIcon* scaledIcon;
 	QToolBar* toolBar;
 	CWaitingSpinnerWidget* populateListSpinner;
-	SpinnerThread* tableSpinner;
+	SpinnerThread* tableSpinner = nullptr;
 	QTimer timer_loadTable;
 	//Worker* worker2;
 	int batchIndex = 0;

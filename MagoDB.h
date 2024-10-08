@@ -46,10 +46,11 @@ public:
 	QStringList __stdcall getIpListFromSession(QString sessao,QSqlDatabase* connection);
 	QStringList __stdcall getNameListFromSession(QString sessao,QSqlDatabase* connection);
 	QStringList __stdcall getSessionNames(QSqlDatabase* connection);
-	void __stdcall removeSession(char* sessao, QSqlDatabase* connection);
+	void __stdcall removeSession(QString sessao, QSqlDatabase* connection);
 	void __stdcall addModalidadeMagoSend(QString nome, QString descricao, QSqlDatabase* connection);
 	void __stdcall clearModalidadeMagoSend(QSqlDatabase* connection);
-	QVector<QPair<QString, QString>> getModalidadesMagoSend(QSqlDatabase* connection);
+	QVector<QPair<QString, QString>> __stdcall getModalidadesMagoSend(QSqlDatabase* connection);
+	QStringList __stdcall getUsersFromHistorico(QSqlDatabase *connection);
 	bool __stdcall InitDB(QSqlDatabase* connection);
 	bool __stdcall AddEvent(char* numero, char* caminho, char* titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);
 	bool __stdcall UpdateEvent(char* oldnumero, char* newnumero, char* caminho, char * titulo, int tipo, int inicio, int thumb, int frames, char* data, char* validade, int usuario, char* modalidade);
@@ -67,7 +68,7 @@ public:
 	bool __stdcall AddProgram(char* codigo, char* titulo, int breaks, int frames, int posicaomesa);
 	bool __stdcall UpdateProgram(char* oldcodigo, char* newcodigo, char* titulo, int breaks, int frames, int posicaomesa);
 	bool __stdcall RemoveProgram(char* codigo);
-	int __stdcall AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario, QSqlDatabase* connection);
+	int __stdcall AddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario, QSqlDatabase* connection);
 	int __stdcall AddUserMagoSend(char* usuario, char* senha, QSqlDatabase* connection);
 	bool __stdcall userAlreadyExists(char* usuario, QSqlDatabase* connection);
 	QString __stdcall getUserPassword(char* usuario, QSqlDatabase* connection);

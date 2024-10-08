@@ -10,6 +10,7 @@ CModalidadesForm::CModalidadesForm(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::CModalidadesForm)
 {
+	this->setWindowTitle("Modalidades");
 	ui->setupUi(this);
 
 	QStringList headers;

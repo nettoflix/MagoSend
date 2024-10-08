@@ -252,13 +252,13 @@ void CHostControl::markVideoAsSent(QString fileName, QString hostIp)
 				if(magodb->EventExistsByNumber(numero.toLatin1().data()))
 				{
 					qDebug("EventExistsByNumber");
-					magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toLatin1().data());
+					magodb->UpdateEvent(numero.toUtf8().data(), numero.toUtf8().data(), path.toUtf8().data(), titulo.toUtf8().data(),0,0,0,0,"","",0,modalidade.toUtf8().data());
 				}
 				else
 				{
 
 					qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
-					magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toLatin1().data());
+					magodb->AddEvent(numero.toUtf8().data(),path.toUtf8().data(), titulo.toUtf8().data(), 0, 0, 0, 0, "", "", 0,modalidade.toUtf8().data());
 				}
 				delete magodb;
 			}

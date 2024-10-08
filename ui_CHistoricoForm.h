@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -50,6 +51,8 @@ public:
     QGroupBox *groupBox;
     QCheckBox *cb_showErrors;
     QCheckBox *cb_showSuccess;
+    QGroupBox *groupBox_2;
+    QComboBox *cb_usuarios;
     QTableWidget *tableWidget;
 
     void setupUi(QWidget *CHistoricoForm)
@@ -768,7 +771,7 @@ public:
         ckbExactNumber->setGeometry(QRect(20, 70, 121, 23));
         refreshButton = new QPushButton(groupBox_10);
         refreshButton->setObjectName(QStringLiteral("refreshButton"));
-        refreshButton->setGeometry(QRect(20, 420, 281, 41));
+        refreshButton->setGeometry(QRect(20, 530, 281, 41));
         QFont font3;
         refreshButton->setFont(font3);
         QIcon icon;
@@ -784,6 +787,12 @@ public:
         cb_showSuccess = new QCheckBox(groupBox);
         cb_showSuccess->setObjectName(QStringLiteral("cb_showSuccess"));
         cb_showSuccess->setGeometry(QRect(20, 70, 241, 23));
+        groupBox_2 = new QGroupBox(groupBox_10);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(20, 430, 291, 81));
+        cb_usuarios = new QComboBox(groupBox_2);
+        cb_usuarios->setObjectName(QStringLiteral("cb_usuarios"));
+        cb_usuarios->setGeometry(QRect(20, 30, 251, 31));
 
         horizontalLayout_3->addWidget(groupBox_10);
 
@@ -835,9 +844,10 @@ public:
 #endif // QT_NO_TOOLTIP
         ckbExactNumber->setText(QApplication::translate("CHistoricoForm", "C\303\263digo exato", Q_NULLPTR));
         refreshButton->setText(QApplication::translate("CHistoricoForm", "Atualizar", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("CHistoricoForm", "Filtro por status", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("CHistoricoForm", "Status", Q_NULLPTR));
         cb_showErrors->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com erros", Q_NULLPTR));
         cb_showSuccess->setText(QApplication::translate("CHistoricoForm", "Mostrar registros com sucesso", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("CHistoricoForm", "Usu\303\241rio", Q_NULLPTR));
     } // retranslateUi
 
 };

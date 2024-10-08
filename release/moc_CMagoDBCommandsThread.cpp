@@ -87,8 +87,8 @@ int CMagoDBCommandsThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_CMagoDBCommandsThreadWorker_t {
-    QByteArrayData data[47];
-    char stringdata0[728];
+    QByteArrayData data[48];
+    char stringdata0[750];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -143,7 +143,8 @@ QT_MOC_LITERAL(42, 651, 17), // "shouldOverwriteId"
 QT_MOC_LITERAL(43, 669, 17), // "userAlreadyExists"
 QT_MOC_LITERAL(44, 687, 15), // "getUserPassword"
 QT_MOC_LITERAL(45, 703, 15), // "AddUserMagoSend"
-QT_MOC_LITERAL(46, 719, 8) // "password"
+QT_MOC_LITERAL(46, 719, 8), // "password"
+QT_MOC_LITERAL(47, 728, 21) // "getUsersFromHistorico"
 
     },
     "CMagoDBCommandsThreadWorker\0"
@@ -165,7 +166,7 @@ QT_MOC_LITERAL(46, 719, 8) // "password"
     "warningWhenOverwriteId\0updateSendOptions\0"
     "shouldOverwriteFile\0shouldOverwriteId\0"
     "userAlreadyExists\0getUserPassword\0"
-    "AddUserMagoSend\0password"
+    "AddUserMagoSend\0password\0getUsersFromHistorico"
 };
 #undef QT_MOC_LITERAL
 
@@ -175,7 +176,7 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      32,   14, // methods
+      33,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -183,38 +184,39 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    9,  174,    2, 0x0a /* Public */,
-      12,    0,  193,    2, 0x0a /* Public */,
-      13,    1,  194,    2, 0x0a /* Public */,
-      15,    1,  197,    2, 0x0a /* Public */,
-      16,    0,  200,    2, 0x0a /* Public */,
-      18,    0,  201,    2, 0x0a /* Public */,
-      19,    0,  202,    2, 0x0a /* Public */,
-      20,    2,  203,    2, 0x0a /* Public */,
-      23,   10,  208,    2, 0x0a /* Public */,
-      23,    9,  229,    2, 0x2a /* Public | MethodCloned */,
-      23,    8,  248,    2, 0x2a /* Public | MethodCloned */,
-      23,    7,  265,    2, 0x2a /* Public | MethodCloned */,
-      23,    6,  280,    2, 0x2a /* Public | MethodCloned */,
-      23,    5,  293,    2, 0x2a /* Public | MethodCloned */,
-      23,    4,  304,    2, 0x2a /* Public | MethodCloned */,
-      23,    3,  313,    2, 0x2a /* Public | MethodCloned */,
-      23,    2,  320,    2, 0x2a /* Public | MethodCloned */,
-      23,    1,  325,    2, 0x2a /* Public | MethodCloned */,
-      23,    0,  328,    2, 0x2a /* Public | MethodCloned */,
-      26,    0,  329,    2, 0x0a /* Public */,
-      27,    2,  330,    2, 0x0a /* Public */,
-      30,    0,  335,    2, 0x0a /* Public */,
-      31,    1,  336,    2, 0x0a /* Public */,
-      32,    3,  339,    2, 0x0a /* Public */,
-      36,    3,  346,    2, 0x0a /* Public */,
-      37,    1,  353,    2, 0x0a /* Public */,
-      38,    0,  356,    2, 0x0a /* Public */,
-      39,    0,  357,    2, 0x0a /* Public */,
-      40,    2,  358,    2, 0x0a /* Public */,
-      43,    1,  363,    2, 0x0a /* Public */,
-      44,    1,  366,    2, 0x0a /* Public */,
-      45,    2,  369,    2, 0x0a /* Public */,
+       1,    9,  179,    2, 0x0a /* Public */,
+      12,    0,  198,    2, 0x0a /* Public */,
+      13,    1,  199,    2, 0x0a /* Public */,
+      15,    1,  202,    2, 0x0a /* Public */,
+      16,    0,  205,    2, 0x0a /* Public */,
+      18,    0,  206,    2, 0x0a /* Public */,
+      19,    0,  207,    2, 0x0a /* Public */,
+      20,    2,  208,    2, 0x0a /* Public */,
+      23,   10,  213,    2, 0x0a /* Public */,
+      23,    9,  234,    2, 0x2a /* Public | MethodCloned */,
+      23,    8,  253,    2, 0x2a /* Public | MethodCloned */,
+      23,    7,  270,    2, 0x2a /* Public | MethodCloned */,
+      23,    6,  285,    2, 0x2a /* Public | MethodCloned */,
+      23,    5,  298,    2, 0x2a /* Public | MethodCloned */,
+      23,    4,  309,    2, 0x2a /* Public | MethodCloned */,
+      23,    3,  318,    2, 0x2a /* Public | MethodCloned */,
+      23,    2,  325,    2, 0x2a /* Public | MethodCloned */,
+      23,    1,  330,    2, 0x2a /* Public | MethodCloned */,
+      23,    0,  333,    2, 0x2a /* Public | MethodCloned */,
+      26,    0,  334,    2, 0x0a /* Public */,
+      27,    2,  335,    2, 0x0a /* Public */,
+      30,    0,  340,    2, 0x0a /* Public */,
+      31,    1,  341,    2, 0x0a /* Public */,
+      32,    3,  344,    2, 0x0a /* Public */,
+      36,    3,  351,    2, 0x0a /* Public */,
+      37,    1,  358,    2, 0x0a /* Public */,
+      38,    0,  361,    2, 0x0a /* Public */,
+      39,    0,  362,    2, 0x0a /* Public */,
+      40,    2,  363,    2, 0x0a /* Public */,
+      43,    1,  368,    2, 0x0a /* Public */,
+      44,    1,  371,    2, 0x0a /* Public */,
+      45,    2,  374,    2, 0x0a /* Public */,
+      47,    0,  379,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,    4,    5,    6,    7,    8,    9,   10,   11,
@@ -249,6 +251,7 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
     QMetaType::Bool, QMetaType::QString,   11,
     QMetaType::QString, QMetaType::QString,   11,
     QMetaType::Bool, QMetaType::QString, QMetaType::QByteArray,   11,   46,
+    QMetaType::QStringList,
 
        0        // eod
 };
@@ -315,6 +318,8 @@ void CMagoDBCommandsThreadWorker::qt_static_metacall(QObject *_o, QMetaObject::C
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         case 31: { bool _r = _t->AddUserMagoSend((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 32: { QStringList _r = _t->getUsersFromHistorico();
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     }
@@ -345,13 +350,13 @@ int CMagoDBCommandsThreadWorker::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 32)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 33;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 32)
+        if (_id < 33)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 32;
+        _id -= 33;
     }
     return _id;
 }

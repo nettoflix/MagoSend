@@ -309,15 +309,15 @@ bool MagoDB::CreateTableHistorico(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table Historico(id SERIAL PRIMARY KEY,"
-										 "numero varchar NOT NULL,"
-										 "titulo varchar NOT NULL,"
-										 "caminho varchar NOT NULL,"
-										 "modalidade varchar NOT NULL,"
+										 "numero TEXT NOT NULL,"
+										 "titulo TEXT NOT NULL,"
+										 "caminho TEXT NOT NULL,"
+										 "modalidade TEXT NOT NULL,"
 										 "duracao int,"
-										 "ip varchar NOT NULL,"
-										 "status varchar NOT NULL,"
+										 "ip TEXT NOT NULL,"
+										 "status TEXT NOT NULL,"
 										 "data timestamp NOT NULL,"
-										 "usuario varchar)"));
+										 "usuario TEXT)"));
 	qDebug() << query->lastError();
 	return resultado;
 }
@@ -977,8 +977,9 @@ QStringList MagoDB::getSessionNames(QSqlDatabase* connection)
 	return ipList;
 }
 
-void MagoDB::removeSession(char* sessao, QSqlDatabase* connection)
+void MagoDB::removeSession(QString sessao, QSqlDatabase* connection)
 {
+	qDebug("MagoDB::removeSession - IN");
 	if (!connection->isOpen())
 	{
 		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
@@ -996,12 +997,17 @@ void MagoDB::removeSession(char* sessao, QSqlDatabase* connection)
 		query = new QSqlQuery(Magodb);
 	}
 
-	QString sql;
-	sql.sprintf("DELETE FROM sessions WHERE nome = '%s'", sessao);
-	qDebug("sql = %s", sql.toLatin1().data());
+	QString sql = "DELETE FROM sessions WHERE nome = :val_nome";
 	query->prepare(sql);
-	query->exec();
-	qDebug() << query->lastError();
+	query->bindValue(":val_nome", sessao);
+	if(!query->exec())
+	{
+			qDebug() << query->lastError();
+			qDebug("lastQuery:", query->lastQuery());
+
+	}
+
+
 
 }
 
@@ -1095,6 +1101,41 @@ QVector<QPair<QString, QString>> MagoDB::getModalidadesMagoSend(QSqlDatabase* co
 		}
 	}
 	return modList;
+}
+
+QStringList MagoDB::getUsersFromHistorico(QSqlDatabase *connection)
+{
+	QStringList users;
+	if (!connection->isOpen())
+	{
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada A");
+		connection->open();
+		qDebug("MagoDB::AddHistorico() - Conexao estava fechada B");
+	}
+
+	QSqlQuery* query = nullptr;
+	if (connection != nullptr)
+	{
+		query = new QSqlQuery(*connection);
+	}
+	else
+	{
+		query = new QSqlQuery(Magodb);
+	}
+	if (query->exec("SELECT DISTINCT usuario FROM historico"))
+	{
+		while (query->next())
+		{
+			QString usuario = query->value(0).toString();
+			qDebug() << "getUsersFromHistorico - Usuario:" << usuario;
+			users << usuario;
+		}
+	}
+	else
+	{
+		qDebug() << "getUsersFromHistorico - Query execution failed: " << query->lastError().text();
+	}
+	return users;
 }
 
 bool MagoDB::AddDuracaoRealAtHistorico()
@@ -1413,7 +1454,7 @@ void *MagoDB::getMagoSendHistoryEntries(char *data, char *data2, char *numero, c
 		if(validCArg)
 			sql+= " and ";
 
-		sql+= QString("usuario = %1").arg(usuario);
+		sql+= QString("usuario = '%1'").arg(usuario);
 		validCArg = true;
 	}
 
@@ -1783,7 +1824,7 @@ bool MagoDB::RemoveProgram(char* codigo)
 	return resultado;
 }
 
-int MagoDB::AddHistoricoMagoSend(char* numero, char* titulo, char* caminho, char* modalidade, int duracao, char* ip, char* status, char* data, char* usuario, QSqlDatabase* connection)
+int MagoDB::AddHistoricoMagoSend(QString numero, QString titulo, QString caminho, QString modalidade, int duracao, QString ip, QString status, QString data, QString usuario, QSqlDatabase* connection)
 {
 	int resultado = -1;
 

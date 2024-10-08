@@ -109,6 +109,15 @@ void CMagoDBCommandsThread::clearModalidadeMagoSend()
 	QMetaObject::invokeMethod(worker, "clearModalidadeMagoSend", Qt::BlockingQueuedConnection);
 }
 
+QStringList CMagoDBCommandsThread::getUsersFromHistorico()
+{
+	QStringList users;
+	qDebug("CMagoDBCommandsThread::getUsersFromHistorico - IN");
+	//qDebug() << "queuedAddHistoricoMagoSend thread: Current thread ID:" << QThread::currentThreadId();
+	QMetaObject::invokeMethod(worker, "getUsersFromHistorico", Qt::BlockingQueuedConnection, Q_RETURN_ARG(QStringList, users));
+	return users;
+}
+
 void CMagoDBCommandsThread::addModalidadeMagoSend(QString nome, QString desc)
 {
 	qDebug("CMagoDBCommandsThread::addModalidadeMagoSend - IN");
@@ -181,7 +190,7 @@ void CMagoDBCommandsThread::createRowOnSessionTable(QString sessionName, QString
 void CMagoDBCommandsThread::removeSession(QString session)
 {
 	qDebug("CMagoDBCommandsThread::removeSession - IN");
-	QMetaObject::invokeMethod(worker, "removeSession", Qt::QueuedConnection, Q_ARG(QString, session));
+	QMetaObject::invokeMethod(worker, "removeSession", Qt::BlockingQueuedConnection, Q_ARG(QString, session));
 }
 
 bool CMagoDBCommandsThread::warningWhenOverwriteFile()
@@ -271,7 +280,8 @@ void CMagoDBCommandsThreadWorker::queuedAddHistoricoMagoSend(QString numero, QSt
 
 		try
 		{
-			thread->getMagoDB()->AddHistoricoMagoSend(numero.toLatin1().data(),titulo.toLatin1().data(),caminho.toLatin1().data(),modalidade.toLatin1().data(),duracao,ip.toLatin1().data(),status.toLatin1().data(),data.toLatin1().data(),usuario.toLatin1().data(),&connection);
+
+			thread->getMagoDB()->AddHistoricoMagoSend(numero,titulo,caminho,modalidade,duracao,ip,status,data,usuario,&connection);
 			//			histoId = thread->getMagoDB()->AddHistorico(
 			//						numero.toLatin1().data(),
 			//						titulo.toLatin1().data(),
@@ -769,7 +779,7 @@ void CMagoDBCommandsThreadWorker::removeSession(QString sessao)
 
 		try
 		{
-			thread->getMagoDB()->removeSession(sessao.toLatin1().data(), &connection);
+			thread->getMagoDB()->removeSession(sessao, &connection);
 		}
 		catch(...)
 		{
@@ -945,6 +955,33 @@ bool CMagoDBCommandsThreadWorker::AddUserMagoSend(QString usuario, QByteArray pa
 
 	QSqlDatabase::removeDatabase(dbConnectionName);
 	return ok;
+}
+
+QStringList CMagoDBCommandsThreadWorker::getUsersFromHistorico()
+{
+	qDebug("CMagoDBCommandsThreadWorker::getUsersFromHistorico - IN");
+	QStringList users;
+	QString dbConnectionName;
+	{
+		QSqlDatabase connection = thread->getRandomConnection();
+
+		dbConnectionName = connection.connectionName();
+
+		try
+		{
+			users = thread->getMagoDB()->getUsersFromHistorico(&connection);
+		}
+		catch(...)
+		{
+			qDebug("CMagoDBCommandsThreadWorker::getUsersFromHistorico - Erro exception");
+		}
+
+		connection.close();
+	}
+
+
+	QSqlDatabase::removeDatabase(dbConnectionName);
+	return users;
 }
 
 

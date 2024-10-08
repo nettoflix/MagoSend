@@ -283,6 +283,11 @@ void MainWindow::updateQueueItemInformation(bool idExists)
 
 		}
 	}
+	else
+	{
+		QMessageBox::warning(this, tr("Atenção!"), tr("O ID ou o título contêm caracteres inválidos. Por favor, insira um valor válido."),
+							 QMessageBox::Ok);
+	}
 
 }
 
@@ -464,7 +469,8 @@ void MainWindow::onFileSelectionBtnClick()
 	//							  ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	//	populateListSpinner->show();
 	//	populateListSpinner->start();
-	tableSpinner = new SpinnerThread(this, ui->tableWidget->parentWidget()->pos().x() + ui->tableWidget->parentWidget()->width()/2, ui->tableWidget->parentWidget()->pos().y() + ui->tableWidget->parentWidget()->height()*0.55);
+//	tableSpinner = new SpinnerThread(this, ui->tableWidget->parentWidget()->pos().x() + ui->tableWidget->parentWidget()->width()/2, ui->tableWidget->parentWidget()->pos().y() + ui->tableWidget->parentWidget()->height()*0.55);
+	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	tableSpinner->startSpinner();
 
 
@@ -566,20 +572,22 @@ void MainWindow::onRemoverBtnClick()
 	ui->btn_pausar->setEnabled(false);
 	ui->btn_Remover->setEnabled(false);
 	ui->tableWidget->hide();
-	CWaitingSpinnerWidget spinner(this,false,false);
-	spinner.setRoundness(70.0);
-	spinner.setMinimumTrailOpacity(15.0);
-	spinner.setTrailFadePercentage(70.0);
-	spinner.setNumberOfLines(12);
-	spinner.setLineLength(10);
-	spinner.setLineWidth(5);
-	spinner.setInnerRadius(10);
-	spinner.setRevolutionsPerSecond(1);
-	spinner.setColor(QColor(255, 140, 26));
-	spinner.move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2,
-				 ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
-	spinner.show();
-	spinner.start();
+	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
+	tableSpinner->startSpinner();
+//	CWaitingSpinnerWidget spinner(this,false,false);
+//	spinner.setRoundness(70.0);
+//	spinner.setMinimumTrailOpacity(15.0);
+//	spinner.setTrailFadePercentage(70.0);
+//	spinner.setNumberOfLines(12);
+//	spinner.setLineLength(10);
+//	spinner.setLineWidth(5);
+//	spinner.setInnerRadius(10);
+//	spinner.setRevolutionsPerSecond(1);
+//	spinner.setColor(QColor(255, 140, 26));
+//	spinner.move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2,
+//				 ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
+//	spinner.show();
+//	spinner.start();
 	int count = 0;
 	//pegar row selecionada
 
@@ -633,8 +641,12 @@ void MainWindow::onRemoverBtnClick()
 	ui->btn_Remover->setEnabled(true);
 	openFilesAction->setEnabled(true);
 	batchIndex = ui->tableWidget->rowCount();
-	//	ui->btn_fileSelection->setEnabled(true);
 
+	tableSpinner->stopSpinner();
+	tableSpinner->exit();
+	tableSpinner->wait();
+	delete tableSpinner;
+	tableSpinner = nullptr;
 
 }
 
@@ -998,6 +1010,11 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 	int columnWidth = tableWidth / columnCount;
 	for (int i = 0; i < columnCount; ++i) {
 		ui->tableWidget->setColumnWidth(i, columnWidth);
+	}
+	if(tableSpinner!=nullptr && tableSpinner->getSpinner()!=nullptr)
+	{
+		qDebug("OIE");
+		tableSpinner->getSpinner()->move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	}
 }
 

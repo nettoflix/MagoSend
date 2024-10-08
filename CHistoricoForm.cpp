@@ -20,6 +20,10 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 	ui->cb_showErrors->setChecked(shouldShowErrors);
 	ui->cb_showSuccess->setChecked(shouldShowSuccess);
 
+	QStringList users = CMagoDBCommandsThread::commands->getUsersFromHistorico();
+	QStringList usersFinal;
+	usersFinal << "Todos Usuários" << users;
+	ui->cb_usuarios->addItems(usersFinal);
 	//populateTable(entries);
 
 }
@@ -215,16 +219,33 @@ void CHistoricoForm::refresh()
 	}
 
 	 //entries = query.getEntries(dateTimeStart, dateTimeEnd, "","","","",-1,"",statusList,"");
-	 entries = CMagoDBCommandsThread::commands->getMagoSendHistoryEntries(dateTimeStart.toString("dd/MM/yyyy hh:mm:ss"),
-																									dateTimeEnd.toString("dd/MM/yyyy hh:mm:ss"),
-																									"",
-																									"",
-																									"",
-																									"",
-																									-1,
-																									"",
-																									statusList,
-																									"");
+	if(ui->cb_usuarios->currentText() == "Todos Usuários")
+	{
+		entries = CMagoDBCommandsThread::commands->getMagoSendHistoryEntries(dateTimeStart.toString("dd/MM/yyyy hh:mm:ss"),
+																									   dateTimeEnd.toString("dd/MM/yyyy hh:mm:ss"),
+																									   "",
+																									   "",
+																									   "",
+																									   "",
+																									   -1,
+																									   "",
+																									   statusList,
+																									   "");
+	}
+	else
+	{
+		entries = CMagoDBCommandsThread::commands->getMagoSendHistoryEntries(dateTimeStart.toString("dd/MM/yyyy hh:mm:ss"),
+																									   dateTimeEnd.toString("dd/MM/yyyy hh:mm:ss"),
+																									   "",
+																									   "",
+																									   "",
+																									   "",
+																									   -1,
+																									   "",
+																									   statusList,
+																									   ui->cb_usuarios->currentText());
+	}
+
 	//QList<CDBHistoryEntry> entriesFiltered = filterEntriesByStatus(entries);
 	QList<CDBHistoryEntry> entriesFinal = filterEntriesByKeyword(entries );
 	populateTable(entriesFinal);

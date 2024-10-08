@@ -822,6 +822,7 @@ release/qrc_qrc.cpp: qrc.qrc \
 		images/error.png \
 		images/history.ico \
 		images/handle.png \
+		images/lock.png \
 		images/exit.png \
 		images/sand-clock.png \
 		images/up_arrow.png \
