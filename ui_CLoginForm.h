@@ -28,7 +28,6 @@ class Ui_CLoginForm
 public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
-    QLabel *label_3;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
@@ -43,7 +42,7 @@ public:
     {
         if (CLoginForm->objectName().isEmpty())
             CLoginForm->setObjectName(QStringLiteral("CLoginForm"));
-        CLoginForm->resize(553, 284);
+        CLoginForm->resize(553, 250);
         CLoginForm->setStyleSheet(QLatin1String("QToolTip\n"
 "{\n"
 "     border: 1px solid black;\n"
@@ -655,27 +654,17 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label_3 = new QLabel(CLoginForm);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
-
-        verticalLayout->addWidget(label_3, 0, Qt::AlignHCenter);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         label = new QLabel(CLoginForm);
         label->setObjectName(QStringLiteral("label"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
         label->setMinimumSize(QSize(40, 0));
         label->setMaximumSize(QSize(16777215, 25));
         label->setStyleSheet(QLatin1String("QLabel{\n"
@@ -687,8 +676,8 @@ public:
 
         label_2 = new QLabel(CLoginForm);
         label_2->setObjectName(QStringLiteral("label_2"));
-        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy);
         label_2->setMinimumSize(QSize(0, 23));
         label_2->setMaximumSize(QSize(16777215, 23));
         label_2->setStyleSheet(QLatin1String("QLabel{\n"
@@ -705,20 +694,20 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         le_user = new QLineEdit(CLoginForm);
         le_user->setObjectName(QStringLiteral("le_user"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(le_user->sizePolicy().hasHeightForWidth());
-        le_user->setSizePolicy(sizePolicy2);
-        le_user->setMaximumSize(QSize(16777215, 25));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(le_user->sizePolicy().hasHeightForWidth());
+        le_user->setSizePolicy(sizePolicy1);
+        le_user->setMaximumSize(QSize(16777215, 30));
 
         verticalLayout_4->addWidget(le_user);
 
         le_password = new QLineEdit(CLoginForm);
         le_password->setObjectName(QStringLiteral("le_password"));
-        sizePolicy2.setHeightForWidth(le_password->sizePolicy().hasHeightForWidth());
-        le_password->setSizePolicy(sizePolicy2);
-        le_password->setMaximumSize(QSize(16777215, 25));
+        sizePolicy1.setHeightForWidth(le_password->sizePolicy().hasHeightForWidth());
+        le_password->setSizePolicy(sizePolicy1);
+        le_password->setMaximumSize(QSize(16777215, 30));
         le_password->setEchoMode(QLineEdit::Password);
 
         verticalLayout_4->addWidget(le_password);
@@ -731,28 +720,28 @@ public:
 
         btn_entrar = new QPushButton(CLoginForm);
         btn_entrar->setObjectName(QStringLiteral("btn_entrar"));
-        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(btn_entrar->sizePolicy().hasHeightForWidth());
-        btn_entrar->setSizePolicy(sizePolicy3);
-        btn_entrar->setMinimumSize(QSize(0, 18));
-        btn_entrar->setMaximumSize(QSize(16777215, 30));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(btn_entrar->sizePolicy().hasHeightForWidth());
+        btn_entrar->setSizePolicy(sizePolicy2);
+        btn_entrar->setMinimumSize(QSize(0, 35));
+        btn_entrar->setMaximumSize(QSize(16777215, 35));
 
         verticalLayout->addWidget(btn_entrar);
 
         btn_cadastrar = new QPushButton(CLoginForm);
         btn_cadastrar->setObjectName(QStringLiteral("btn_cadastrar"));
-        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(btn_cadastrar->sizePolicy().hasHeightForWidth());
-        btn_cadastrar->setSizePolicy(sizePolicy4);
-        btn_cadastrar->setMinimumSize(QSize(0, 80));
-        btn_cadastrar->setMaximumSize(QSize(16777215, 100));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(btn_cadastrar->sizePolicy().hasHeightForWidth());
+        btn_cadastrar->setSizePolicy(sizePolicy3);
+        btn_cadastrar->setMinimumSize(QSize(0, 60));
+        btn_cadastrar->setMaximumSize(QSize(16777215, 50));
         btn_cadastrar->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"margin-top: 40px;\n"
+"margin-top: 20px;\n"
 "margin-bottom: 10px;\n"
 "margin-left: 5px;\n"
 "padding-left: 6px;\n"
@@ -773,7 +762,6 @@ public:
     void retranslateUi(QWidget *CLoginForm)
     {
         CLoginForm->setWindowTitle(QApplication::translate("CLoginForm", "Form", Q_NULLPTR));
-        label_3->setText(QApplication::translate("CLoginForm", "Login", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         label->setToolTip(QString());
 #endif // QT_NO_TOOLTIP

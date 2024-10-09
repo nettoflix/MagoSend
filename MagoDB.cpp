@@ -220,9 +220,18 @@ bool MagoDB::CreateDB(char* IP, QString dbName,int dbPort,bool useRandomConnecti
 		db2.setPort(dbPort);
 		db2.setUserName(dbUser);
 		db2.setPassword(dbPassword);
+
 		if (!db2.open())
 		{
-			qFatal("Failed to connect: %s", db2.lastError().text().toLatin1().constData());
+			if(IP == "127.0.0.1")
+			{
+				qFatal("Failed to connect: %s", db2.lastError().text().toLatin1().constData());
+			}
+			else
+			{
+				qDebug("Failed to connect: %s", db2.lastError().text().toLatin1().constData());
+			}
+
 		}
 
 		QString s = QString(QLatin1String("CREATE DATABASE %1 WITH OWNER = postgres ENCODING 'UTF8'CONNECTION LIMIT = -1")).arg(databaseName());
@@ -230,7 +239,15 @@ bool MagoDB::CreateDB(char* IP, QString dbName,int dbPort,bool useRandomConnecti
 		QSqlQuery query(db2);
 		if (!query.exec(s))
 		{
-			qFatal("Failed to create the %s database: %s", databaseName().toLatin1().constData(), query.lastError().text().toLatin1().constData());
+			if(IP == "127.0.0.1")
+			{
+				qFatal("Failed to create the %s database: %s", databaseName().toLatin1().constData(), query.lastError().text().toLatin1().constData());
+			}
+			else
+			{
+				qDebug("Failed to create the %s database: %s", databaseName().toLatin1().constData(), query.lastError().text().toLatin1().constData());
+			}
+
 		}
 		db2.close();
 		//reconnect again
@@ -309,15 +326,15 @@ bool MagoDB::CreateTableHistorico(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table Historico(id SERIAL PRIMARY KEY,"
-										 "numero TEXT NOT NULL,"
-										 "titulo TEXT NOT NULL,"
-										 "caminho TEXT NOT NULL,"
-										 "modalidade TEXT NOT NULL,"
-										 "duracao int,"
-										 "ip TEXT NOT NULL,"
-										 "status TEXT NOT NULL,"
-										 "data timestamp NOT NULL,"
-										 "usuario TEXT)"));
+										  "numero TEXT NOT NULL,"
+										  "titulo TEXT NOT NULL,"
+										  "caminho TEXT NOT NULL,"
+										  "modalidade TEXT NOT NULL,"
+										  "duracao int,"
+										  "ip TEXT NOT NULL,"
+										  "status TEXT NOT NULL,"
+										  "data timestamp NOT NULL,"
+										  "usuario TEXT)"));
 	qDebug() << query->lastError();
 	return resultado;
 }
@@ -343,8 +360,8 @@ bool MagoDB::CreateTableLogin(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table Login(id SERIAL PRIMARY KEY,"
-										 "usuario varchar NOT NULL,"
-										 "senha varchar NOT NULL)"));
+										  "usuario varchar NOT NULL,"
+										  "senha varchar NOT NULL)"));
 	qDebug() << query->lastError();
 	return resultado;
 }
@@ -382,9 +399,9 @@ bool MagoDB::CreateTableSessions(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table Sessions("
-										 "nome TEXT NOT NULL,"
-										 "ipList TEXT NOT NULL,"
-										 "nameList TEXT NOT NULL)"));
+										  "nome TEXT NOT NULL,"
+										  "ipList TEXT NOT NULL,"
+										  "nameList TEXT NOT NULL)"));
 	qDebug() << query->lastError();
 	return resultado;
 }
@@ -411,8 +428,8 @@ bool MagoDB::CreateTableModalidades(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table modalidade("
-										 "nome TEXT NOT NULL,"
-										 "descricao TEXT NOT NULL)"));
+										  "nome TEXT NOT NULL,"
+										  "descricao TEXT NOT NULL)"));
 	qDebug() << query->lastError();
 	return resultado;
 }
@@ -439,10 +456,10 @@ bool MagoDB::CreateTableOptions(QSqlDatabase* connection)
 	bool resultado;
 
 	resultado = query->exec(QLatin1String("create table options("
-										 "overwritefile boolean NOT NULL,"
-										 "overwriteId boolean NOT NULL,"
-										 "showErrors boolean NOT NULL,"
-										 "showSuccess boolean NOT NULL)"));
+										  "overwritefile boolean NOT NULL,"
+										  "overwriteId boolean NOT NULL,"
+										  "showErrors boolean NOT NULL,"
+										  "showSuccess boolean NOT NULL)"));
 	qDebug() << query->lastError();
 	if(resultado)
 	{
@@ -1002,8 +1019,8 @@ void MagoDB::removeSession(QString sessao, QSqlDatabase* connection)
 	query->bindValue(":val_nome", sessao);
 	if(!query->exec())
 	{
-			qDebug() << query->lastError();
-			qDebug("lastQuery:", query->lastQuery());
+		qDebug() << query->lastError();
+		qDebug("lastQuery:", query->lastQuery());
 
 	}
 
@@ -2129,4 +2146,25 @@ QString MagoDB::GetEventModalidade(char* number)
 	}
 
 	return modalidade;
+}
+
+QStringList MagoDB::getModalidadesMago()
+{
+	QSqlQuery query;
+
+	QStringList modalidades;
+	if(query.exec("SELECT * FROM public.grupos"))
+	{
+		while(query.next())
+		{
+			modalidades << query.value(0).toString();
+		}
+	}
+	else
+	{
+		qDebug() << query.lastQuery();
+		qDebug() << query.lastError();
+
+	}
+	return modalidades;
 }

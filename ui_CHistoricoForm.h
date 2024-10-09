@@ -832,7 +832,7 @@ public:
         timeEdit_2->setDisplayFormat(QApplication::translate("CHistoricoForm", "HH:mm:ss", Q_NULLPTR));
         label_12->setText(QApplication::translate("CHistoricoForm", "a", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        groupBox_13->setToolTip(QString());
+        groupBox_13->setToolTip(QApplication::translate("CHistoricoForm", "ID ou T\303\255tulo", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         groupBox_13->setTitle(QApplication::translate("CHistoricoForm", "Palavra chave", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP

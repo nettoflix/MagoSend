@@ -3,6 +3,7 @@
 #include "ui_CCadastrarLoginForm.h"
 #include "CMagoDBCommandsThread.h"
 #include <QMessageBox>
+#include <QScreen>
 
 CCadastrarLoginForm::CCadastrarLoginForm(QWidget *parent) :
 	QDialog(parent),
@@ -10,6 +11,12 @@ CCadastrarLoginForm::CCadastrarLoginForm(QWidget *parent) :
 {
 	ui->setupUi(this);
 	setWindowTitle("Cadastro");
+
+	QScreen* screen = QGuiApplication::primaryScreen();
+	QRect screenGeometry = screen->geometry();
+	int x = (screenGeometry.width() - width()) / 2;
+	int y = (screenGeometry.height() - height()) / 2;
+	move(x, y);
 }
 
 CCadastrarLoginForm::~CCadastrarLoginForm()

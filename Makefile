@@ -8142,7 +8142,14 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		SpinnerThread.h \
 		ui_CLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QScreen \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qscreen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QList \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QRect \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSize \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSizeF \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QTransform
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CLoginForm.o CLoginForm.cpp
 
 release/CCadastrarLoginForm.o: CCadastrarLoginForm.cpp CCadastrarLoginForm.h \
@@ -8411,7 +8418,14 @@ release/CCadastrarLoginForm.o: CCadastrarLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QMutex \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QWaitCondition \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QScreen \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qscreen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QList \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QRect \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSize \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSizeF \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QTransform
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CCadastrarLoginForm.o CCadastrarLoginForm.cpp
 
 release/CWorker.o: CWorker.cpp CWorker.h \

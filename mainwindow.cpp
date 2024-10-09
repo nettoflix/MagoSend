@@ -27,8 +27,6 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	setWindowTitle("MagoSend - " + usuario);
 	//cria as tables no banco de dados se elas ainda nao existirem
 	connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
-	// Connect the button's clicked() signal to the slot buttonClicked() in MyWidget
-	//	QObject::connect(ui->btn_fileSelection, SIGNAL(clicked()), this, SLOT(onFileSelectionBtnClick()));
 	QObject::connect(ui->btn_Enviar, SIGNAL(clicked()), this, SLOT(onEnviarTodosBtnClick()));
 	QObject::connect(ui->btn_Remover, SIGNAL(clicked()), this, SLOT(onRemoverBtnClick()));
 	QObject::connect(ui->btn_NovoIP, SIGNAL(clicked()), this, SLOT(onNovoIPBtnClick()));
@@ -39,10 +37,6 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 
 	hostControl = new CHostControl(this);
 	transferMonitor = new CTransferMonitor(this);
-	//hostControl->registerIp("192.168.0.146");
-	//hostControl->registerIp("127.0.0.1");
-	//hostControl->startTransferServices();
-
 
 	QStringList headers;
 	headers << tr("ID") << tr("Título") <<tr("Modalidade") << tr("Duração")  << tr("IP") << tr("Progresso") << tr("Status");
@@ -66,22 +60,13 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	ui->hostsTable->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
 	ui->hostsTable->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
 	ui->hostsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-
 	ui->hostsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//ui->hostsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-	//	QMenu* trayMenu = new QMenu(this);
 	toolBar = this->addToolBar(tr("Barra de ferramentas"));
 	toolBar->setStyleSheet("QToolBar {border-bottom: 1px solid black; border-top: 1px solid lightgray; spacing: 5px;}");
 	toolBar->setMovable(false);
 	toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
-
-
-	//QAction *settingsAct = new QAction(settingsIcon, tr("Configurações"), this);
-	//settingsAct->setStatusTip(tr("Abrir configurações"));
-	//toolBar->addAction(settingsAct);
 
 	// Create a QToolButton for the dropdown
 	const QIcon settingsIcon = QIcon(":/images/settings.png");
@@ -106,9 +91,9 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 
 	//configMenu = menuBar()->addMenu(tr("Configurações"));
 	QMenu *configMenu = new QMenu(this);
-	QAction* modAction = new QAction(tr("Modalidades"), this);
-	configMenu->addAction(modAction);
-	connect(modAction, SIGNAL(triggered()), this, SLOT(onModAction()));
+	//QAction* modAction = new QAction(tr("Modalidades"), this);
+	//configMenu->addAction(modAction);
+	//connect(modAction, SIGNAL(triggered()), this, SLOT(onModAction()));
 
 	QAction* sessionAction = new QAction(tr("Sessões"), this);
 	configMenu->addAction(sessionAction);
@@ -125,7 +110,7 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	toolBar->addAction(historicoAction);
 	toolBar->addWidget(settingsButton);
 
-	loadModComboBox();
+	//loadModComboBox();
 	loadSessionComboBox();
 	timer.start(70);
 
@@ -140,9 +125,6 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 
 	ui->tableWidget->setIconSize(QSize(24, 24));
 	iconEspera = new QIcon(":images/espera.png");
-	QPixmap pixmap = iconEspera->pixmap(QSize(24, 24)); // Set your desired size
-	scaledIcon = new QIcon(pixmap);
-
 	iconSending = new QIcon(":images/sending.png");
 	iconCheck = new QIcon(":images/check.png");
 	iconError = new QIcon(":images/error.png");
@@ -153,11 +135,17 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 	connect(this, &MainWindow::populateQueueWithPaths, worker, &Worker::onPopulateQueueWithPaths, Qt::QueuedConnection);
 	connect(worker, &Worker::queueDonePopulating, this, &MainWindow::onQueueDonePopulating, Qt::QueuedConnection);
 	//connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
-	QObject::connect(this, &MainWindow::triggerWorker, worker ,[this]()
+	connect(this, &MainWindow::triggerWorker, worker ,[this]()
 	{
 		worker->getFilesAlreadyPresentOnHosts(this->filePaths);
 	});
-	QObject::connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
+	connect(worker, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
+
+	//pega modalidades dos hosts
+	connect(this, &MainWindow::getModalidadesFromHosts, worker, &Worker::onGetModalidadesFromHosts, Qt::QueuedConnection);
+	connect(worker, &Worker::loadMods, this, &MainWindow::onLoadMods, Qt::QueuedConnection);
+
+	connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::onItemFromTableWidgetSelected);
 
 }
 
@@ -184,11 +172,9 @@ void MainWindow::changeHostsTableTextColor(QColor color, QString ip)
 
 void MainWindow::loadModComboBox()
 {
-	ui->cb_modalidades->clear();
-	QVector<QPair<QString, QString>> modList = CMagoDBCommandsThread::commands->getModalidadesMagoSend();
-	for(QPair<QString, QString> modalidade : modList) {
-		ui->cb_modalidades->addItem(modalidade.first);
-	}
+
+
+
 }
 
 void MainWindow::loadSessionComboBox()
@@ -276,11 +262,16 @@ void MainWindow::updateQueueItemInformation(bool idExists)
 		videoInfo->setId(newID);
 		titulo->setText(newTitulo);
 		videoInfo->setTitulo(newTitulo);
-		if(newModalidade != "")
+		if(newModalidade != "Nenhuma")
 		{
 			modalidade->setText(newModalidade);
 			videoInfo->setModalidade(newModalidade);
 
+		}
+		else
+		{
+			modalidade->setText("Nenhuma");
+			videoInfo->setModalidade("");
 		}
 	}
 	else
@@ -359,7 +350,7 @@ void MainWindow::addQueueToTableWidget()
 
 			QTableWidgetItem *iconItem = new QTableWidgetItem();
 			//QIcon icon("/home/mago/Switcher/release/espera.png");
-			iconItem->setIcon(*scaledIcon);
+			iconItem->setIcon(*iconEspera);
 			iconItem->setText("Esperando");
 			iconItem->setTextAlignment(Qt::AlignCenter);
 			//iconItem->setTextColor(QColor(Qt::blue));
@@ -431,11 +422,37 @@ void MainWindow::onQueueDonePopulating()
 
 }
 
+void MainWindow::onLoadMods(QList<QPair<QStringList, QString>> modalidades)
+{
+	this->everyHostModalidades = modalidades;
+
+}
+
+void MainWindow::onItemFromTableWidgetSelected()
+{
+	//só vamos motrar as modalidades correspondentes ao host do item selecionado
+	ui->cb_modalidades->clear();
+	QStringList modalidadesToShow;
+	modalidadesToShow.append("Nenhuma");
+	QList<QTableWidgetItem *> selectedItems = ui->tableWidget->selectedItems();
+	if (!selectedItems.isEmpty()) {
+		qDebug() << "Selected item:" << selectedItems.first()->text();
+		QString selectedItemIP = selectedItems.at(4)->text();
+		for(QPair<QStringList, QString> modalidade : everyHostModalidades)
+		{
+			if(modalidade.second == selectedItemIP)
+			{
+				modalidadesToShow.append(modalidade.first);
+			}
+		}
+		ui->cb_modalidades->addItems(modalidadesToShow);
+	}
+}
+
 void MainWindow::onFileSelectionBtnClick()
 {
 	qDebug("MainWindow::onFileSelectionBtnClick! -1 \n");
 	filePaths.clear();
-	//ui->tableWidget->blockSignals(true);
 
 	if(ui->hostsTable->rowCount() <= 0)
 	{
@@ -445,31 +462,12 @@ void MainWindow::onFileSelectionBtnClick()
 	}
 
 
-	//ui->tableWidget->hide();
-
 	//desabilita os botões enquanto está carregando a lista
 	ui->btn_Enviar->setEnabled(false);
 	ui->btn_pausar->setEnabled(false);
 	ui->btn_Remover->setEnabled(false);
 	openFilesAction->setEnabled(false);
-	//	ui->btn_fileSelection->setEnabled(false);
 
-	//inicializa o spinner de loading
-	//	populateListSpinner = new CWaitingSpinnerWidget(this, false, false);
-	//	populateListSpinner->setRoundness(70.0);
-	//	populateListSpinner->setMinimumTrailOpacity(15.0);
-	//	populateListSpinner->setTrailFadePercentage(70.0);
-	//	populateListSpinner->setNumberOfLines(12);
-	//	populateListSpinner->setLineLength(10);
-	//	populateListSpinner->setLineWidth(5);
-	//	populateListSpinner->setInnerRadius(10);
-	//	populateListSpinner->setRevolutionsPerSecond(1);
-	//	populateListSpinner->setColor(QColor(255, 140, 26));
-	//	populateListSpinner->move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2,
-	//							  ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
-	//	populateListSpinner->show();
-	//	populateListSpinner->start();
-//	tableSpinner = new SpinnerThread(this, ui->tableWidget->parentWidget()->pos().x() + ui->tableWidget->parentWidget()->width()/2, ui->tableWidget->parentWidget()->pos().y() + ui->tableWidget->parentWidget()->height()*0.55);
 	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	tableSpinner->startSpinner();
 
@@ -506,18 +504,6 @@ void MainWindow::onFileSelectionBtnClick()
 		bool shouldWarn = CMagoDBCommandsThread::commands->warningWhenOverwriteFile();
 		if(shouldWarn) //deve verificar se os videos já existem no destino e pergunta pro usuário se ele quer sobreescrever
 		{
-			qDebug("shouldAlwaysOverWriteFile = false");
-			//	if(!workerThread.isRunning())
-			//	{
-
-			qDebug("MainWindow::onFileSelectionBtnClick-2");
-			//workerThread.start();
-			//worker->moveToThread(&workerThread);
-
-			//	}
-
-			qDebug("MainWindow::onFileSelectionBtnClick-3");
-			qDebug("emit triggerWork!!");
 			emit triggerWorker();
 		}
 		else //adiciona todos os arquivos selecionados na lista sem pedir confirmação
@@ -574,20 +560,20 @@ void MainWindow::onRemoverBtnClick()
 	ui->tableWidget->hide();
 	tableSpinner = new SpinnerThread(this, ui->tableWidget->pos().x() + ui->tableWidget->width()/2, ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
 	tableSpinner->startSpinner();
-//	CWaitingSpinnerWidget spinner(this,false,false);
-//	spinner.setRoundness(70.0);
-//	spinner.setMinimumTrailOpacity(15.0);
-//	spinner.setTrailFadePercentage(70.0);
-//	spinner.setNumberOfLines(12);
-//	spinner.setLineLength(10);
-//	spinner.setLineWidth(5);
-//	spinner.setInnerRadius(10);
-//	spinner.setRevolutionsPerSecond(1);
-//	spinner.setColor(QColor(255, 140, 26));
-//	spinner.move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2,
-//				 ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
-//	spinner.show();
-//	spinner.start();
+	//	CWaitingSpinnerWidget spinner(this,false,false);
+	//	spinner.setRoundness(70.0);
+	//	spinner.setMinimumTrailOpacity(15.0);
+	//	spinner.setTrailFadePercentage(70.0);
+	//	spinner.setNumberOfLines(12);
+	//	spinner.setLineLength(10);
+	//	spinner.setLineWidth(5);
+	//	spinner.setInnerRadius(10);
+	//	spinner.setRevolutionsPerSecond(1);
+	//	spinner.setColor(QColor(255, 140, 26));
+	//	spinner.move(ui->tableWidget->pos().x() + ui->tableWidget->width()/2,
+	//				 ui->tableWidget->pos().y() + ui->tableWidget->height()/2);
+	//	spinner.show();
+	//	spinner.start();
 	int count = 0;
 	//pegar row selecionada
 
@@ -682,6 +668,9 @@ void MainWindow::onNovoIPBtnClick()
 			qDebug("oii!2");
 			hostControl->registerIp(newIp);
 			//hostControl->startTransferService(newIp);
+			updateModComboBox();
+
+
 		}
 		else
 		{
@@ -707,7 +696,7 @@ void MainWindow::onExcluirIPBtnClick()
 		hostControl->markHostAsRemovedFromTable(ip);
 		ui->hostsTable->removeRow(currentRow);
 	}
-
+	updateModComboBox();
 }
 
 void MainWindow::onPausarTodosBtnClick()
@@ -766,11 +755,11 @@ void MainWindow::onAtualizarDadosBtnClick()
 
 void MainWindow::onModAction()
 {
-	CModalidadesForm modForm(this);
+	//CModalidadesForm modForm(this);
 	//modForm.show();
-	modForm.raise();
+	//modForm.raise();
 
-	modForm.exec();
+	//modForm.exec();
 	//QEventLoop loop;
 	//connect(&modForm, SIGNAL(closed()), &modForm, SLOT(reject()));
 	//loop.exec();
@@ -799,23 +788,10 @@ void MainWindow::onOptionsAction()
 }
 bool MainWindow::isItemVisible(QTableWidgetItem *item) {
 	if (!item) return false;
-
-	// Get the item's row and column
 	int row = item->row();
 	int column = item->column();
-
-	// Get the viewport rectangle of the QTableWidget
 	QRect viewportRect = ui->tableWidget->viewport()->rect();
-	QRect itemRect0 = ui->tableWidget->visualRect(ui->tableWidget->model()->index(0, 0));
-	// Get the rectangle of the item in the table's coordinates
 	QRect itemRect = ui->tableWidget->visualRect(ui->tableWidget->model()->index(row, column));
-	//	qDebug() << "itemRect0 Coordinates:";
-	//	qDebug() << "x:" << itemRect0.x();
-	//	qDebug() << "y:" << itemRect0.y();
-	//	qDebug() << "width:" << itemRect0.width();
-	//	qDebug() << "height:" << itemRect0.height();
-
-	// Check if the item rectangle intersects with the viewport rectangle
 	return viewportRect.intersects(itemRect);
 }
 QPair<int,int> MainWindow:: getFirstAndLastVisibleRowFromTable()
@@ -831,11 +807,19 @@ QPair<int,int> MainWindow:: getFirstAndLastVisibleRowFromTable()
 	return QPair<int,int>(firstRow,lastRow);
 }
 
+void MainWindow::updateModComboBox()
+{
+	QStringList items;
+	for(int i=0; i<ui->hostsTable->rowCount(); i++)
+	{
+		items << ui->hostsTable->item(i, 1)->text();
+	}
+	emit getModalidadesFromHosts(items);
+}
+
 
 void MainWindow::onTimer()
 {
-	//qDebug("MainWindow - onTimer!!");
-	//qDebug() << "onTimer: Current thread ID:" << QThread::currentThreadId();
 	for(int i=0; i<ui->hostsTable->rowCount(); i++)
 	{
 		QString ip = ui->hostsTable->item(i, 1)->text();
@@ -929,13 +913,13 @@ void MainWindow::onTimer()
 			else if(videoInfo->getStatus() == CVideoStatus::WAITING)
 			{
 				QTableWidgetItem *item = ui->tableWidget->item(i,Columns::ICON);
-				item->setIcon(*scaledIcon);
+				item->setIcon(*iconEspera);
 				item->setText("Em espera");
 			}
 			else if(videoInfo->getStatus() == CVideoStatus::CANCELLED)
 			{
 				QTableWidgetItem *item = ui->tableWidget->item(i,Columns::ICON);
-				item->setIcon(*scaledIcon);
+				item->setIcon(*iconEspera);
 				item->setText("Cancelado");
 			}
 			else if(videoInfo->getStatus() == CVideoStatus::TRYING_TO_CONNECT)
@@ -989,6 +973,7 @@ void MainWindow::on_btn_connectSession_clicked()
 		hostControl->registerIp(ip);
 
 	}
+	updateModComboBox();
 }
 
 void MainWindow::setWarningResponse(bool value)

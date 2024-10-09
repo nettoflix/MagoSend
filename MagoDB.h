@@ -86,6 +86,7 @@ public:
 	void* __stdcall getHistoryFieldValues(char * fieldName);
     QString __stdcall GetEventTitulo(char* number);
     QString __stdcall GetEventModalidade(char* number);
+	QStringList __stdcall getModalidadesMago();
     bool __stdcall ChangeMagoDBVersion(char* version);
 	QString __stdcall GetMagoDBVersion();
 

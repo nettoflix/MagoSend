@@ -42,12 +42,14 @@ public slots:
 	void getFilesAlreadyPresentOnHosts(QStringList filePaths);
 	void checkIfIdExistsOnHosts(QString ip, QString id);
 	void onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip);
+	void onGetModalidadesFromHosts(QStringList hosts);
 
 signals:
 	void filesAlreadyPresentOnHostsResult(QList<CFilesOnHost> listFilesOnHost);
 	void idAlreadyExistOnHost(bool value);
 	void queueDonePopulating();
 	void hostTableTextColorChanged(QColor color, QString ip);
+	void loadMods(QList<QPair<QStringList, QString>> modalidades);
 private:
 	MainWindow* mw;
 };

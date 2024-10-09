@@ -12,6 +12,8 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 
 	ui->dateEdit_1->setDate(QDate::currentDate());
 	ui->dateEdit_2->setDate(QDate::currentDate());
+	QTime time2(23,59,59);
+	ui->timeEdit_2->setTime(time2);
 	initTable();
 
 //	db = new MagoDB();
@@ -24,6 +26,7 @@ CHistoricoForm::CHistoricoForm(QWidget *parent) :
 	QStringList usersFinal;
 	usersFinal << "Todos Usuários" << users;
 	ui->cb_usuarios->addItems(usersFinal);
+
 	//populateTable(entries);
 
 }

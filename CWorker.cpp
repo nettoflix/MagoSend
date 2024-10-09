@@ -92,13 +92,10 @@ void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
 }
 void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 {
+	qDebug("Worker::onPopulateQueueWithPaths - IN");
 	setIsPopulatingQueue(true);
-	qDebug("Worker::onPopulateQueueWithPaths -1 ");
-	//qDebug() << "populateQueueWithPaths: Current thread ID: " << QThread::currentThreadId() << "IP:" << ip;
 	QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
-	qDebug("Worker::onPopulateQueueWithPaths -2 ");
 	QMutexLocker queueLocker(&mw->getTransferMonitor()->getQueueMutex());
-	qDebug("Worker::onPopulateQueueWithPaths -3 ");
 	CHostControl* hostControl = mw->getHostControl();
 	for (Host* host : hostControl->getHosts()) {
 
@@ -110,11 +107,7 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 				for(QString filePath : pathsToPopulate)
 				{
 					count++;
-					//qDebug("host was not removed, [%s]", filePath.toLatin1().data());
-					//qDebug("Worker::onPopulateQueueWithPaths - 1");
 					int durationInSeconds = CServiceUtils::getVideoDuration(filePath);
-					//qDebug("Worker::onPopulateQueueWithPaths - 2");
-
 					VideoFileInfo* file1= new VideoFileInfo(filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
 					mw->getTransferMonitor()->getCurrentQueue().append(file1);
 				}
@@ -122,15 +115,24 @@ void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 		}
 
 	}
-
 	setIsPopulatingQueue(false);
-	qDebug("Worker::onPopulateQueueWithPaths -4 ");
 	hostsLocker.unlock();
 	queueLocker.unlock();
-		qDebug("Worker::onPopulateQueueWithPaths -emit queueDonePopulating - 5 ");
+	qDebug("Worker::onPopulateQueueWithPaths - queueDonePopulating");
 	emit queueDonePopulating();
+}
 
-	qDebug("Worker::onPopulateQueueWithPaths -6 ");
+void Worker::onGetModalidadesFromHosts(QStringList hosts)
+{
+	QList<QPair<QStringList, QString>> modList;
+	for(int i=0; i<hosts.size(); i++)
+	{
+		MagoDB* magodb = new MagoDB(hosts.at(i).toLatin1().data(), false);
+		QStringList hostModalidades = magodb->getModalidadesMago();
+		modList << QPair<QStringList,QString>(hostModalidades, hosts.at(i));
 
+		delete magodb;
+	}
+	emit loadMods(modList);
 
 }

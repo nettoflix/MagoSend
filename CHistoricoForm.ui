@@ -842,7 +842,7 @@ QTableCornerButton::section {
          </font>
         </property>
         <property name="toolTip">
-         <string/>
+         <string>ID ou Título</string>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>

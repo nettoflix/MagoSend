@@ -59,6 +59,7 @@ signals:
 	void cancel_active_upload(int hostIndex);
 	void triggerWorker();
 	void populateQueueWithPaths(QStringList filePathsToPopulate, QString ip);
+	void getModalidadesFromHosts(QStringList hosts);
 
 private:
 	bool populatingTableWidget = false;
@@ -81,7 +82,6 @@ private:
 	QIcon* iconSending;
 	QIcon* iconCheck;
 	QIcon* iconError;
-	QIcon* scaledIcon;
 	QToolBar* toolBar;
 	CWaitingSpinnerWidget* populateListSpinner;
 	SpinnerThread* tableSpinner = nullptr;
@@ -90,11 +90,12 @@ private:
 	int batchIndex = 0;
 	int batchSize;
 	bool waitingUserResponseToAddItems = false;
+	QList<QPair<QStringList, QString>> everyHostModalidades;
 	//int populateCount =0;
 	void updateQueueItemInformation(bool idExists);
 	bool isItemVisible(QTableWidgetItem *item);
 	QPair<int,int>  getFirstAndLastVisibleRowFromTable();
-
+	void updateModComboBox();
 private slots:
 	void onItemSelected(const QItemSelection &selected, const QItemSelection &deselected);
 
@@ -117,6 +118,8 @@ private slots:
 	void showWarningMessage(const QString &message);
 	void pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost);
 	void onQueueDonePopulating();
+	void onLoadMods(QList<QPair<QStringList, QString>> modalidades);
+	void onItemFromTableWidgetSelected();
 };
 
 #endif // MAINWINDOW_H

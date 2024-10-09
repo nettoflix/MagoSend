@@ -4,6 +4,7 @@
 #include "ui_CLoginForm.h"
 
 #include <QMessageBox>
+#include <QScreen>
 
 CLoginForm::CLoginForm(QWidget *parent, MainWindow* mw) :
 	QWidget(parent),
@@ -11,11 +12,13 @@ CLoginForm::CLoginForm(QWidget *parent, MainWindow* mw) :
 {
 	ui->setupUi(this);
 	setWindowTitle("Login");
-//	MagoDB* db = new MagoDB();
-//	db->CreateTableLogin();
-	//delete db;
-	//this->setAttribute(Qt::WA_DeleteOnClose);
-	//this->mw = mw;
+
+	QScreen* screen = QGuiApplication::primaryScreen();
+	QRect screenGeometry = screen->geometry();
+	int x = (screenGeometry.width() - width()) / 2;
+	int y = (screenGeometry.height() - height()) / 2;
+	move(x, y);
+	this->mw = mw;
 }
 
 CLoginForm::~CLoginForm()

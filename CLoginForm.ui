@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>553</width>
-    <height>284</height>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -610,19 +610,6 @@ QTableCornerButton::section {
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
-     <item alignment="Qt::AlignHCenter">
-      <widget class="QLabel" name="label_3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Login</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -707,7 +694,7 @@ image: url(:/images/lock.png);
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>30</height>
             </size>
            </property>
            <property name="toolTip">
@@ -729,7 +716,7 @@ image: url(:/images/lock.png);
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>30</height>
             </size>
            </property>
            <property name="toolTip">
@@ -758,13 +745,13 @@ image: url(:/images/lock.png);
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>18</height>
+         <height>35</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>30</height>
+         <height>35</height>
         </size>
        </property>
        <property name="text">
@@ -783,19 +770,19 @@ image: url(:/images/lock.png);
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>80</height>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>100</height>
+         <height>50</height>
         </size>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton
 {
-margin-top: 40px;
+margin-top: 20px;
 margin-bottom: 10px;
 margin-left: 5px;
 padding-left: 6px;
