@@ -52,6 +52,8 @@ public:
 	MagoDB *getDb() const;
 
 	Worker *getWorker() const;
+	bool getShowingError() const;
+
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 	void showEvent(QShowEvent *event) override;
@@ -96,6 +98,8 @@ private:
 	bool isItemVisible(QTableWidgetItem *item);
 	QPair<int,int>  getFirstAndLastVisibleRowFromTable();
 	void updateModComboBox();
+	bool showingError = false;
+
 private slots:
 	void onItemSelected(const QItemSelection &selected, const QItemSelection &deselected);
 
@@ -120,6 +124,8 @@ private slots:
 	void onQueueDonePopulating();
 	void onLoadMods(QList<QPair<QStringList, QString>> modalidades);
 	void onItemFromTableWidgetSelected();
+public slots:
+	void onShowErrorMessage(QString error);
 };
 
 #endif // MAINWINDOW_H

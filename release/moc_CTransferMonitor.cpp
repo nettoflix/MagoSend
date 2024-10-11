@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CTransferMonitor_t {
-    QByteArrayData data[3];
-    char stringdata0[27];
+    QByteArrayData data[5];
+    char stringdata0[50];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,14 @@ struct qt_meta_stringdata_CTransferMonitor_t {
 static const qt_meta_stringdata_CTransferMonitor_t qt_meta_stringdata_CTransferMonitor = {
     {
 QT_MOC_LITERAL(0, 0, 16), // "CTransferMonitor"
-QT_MOC_LITERAL(1, 17, 8), // "runLogic"
-QT_MOC_LITERAL(2, 26, 0) // ""
+QT_MOC_LITERAL(1, 17, 16), // "showErrorMessage"
+QT_MOC_LITERAL(2, 34, 0), // ""
+QT_MOC_LITERAL(3, 35, 5), // "error"
+QT_MOC_LITERAL(4, 41, 8) // "runLogic"
 
     },
-    "CTransferMonitor\0runLogic\0"
+    "CTransferMonitor\0showErrorMessage\0\0"
+    "error\0runLogic"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,15 +49,21 @@ static const uint qt_meta_data_CTransferMonitor[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   24,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+       4,    0,   27,    2, 0x08 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::QString,    3,
 
  // slots: parameters
     QMetaType::Void,
@@ -68,11 +77,20 @@ void CTransferMonitor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         CTransferMonitor *_t = static_cast<CTransferMonitor *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->runLogic(); break;
+        case 0: _t->showErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->runLogic(); break;
         default: ;
         }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            typedef void (CTransferMonitor::*_t)(QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CTransferMonitor::showErrorMessage)) {
+                *result = 0;
+                return;
+            }
+        }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject CTransferMonitor::staticMetaObject = {
@@ -100,15 +118,22 @@ int CTransferMonitor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
+}
+
+// SIGNAL 0
+void CTransferMonitor::showErrorMessage(QString _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

@@ -60,6 +60,8 @@ void CHostControl::registerIp(QString ip)
 	}
 	int port = getNextAvailablePort();
 	Host* host = new Host(ip, port);
+//	host->moveToThread(getMainWindow()->getTransferMonitor());
+//	getMainWindow()->getTransferMonitor()->start();
 	this->hosts.append(host);
 	startTransferService(ip);
 
@@ -89,7 +91,7 @@ void CHostControl::markHostAsRemovedFromTable(QString ip)
 		Host* host = hosts.at(i);
 		if(host->ip == ip)
 		{
-			qDebug("CHostControl::markHostAsRemovedFromTable - ip [%s]", ip);
+            //qDebug("CHostControl::markHostAsRemovedFromTable - ip [%s]", ip);
 			host->setWasRemovedFromTableWidget(true);
 		}
 	}
@@ -148,10 +150,11 @@ void CHostControl::startTransferService(QString ip)
 		//QMutexLocker locker(&hostsMutex);
 		if(host->ip == ip)
 		{
+            qDebug() << "CHostControl::startTransferServic" << host->ip << ":" << QString::number(host->port) << ".txt";
 			CServiceUtils::StartTransferService(host->process,"/mnt/AV1/NettoDigisend", ip, QString::number(host->port));
 			connect(host->process, &QProcess::readyReadStandardOutput, [host]() mutable {
 				QByteArray output = host->process->readAllStandardOutput();
-				QFile file(host->ip + ":" + QString::number(host->port) + ".txt");
+                QFile file(host->ip + "-" + QString::number(host->port) + ".txt");
 				if (!file.open(QIODevice::Append | QIODevice::Text)) {
 					qCritical() << "Could not open file for writing";
 					return;

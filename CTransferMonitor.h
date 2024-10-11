@@ -42,6 +42,7 @@ private:
 	QVector<VideoFileInfo*> currentQueue;
 	//bool isPopulatingQueue = false;
 	QTimer* timer;
+    QElapsedTimer timer_;
 	QTimer* checkConnectionTimer;
 	void run();
 	private slots:
@@ -67,6 +68,8 @@ public:
 	VideoFileInfo* getItemFromQueue(int index);
 	QVector<VideoFileInfo*>& getCurrentQueue();
 	int getProgress(QString ip, QString fileName);
+signals:
+		void showErrorMessage(QString error);
 
 
 

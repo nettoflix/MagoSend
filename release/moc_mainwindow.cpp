@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[39];
-    char stringdata0[666];
+    QByteArrayData data[41];
+    char stringdata0[691];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -70,7 +70,9 @@ QT_MOC_LITERAL(34, 556, 21), // "onQueueDonePopulating"
 QT_MOC_LITERAL(35, 578, 10), // "onLoadMods"
 QT_MOC_LITERAL(36, 589, 34), // "QList<QPair<QStringList,QStri..."
 QT_MOC_LITERAL(37, 624, 11), // "modalidades"
-QT_MOC_LITERAL(38, 636, 29) // "onItemFromTableWidgetSelected"
+QT_MOC_LITERAL(38, 636, 29), // "onItemFromTableWidgetSelected"
+QT_MOC_LITERAL(39, 666, 18), // "onShowErrorMessage"
+QT_MOC_LITERAL(40, 685, 5) // "error"
 
     },
     "MainWindow\0cancel_active_upload\0\0"
@@ -89,7 +91,8 @@ QT_MOC_LITERAL(38, 636, 29) // "onItemFromTableWidgetSelected"
     "QList<CFilesOnHost>\0listFilesOnHost\0"
     "onQueueDonePopulating\0onLoadMods\0"
     "QList<QPair<QStringList,QString> >\0"
-    "modalidades\0onItemFromTableWidgetSelected"
+    "modalidades\0onItemFromTableWidgetSelected\0"
+    "onShowErrorMessage\0error"
 };
 #undef QT_MOC_LITERAL
 
@@ -99,7 +102,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      25,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -107,33 +110,34 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  139,    2, 0x06 /* Public */,
-       4,    0,  142,    2, 0x06 /* Public */,
-       5,    2,  143,    2, 0x06 /* Public */,
-       8,    1,  148,    2, 0x06 /* Public */,
+       1,    1,  144,    2, 0x06 /* Public */,
+       4,    0,  147,    2, 0x06 /* Public */,
+       5,    2,  148,    2, 0x06 /* Public */,
+       8,    1,  153,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    2,  151,    2, 0x08 /* Private */,
-      14,    0,  156,    2, 0x08 /* Private */,
-      15,    0,  157,    2, 0x08 /* Private */,
-      16,    0,  158,    2, 0x08 /* Private */,
-      17,    0,  159,    2, 0x08 /* Private */,
-      18,    0,  160,    2, 0x08 /* Private */,
-      19,    0,  161,    2, 0x08 /* Private */,
-      20,    0,  162,    2, 0x08 /* Private */,
-      21,    0,  163,    2, 0x08 /* Private */,
-      22,    0,  164,    2, 0x08 /* Private */,
-      23,    0,  165,    2, 0x08 /* Private */,
-      24,    0,  166,    2, 0x08 /* Private */,
-      25,    0,  167,    2, 0x08 /* Private */,
-      26,    0,  168,    2, 0x08 /* Private */,
-      27,    0,  169,    2, 0x08 /* Private */,
-      28,    0,  170,    2, 0x08 /* Private */,
-      29,    1,  171,    2, 0x08 /* Private */,
-      31,    1,  174,    2, 0x08 /* Private */,
-      34,    0,  177,    2, 0x08 /* Private */,
-      35,    1,  178,    2, 0x08 /* Private */,
-      38,    0,  181,    2, 0x08 /* Private */,
+      10,    2,  156,    2, 0x08 /* Private */,
+      14,    0,  161,    2, 0x08 /* Private */,
+      15,    0,  162,    2, 0x08 /* Private */,
+      16,    0,  163,    2, 0x08 /* Private */,
+      17,    0,  164,    2, 0x08 /* Private */,
+      18,    0,  165,    2, 0x08 /* Private */,
+      19,    0,  166,    2, 0x08 /* Private */,
+      20,    0,  167,    2, 0x08 /* Private */,
+      21,    0,  168,    2, 0x08 /* Private */,
+      22,    0,  169,    2, 0x08 /* Private */,
+      23,    0,  170,    2, 0x08 /* Private */,
+      24,    0,  171,    2, 0x08 /* Private */,
+      25,    0,  172,    2, 0x08 /* Private */,
+      26,    0,  173,    2, 0x08 /* Private */,
+      27,    0,  174,    2, 0x08 /* Private */,
+      28,    0,  175,    2, 0x08 /* Private */,
+      29,    1,  176,    2, 0x08 /* Private */,
+      31,    1,  179,    2, 0x08 /* Private */,
+      34,    0,  182,    2, 0x08 /* Private */,
+      35,    1,  183,    2, 0x08 /* Private */,
+      38,    0,  186,    2, 0x08 /* Private */,
+      39,    1,  187,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -163,6 +167,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 36,   37,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   40,
 
        0        // eod
 };
@@ -198,6 +203,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 22: _t->onQueueDonePopulating(); break;
         case 23: _t->onLoadMods((*reinterpret_cast< QList<QPair<QStringList,QString> >(*)>(_a[1]))); break;
         case 24: _t->onItemFromTableWidgetSelected(); break;
+        case 25: _t->onShowErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -270,13 +276,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 25)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 25)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 26;
     }
     return _id;
 }

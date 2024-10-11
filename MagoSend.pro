@@ -38,8 +38,8 @@ unix {
     #CONFIG += release
 
     #descomentar quando quiser gerar versai de debug:
-    CONFIG -= debug
-    CONFIG += release
+    CONFIG += debug
+    CONFIG -= release
     QMAKE_CXXFLAGS += -g
 
     #--------------------------------------------------------------------------
@@ -54,6 +54,7 @@ unix {
     #--------------------------------------------------------------------------
 }
 SOURCES += \
+    COpenedWindows.cpp \
         main.cpp \
         mainwindow.cpp \
     CServiceUtils.cpp \
@@ -84,6 +85,7 @@ SOURCES += \
     CWaiter.cpp
 
 HEADERS += \
+    COpenedWindows.h \
         mainwindow.h \
     CServiceUtils.h \
     CTransferMonitor.h \
@@ -133,14 +135,14 @@ INCLUDEPATH += "../XmlRPC/XmlRpc"
 SOURCES += "../XmlRPC/XmlRpc/*.cpp"
 HEADERS += "../XmlRPC/XmlRpc/*.h"
 
-#----------------------------------------------------------------------
    #ffmpeg:
 LIBS +=  "../ffmpeg/ffmpeg/libavformat/libavformat.so"
 LIBS +=  "../ffmpeg/ffmpeg/libavutil/libavutil.so"
 
+
 win32 {
         DEFINES += _WINDOWS
-
+        #DESTDIR = "C:\dev\Switcher\release"
         CONFIG -= debug
         CONFIG += release
         CONFIG += c++11

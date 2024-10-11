@@ -9,7 +9,7 @@ CTransferMonitor::CTransferMonitor(MainWindow* mainWindow)
 	this->mainWindow = mainWindow;
 
 	qDebug("run- 1");
-
+	connect(this, &CTransferMonitor::showErrorMessage, getMainWindow(), &MainWindow::onShowErrorMessage, Qt::QueuedConnection);
 	QThread::start();
 
 }
@@ -141,11 +141,12 @@ QMutex& CTransferMonitor::getQueueMutex()
 {
 	return queueMutex;
 }
+
+
 void CTransferMonitor::runLogic()
 {
 	//this->quit();
-	QElapsedTimer timer;
-	timer.start();
+
 
 	CHostControl* hostControl = getMainWindow()->getHostControl();
 	QMutexLocker hostsLocker(&hostControl->getHostsMutex());
@@ -154,8 +155,9 @@ void CTransferMonitor::runLogic()
 	// pega o progresso e outras coisas relacionadas ao host
 	for(int i=0; i<hostControl->getHosts().size(); i++)
 	{
-		Host* host = hostControl->getHosts().at(i);
 
+		Host* host = hostControl->getHosts().at(i);
+		//host->moveToThread(this->thread());
 		QString ip = host->ip;
 		int port = host->port;
 
@@ -171,30 +173,74 @@ void CTransferMonitor::runLogic()
 					{
 						//if(!host->isBusy())
 						//{
-							CVideoStatus status = videoInfo->getStatus();
-							QString videoIp = videoInfo->ip;
-							QString videoFileName = videoInfo->filename;
-							//envia os videos que estão esperando ser enviados
-							if(status == CVideoStatus::WAITING && videoIp == host->getIp())
+						CVideoStatus status = videoInfo->getStatus();
+						QString videoIp = videoInfo->ip;
+						QString videoFileName = videoInfo->filename;
+						CVideoStatus videoStatus = videoInfo->status;
+						queueLocker.unlock();
+						//envia os videos que estão esperando ser enviados
+						if(status == CVideoStatus::WAITING && videoIp == host->getIp())
+						{
+
+							qDebug("CTransferMonitor::run() - videoFilename [%s]", videoFileName.toLatin1().data());
+							//if(CUploadServiceClient::TellServiceToUploadFile(videoFileName ,true,port ,"127.0.0.1", "CXmlTransferFinished", 2000))
+							if(host->TellServiceToUploadFile(videoFileName, true, "127.0.0.1", "CXmlTransferFinished", 2000))
 							{
-								if(CUploadServiceClient::TellServiceToUploadFile(videoFileName, true, host->port, "127.0.0.1", "CXmlTransferFinished", 2000))
-								{
-									host->setBusy(true);
-									qDebug("CTransferMonitor:run() - SENDING, videoInf: IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
-									videoInfo->status = CVideoStatus::TRYING_TO_CONNECT;
-									host->setCurrentUpload(videoInfo);
-									break; //esse host já mandou enviar o video dele, então posso ir pro próximo host
-								}
-								else
-								{
-									qDebug("CTransferMonitor::TellServiceToUploadFile failed IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
-								}
+								host->setBusy(true);
+								qDebug("CTransferMonitor:run() - SENDING, videoInf: IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
+								videoStatus = CVideoStatus::TRYING_TO_CONNECT;
+								videoInfo->status = CVideoStatus::TRYING_TO_CONNECT;
+								host->setCurrentUpload(videoInfo);
+								break; //esse host já mandou enviar o video dele, então posso ir pro próximo host
 							}
-					//	}
+							else
+							{
+								QString errorMsg = QString("Falha no envio do arquivo %1 para o destino %2. "
+																   "Não foi possível conectar-se ao serviço local de transferência (IP: 127.0.0.1, PORTA: %3). "
+																   "Se o problema persistir, "
+																   "entre em contato com o suporte da 4S.").arg(videoFileName).arg(ip).arg(port);
+								if(!getMainWindow()->getShowingError()) emit showErrorMessage(errorMsg);
+
+								qDebug("CTransferMonitor::TellServiceToUploadFile failed IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
+							}
+
+							//							bool result;
+							//							QMetaObject::invokeMethod(
+							//								host, // Target object
+							//								"TellServiceToUploadFile", // Method name
+							//								Qt::BlockingQueuedConnection, // Ensure the method runs in the correct thread
+							//								Q_RETURN_ARG(bool, result),
+							//								Q_ARG(QString, videoFileName),
+							//								Q_ARG(bool, true),
+							//								Q_ARG(QString, "127.0.0.1"),
+							//								Q_ARG(QString, "CXmlTransferFinished"),
+							//								Q_ARG(int, 2000),
+							//								Q_ARG(QString, ""), // targetSubFolder (optional argument)
+							//								Q_ARG(float, 3.0f) // timeout (optional argument)
+							//							);
+
+							//							if (result)
+							//							{
+							//								host->setBusy(true);
+							//								qDebug("CTransferMonitor:run() - SENDING, videoInf: IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
+							//								videoInfo->status = CVideoStatus::TRYING_TO_CONNECT;
+							//								host->setCurrentUpload(videoInfo);
+							//								break; // This host is now busy, move on to the next host
+							//							}
+							//							else
+							//							{
+							//								qDebug("CTransferMonitor::TellServiceToUploadFile failed IP[%s], fileName [%s]", videoIp.toLatin1().data(), videoFileName.toLatin1().data());
+							//							}
+						//videoInfo->status = videoStatus;
+						}
+						queueLocker.relock();
+
+						//	}
+
 
 					}
 				}
-				queueLocker.unlock();
+				//queueLocker.unlock();
 			}
 		}
 
@@ -220,7 +266,13 @@ void CTransferMonitor::runLogic()
 		}
 
 		//pergunto pro host qual o progresso do envio atual
-		host->setProgressResult(CUploadServiceClient::AskServriceAboutItsProgress(host->port));
+		//if(timer_.elapsed() > 500)
+		//{
+		//    timer_.restart();
+		//  qDebug("timer_.restart()");
+		host->AskServriceAboutItsProgress();
+		//  }
+
 
 		VideoFileInfo* currentUpload = host->getCurrentUpload();
 		if(currentUpload != nullptr)
@@ -304,7 +356,7 @@ void CTransferMonitor::runLogic()
 	}
 	if(!somebodyWaiting) isTransferring = false;
 	//	queueLocker.unlock();
-	qint64 elapsed = timer.elapsed();
+
 	//qDebug("elapsedTime for queueSize: [%d]: [%d ms]", queueSize, elapsed);
 
 }
@@ -315,6 +367,7 @@ void CTransferMonitor::run()
 {
 	//	QThread::exec();
 	//qDebug("run- 2");
+	timer_.start();
 	while(true)
 	{
 		runLogic();

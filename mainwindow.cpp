@@ -480,11 +480,15 @@ void MainWindow::onFileSelectionBtnClick()
 				);
 	QStringList invalidFilenames;
 	for(QString path: filepaths_){
+        qDebug() << " MainWindow::onFileSelectionBtnClick - path:" << path;
 		QFileInfo info(path);
 		QString filename = info.fileName();
 		if(CServiceUtils::isValidFilename(filename))
 		{
-			filePaths << QString::fromLatin1(path.toUtf8().data());
+#ifdef __WIN32
+            path = CServiceUtils::convertWindowsPathToLinux(path);
+#endif
+            filePaths << QString::fromLatin1(path.toUtf8().data());
 		}
 		else
 		{
@@ -815,6 +819,21 @@ void MainWindow::updateModComboBox()
 		items << ui->hostsTable->item(i, 1)->text();
 	}
 	emit getModalidadesFromHosts(items);
+}
+
+bool MainWindow::getShowingError() const
+{
+	return showingError;
+}
+
+void MainWindow::onShowErrorMessage(QString error)
+{
+	showingError = true;
+	int ok = QMessageBox::critical(this,"Atenção, erro!", error);
+	if(ok == QMessageBox::Ok)
+	{
+		showingError = false;
+	}
 }
 
 
