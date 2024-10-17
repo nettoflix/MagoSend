@@ -147,6 +147,9 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 
 	connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::onItemFromTableWidgetSelected);
 
+	connect(this, &MainWindow::showErrorMessage, this, &MainWindow::onShowErrorMessage, Qt::QueuedConnection);
+    connect(getTransferMonitor(), &CTransferMonitor::toggleEnviarTodosBtn, this, &MainWindow::onToggleEnviarTodosBtn, Qt::QueuedConnection);
+
 }
 
 MainWindow::~MainWindow()
@@ -257,11 +260,15 @@ void MainWindow::updateQueueItemInformation(bool idExists)
 	{
 		QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 		VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(currentRow);
-
 		id->setText(newID);
-		videoInfo->setId(newID);
 		titulo->setText(newTitulo);
+#ifdef __WIN32
+		videoInfo->setId(newID);
 		videoInfo->setTitulo(newTitulo);
+#else
+		videoInfo->setId(QString::fromLatin1(newID.toUtf8().data()));
+		videoInfo->setTitulo(QString::fromLatin1(newTitulo.toUtf8().data()));
+#endif
 		if(newModalidade != "Nenhuma")
 		{
 			modalidade->setText(newModalidade);
@@ -290,7 +297,7 @@ void MainWindow::onItemSelected(const QItemSelection &selected, const QItemSelec
 void MainWindow::addQueueToTableWidget()
 {
 	populatingTableWidget = true;
-	qDebug("addQueueToTableWidget -1");
+	//	qDebug("addQueueToTableWidget -1");
 	//QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 	QVector<VideoFileInfo*> *queue = &getTransferMonitor()->getCurrentQueue();
 	int row = ui->tableWidget->rowCount();
@@ -307,9 +314,15 @@ void MainWindow::addQueueToTableWidget()
 
 			//qDebug("tableWidiget count [%d]", ui->tableWidget->rowCount());
 			ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+#ifdef __WIN32
+			QTableWidgetItem* id = new QTableWidgetItem(QString(videoInfo->getId()));
+			QTableWidgetItem* titulo = new QTableWidgetItem(QString(videoInfo->getTitulo()));
+#else
 			QTableWidgetItem* id = new QTableWidgetItem(QString(videoInfo->getId().toLatin1()));
 			QTableWidgetItem* titulo = new QTableWidgetItem(QString(videoInfo->getTitulo().toLatin1()));
-			QTableWidgetItem* duration = new QTableWidgetItem(QString::number(videoInfo->duration) + " seg");
+#endif
+
+			QTableWidgetItem* duration = new QTableWidgetItem(videoInfo->getDuration());
 			QTableWidgetItem* ip = new QTableWidgetItem(videoInfo->host->ip);
 			QTableWidgetItem* modalidade = new QTableWidgetItem(videoInfo->modalidade);
 			id->setTextAlignment(Qt::AlignCenter);
@@ -365,7 +378,7 @@ void MainWindow::addQueueToTableWidget()
 		}
 	}
 	//batchIndex += batchSize - notAddedCount;
-	qDebug("addQueueToTableWidget -2");
+	//qDebug("addQueueToTableWidget -2");
 
 	//só vou parar o timer_loadTable se já adicionei todos os items da queue, se não a queue nao está sendo alimentada
 	//e se nao  estou esperando confirmação do usuário pra adicionar mais items
@@ -374,12 +387,12 @@ void MainWindow::addQueueToTableWidget()
 
 	if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
 	{
-		qDebug("addQueueToTableWidget -3");
+		//	qDebug("addQueueToTableWidget -3");
 		if(!worker->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
 		{
-			qDebug("addQueueToTableWidget -4");
+			//qDebug("addQueueToTableWidget -4");
 			ui->tableWidget->show();
-			qDebug("STOP SPINNER!");
+			//qDebug("STOP SPINNER!");
 			//	qDebug("addQueueToTableWidget -3");
 			timer_loadTable.stop();
 			if(tableSpinner != nullptr)
@@ -405,7 +418,7 @@ void MainWindow::addQueueToTableWidget()
 
 	//populateCount -= 1;
 	//qDebug("addQueueToTableWidget -2");
-	qDebug("batchIndex [%d], queueSize [%d], rowCount [%d],isPopulating [%d], waitingUser [%d]", batchIndex, queue->size(),ui->tableWidget->rowCount(),worker->getIsPopulatingQueue(), waitingUserResponseToAddItems);
+	//	qDebug("batchIndex [%d], queueSize [%d], rowCount [%d],isPopulating [%d], waitingUser [%d]", batchIndex, queue->size(),ui->tableWidget->rowCount(),worker->getIsPopulatingQueue(), waitingUserResponseToAddItems);
 
 
 	populatingTableWidget = false;
@@ -436,7 +449,7 @@ void MainWindow::onItemFromTableWidgetSelected()
 	modalidadesToShow.append("Nenhuma");
 	QList<QTableWidgetItem *> selectedItems = ui->tableWidget->selectedItems();
 	if (!selectedItems.isEmpty()) {
-		qDebug() << "Selected item:" << selectedItems.first()->text();
+		//  qDebug() << "Selected item:" << selectedItems.first()->text();
 		QString selectedItemIP = selectedItems.at(4)->text();
 		for(QPair<QStringList, QString> modalidade : everyHostModalidades)
 		{
@@ -480,15 +493,19 @@ void MainWindow::onFileSelectionBtnClick()
 				);
 	QStringList invalidFilenames;
 	for(QString path: filepaths_){
-        qDebug() << " MainWindow::onFileSelectionBtnClick - path:" << path;
+		qDebug() << " MainWindow::onFileSelectionBtnClick - path:" << path;
 		QFileInfo info(path);
 		QString filename = info.fileName();
 		if(CServiceUtils::isValidFilename(filename))
 		{
 #ifdef __WIN32
-            path = CServiceUtils::convertWindowsPathToLinux(path);
+
+			path = CServiceUtils::convertWindowsPathToLinux(path);
+			filePaths << path;
+
+#else
+			filePaths << QString::fromLatin1(path.toUtf8().data());
 #endif
-            filePaths << QString::fromLatin1(path.toUtf8().data());
 		}
 		else
 		{
@@ -496,6 +513,7 @@ void MainWindow::onFileSelectionBtnClick()
 		}
 
 	}
+
 	if(!invalidFilenames.isEmpty())
 	{
 
@@ -552,6 +570,7 @@ void MainWindow::onFileSelectionBtnClick()
 void MainWindow::onEnviarTodosBtnClick()
 {
 	getTransferMonitor()->startUploads();
+    onToggleEnviarTodosBtn(true);
 }
 
 void MainWindow::onRemoverBtnClick()
@@ -600,11 +619,13 @@ void MainWindow::onRemoverBtnClick()
 
 		//	qDebug("onRemoverBtnClick - 1");
 		//	qDebug("onRemoverBtnClick - 2");
+
 		if(row >=0 && row < rowCount)
 		{
 			//qDebug("onRemoverBtnClick - 3");
 			QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
 			VideoFileInfo* videoInfo = getTransferMonitor()->getItemFromQueue(row);
+			qDebug("onRemoverBtnClick - videoInfo [%s]. isActiveUpload [%d]", videoInfo->filename.toLatin1().data(), videoInfo->isActiveUpload);
 			if(!videoInfo->isActiveUpload)
 			{
 				queueLocker.unlock();
@@ -824,6 +845,45 @@ void MainWindow::updateModComboBox()
 bool MainWindow::getShowingError() const
 {
 	return showingError;
+}
+
+void MainWindow::onToggleEnviarTodosBtn(bool value)
+{
+    if(value)
+    {
+       ui->btn_Enviar->setEnabled(false);
+//       ui->btn_Enviar->setStyleSheet(
+//              "color: white;"
+//              "background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, "
+//              "stop: 0 #00b300, stop: 0.1 #00a300, stop: 0.5 #008a00, stop: 0.9 #007a00, stop: 1 #006600);"
+//              "border-width: 1px;"
+//              "border-color: #1e1e1e;"
+//              "border-style: solid;"
+//              "border-radius: 6px;"
+//              "padding: 3px;"
+//              "font-size: 12px;"
+//              "padding-left: 5px;"
+//              "padding-right: 5px;"
+//          );
+    }
+    else
+    {
+        ui->btn_Enviar->setEnabled(true);
+//        ui->btn_Enviar->setStyleSheet(
+//                "color: #b1b1b1;"
+//                "background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, "
+//                "stop: 0 #565656, stop: 0.1 #525252, stop: 0.5 #4e4e4e, stop: 0.9 #4a4a4a, stop: 1 #464646);"
+//                "border-width: 1px;"
+//                "border-color: #1e1e1e;"
+//                "border-style: solid;"
+//                "border-radius: 6px;"
+//                "padding: 3px;"
+//                "font-size: 12px;"
+//                "padding-left: 5px;"
+//                "padding-right: 5px;"
+//            );
+    }
+
 }
 
 void MainWindow::onShowErrorMessage(QString error)
@@ -1052,7 +1112,12 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 		QStringList hostFilesPaths;
 		for(QString path : filePaths)
 		{
+#ifdef __WIN32
+			QFileInfo fileInfo(QString::fromLatin1(path.toUtf8().data()));
+#else
 			QFileInfo fileInfo(path);
+
+#endif
 			hostFilesPaths << fileInfo.baseName() + "." + fileInfo.suffix();
 		}
 		QStringList filenames;
@@ -1092,9 +1157,11 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 				if (QMessageBox::warning(this, "Atenção!", replaceMessage, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::No)
 				{
 					qDebug("NAO QUERO ENVIAR VIDEO REPETIDO!!!");
+					qDebug("hostFIlePaths: [%s]", hostFilesPaths.join(",").toUtf8().data());
 					for (const QString &item : fileOnHost.filespath)
 					{
-						//qDebug("ITEM: [%s]", item.toLatin1().data());
+						qDebug("ITEM: [%s]", item.toLatin1().data());
+
 						//qDebug("hostFilesPath: [%s]", QString(hostFilesPaths.join(",")).toLatin1().data());
 						hostFilesPaths.removeAll(item);
 					}
@@ -1111,8 +1178,11 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 			for(const QString path : hostFilesPaths)
 			{
 				QFileInfo fileInfo(filePaths.at(0));
-
-				pathsToPopulate << fileInfo.absolutePath() + "/" + path;//QString::fromLatin1(path.toUtf8().data());
+#ifdef __WIN32
+				pathsToPopulate << fileInfo.absolutePath() + "/" + QString::fromUtf8(path.toLatin1().data());
+#else
+				pathsToPopulate << fileInfo.absolutePath() + "/" + path;
+#endif
 				//qDebug("MainWindow::pupulateGuiTable : populateQueue filepath [%s]", filePath.toLatin1().data());
 				//getTransferMonitor()->populateQueue(filePath, ip);
 			}
@@ -1146,4 +1216,52 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
 	}
 	waitingUserResponseToAddItems = false;
 	//timer_loadTable.start(30);
+}
+
+
+QString MainWindow::getVideoDuration(QString filePath) {
+	//qDebug("CServiceUtils::getVideoDuration- IN");
+	//qDebug("QString MainWindow::getVideoDuration- filePath: [%s]", filePath.toLatin1().data());
+	QProcess process;
+	QStringList args;
+#ifdef __WIN32
+	args << filePath;
+	process.start("MediaInfo.exe", args);
+#else
+	args << filePath.toLatin1().data();
+	process.start("mediainfo", args);
+#endif
+	if (process.waitForFinished(15000))
+	{
+		QStringList lines = QString(process.readAllStandardOutput()).split("\n");
+		for (const QString& line : lines)
+		{
+
+			if(!line.isEmpty())
+			{
+				QStringList data = line.split(":");
+				if (data.size() >= 2)
+				{
+					QString nodeName = data[0].trimmed();
+					QString value = data[1].trimmed();
+					//qDebug("nodeName [%s]", nodeName.toLatin1().data());
+					//qDebug("value [%s]", value.toLatin1().data());
+					if(nodeName == "Duration")
+					{
+						return value;
+					}
+				}
+
+			}
+		}
+	}
+	else
+	{
+
+		qDebug("Process exit code: %d", process.exitCode());
+		qDebug("Standard output: %s", process.readAllStandardOutput().constData());
+		qDebug("Standard error: %s", process.readAllStandardError().constData());
+		if(!getShowingError()) emit showErrorMessage("O executável do MediaInfo não pôde ser executado, não foi possível identificar a duração das mídias.");
+	}
+	return "? sec";
 }

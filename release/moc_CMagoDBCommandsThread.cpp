@@ -219,7 +219,7 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
       47,    0,  379,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,    4,    5,    6,    7,    8,    9,   10,   11,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,    4,    5,    6,    7,    8,    9,   10,   11,
     QMetaType::QStringList,
     QMetaType::QStringList, QMetaType::QString,   14,
     QMetaType::QStringList, QMetaType::QString,   14,
@@ -227,10 +227,10 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
     QMetaType::Bool,
     QMetaType::Bool,
     QMetaType::Void, QMetaType::Bool, QMetaType::Bool,   21,   22,
-    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QStringList, QMetaType::QString,   10,   25,    3,    4,    5,    6,    7,    8,    9,   11,
-    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QStringList,   10,   25,    3,    4,    5,    6,    7,    8,    9,
-    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString,   10,   25,    3,    4,    5,    6,    7,    8,
-    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Int,   10,   25,    3,    4,    5,    6,    7,
+    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QStringList, QMetaType::QString,   10,   25,    3,    4,    5,    6,    7,    8,    9,   11,
+    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QStringList,   10,   25,    3,    4,    5,    6,    7,    8,    9,
+    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   25,    3,    4,    5,    6,    7,    8,
+    0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   25,    3,    4,    5,    6,    7,
     0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   25,    3,    4,    5,    6,
     0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   25,    3,    4,    5,
     0x80000000 | 24, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   25,    3,    4,
@@ -262,7 +262,7 @@ void CMagoDBCommandsThreadWorker::qt_static_metacall(QObject *_o, QMetaObject::C
         CMagoDBCommandsThreadWorker *_t = static_cast<CMagoDBCommandsThreadWorker *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->queuedAddHistoricoMagoSend((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QString(*)>(_a[9]))); break;
+        case 0: _t->queuedAddHistoricoMagoSend((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QString(*)>(_a[9]))); break;
         case 1: { QStringList _r = _t->queuedGetSessionNames();
             if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
         case 2: { QStringList _r = _t->getIpListFromSession((*reinterpret_cast< QString(*)>(_a[1])));
@@ -276,13 +276,13 @@ void CMagoDBCommandsThreadWorker::qt_static_metacall(QObject *_o, QMetaObject::C
         case 6: { bool _r = _t->historicoShouldShowSuccess();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 7: _t->updateStatusFilter((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 8: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< int(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QStringList(*)>(_a[9])),(*reinterpret_cast< QString(*)>(_a[10])));
+        case 8: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QStringList(*)>(_a[9])),(*reinterpret_cast< QString(*)>(_a[10])));
             if (_a[0]) *reinterpret_cast< QList<CDBHistoryEntry>*>(_a[0]) = std::move(_r); }  break;
-        case 9: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< int(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QStringList(*)>(_a[9])));
+        case 9: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])),(*reinterpret_cast< QStringList(*)>(_a[9])));
             if (_a[0]) *reinterpret_cast< QList<CDBHistoryEntry>*>(_a[0]) = std::move(_r); }  break;
-        case 10: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< int(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])));
+        case 10: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])),(*reinterpret_cast< QString(*)>(_a[8])));
             if (_a[0]) *reinterpret_cast< QList<CDBHistoryEntry>*>(_a[0]) = std::move(_r); }  break;
-        case 11: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< int(*)>(_a[7])));
+        case 11: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7])));
             if (_a[0]) *reinterpret_cast< QList<CDBHistoryEntry>*>(_a[0]) = std::move(_r); }  break;
         case 12: { QList<CDBHistoryEntry> _r = _t->getMagoSendHistoryEntries((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])));
             if (_a[0]) *reinterpret_cast< QList<CDBHistoryEntry>*>(_a[0]) = std::move(_r); }  break;

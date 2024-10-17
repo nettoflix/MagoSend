@@ -4443,18 +4443,30 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QWidget \
 		CWorker.h \
 		SpinnerThread.h \
-		../4SMagoTransferServer/ui_mainwindow.h \
+		ui_mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QFrame \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QComboBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QGroupBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgroupbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMenuBar \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmenubar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmenu.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QStatusBar \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstatusbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		HostListDelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QPainter \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpainter.h \
@@ -4466,6 +4478,7 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QInputDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qinputdialog.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QModelIndexList \
@@ -4595,6 +4608,9 @@ release/CServiceUtils.o: CServiceUtils.cpp COpenedWindows.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDir \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qdir.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qfileinfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QRegExpValidator \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h
@@ -5927,6 +5943,59 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		ui_CModalidadesForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QTextStream \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDebug \
@@ -5937,21 +6006,12 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		mainwindow.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMainWindow \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmainwindow.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qicon.h \
 		CHostControl.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVector \
 		CServiceUtils.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qprocess.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qcoreapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qeventloop.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
 		../4SMagoTransferServer/CUploadServiceClient.h \
 		../XmlRPC/XmlRpc/XmlRpc.h \
 		../XmlRPC/XmlRpc/XmlRpcClient.h \
@@ -5987,7 +6047,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QtCoreDepends \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstracteventdispatcher.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qabstractstate.h \
@@ -6025,7 +6084,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qhistorystate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qidentityproxymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qisenum.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qitemselectionmodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonarray.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsonvalue.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qjsondocument.h \
@@ -6053,7 +6111,6 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qvariantanimation.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qqueue.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qreadwritelock.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qregularexpression.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qresource.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qsavefile.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/qscopedvaluerollback.h \
@@ -6098,19 +6155,7 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlquerymodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qitemdelegate.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyleoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qvalidator.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qslider.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractslider.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qstyle.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtabbar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qrubberband.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qframe.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlistview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcombobox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qsqltablemodel.h \
@@ -6123,26 +6168,12 @@ release/CModalidadesForm.o: CModalidadesForm.cpp CModalidadesForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QColor \
 		CustomStringListModel.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QStringListModel \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QProgressBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qprogressbar.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QListView \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidgetItem \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QToolBar \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtoolbar.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
 		CWaitingSpinnerWidget.h \
 		CWorker.h \
 		SpinnerThread.h
@@ -6405,14 +6436,45 @@ release/CCriarSessaoForm.o: CCriarSessaoForm.cpp CCriarSessaoForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QWidget \
 		ui_CCriarSessaoForm.h \
-		CServiceUtils.h \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
-		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtablewidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtableview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTextEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qtextedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextdocument.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
+		CServiceUtils.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QProcess \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QFile \
 		CEditarSessaoForm.h \
 		CMagoDBCommandsThread.h \
@@ -6821,6 +6883,21 @@ release/CEditarSessaoForm.o: CEditarSessaoForm.cpp CCriarSessaoForm.h \
 		CWorker.h \
 		SpinnerThread.h \
 		ui_CEditarSessaoForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QComboBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QSettings
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CEditarSessaoForm.o CEditarSessaoForm.cpp
 
@@ -8002,6 +8079,44 @@ release/CHistoricoForm.o: CHistoricoForm.cpp CHistoricoForm.h \
 		VideoFileInfo.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QString \
 		ui_CHistoricoForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QCheckBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcheckbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QComboBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDateEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QGroupBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgroupbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTableWidget \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QTimeEdit \
 		CMagoDBCommandsThread.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
@@ -8333,6 +8448,22 @@ release/CLoginForm.o: CLoginForm.cpp CCadastrarLoginForm.h \
 		CWorker.h \
 		SpinnerThread.h \
 		ui_CLoginForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QMessageBox \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qmessagebox.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/QScreen \
@@ -8601,6 +8732,36 @@ release/CCadastrarLoginForm.o: CCadastrarLoginForm.cpp CCadastrarLoginForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtSql/qtsqlversion.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QDate \
 		ui_CCadastrarLoginForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLabel \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QLineEdit \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextcursor.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextformat.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qpen.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qtextoption.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QPushButton \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qpushbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
 		CMagoDBCommandsThread.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QThread \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QHash \
@@ -9560,7 +9721,28 @@ release/CSendOptionsForm.o: CSendOptionsForm.cpp CMagoDBCommandsThread.h \
 		CSendOptionsForm.h \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QDialog \
 		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdialog.h \
-		ui_CSendOptionsForm.h
+		ui_CSendOptionsForm.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtCore/QVariant \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QAction \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qactiongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QApplication \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qguiapplication.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtGui/qinputmethod.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QButtonGroup \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QCheckBox \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qcheckbox.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QHeaderView \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/QVBoxLayout \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/CSendOptionsForm.o CSendOptionsForm.cpp
 
 release/SpinnerThread.o: SpinnerThread.cpp SpinnerThread.h \

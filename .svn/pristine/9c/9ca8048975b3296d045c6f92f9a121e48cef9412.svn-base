@@ -1,0 +1,274 @@
+#include "COpenedWindows.h"
+#include "CServiceUtils.h"
+
+#include <QDir>
+#include <QRegExpValidator>
+
+
+
+
+CServiceUtils::CServiceUtils()
+{
+
+}
+void CServiceUtils::KillAllTransferService()
+{
+#ifdef _WIN32
+    KillAllServicesWithThisname("4SMagoTransferServer.exe");
+#else
+    KillAllServicesWithThisname("4SMagoTransferServer");
+
+    //por garantia, caso o transfer server esteja preso por motivos de problemas com rede,
+    //mandaremos o linux matar quem controla as portas do TransferServer, no caso, ele mesmo...
+    CServiceUtils::KillTcpPort(MAGO_TRANSFER_SERVER_PORT_1);
+    CServiceUtils::KillTcpPort(MAGO_TRANSFER_SERVER_PORT_2);
+#endif
+}
+void CServiceUtils::KillAllServicesWithThisname(QString name)
+{
+#ifdef WIN32
+    QStringList appIds = COpenedWindows::getAllOpenedWindowsIDThathStarWith(name.toLatin1().data());
+    for (int i = 0; i < appIds.size(); i++)
+    {
+        QString killCommand = "taskkill /PID " + appIds[i] + " /f";
+        qDebug("CServiceUtils::killAllInputServices() : killcommand [%s]", killCommand.toLatin1().data());
+
+        QStringList params;
+        params << "/c" << killCommand;
+        QProcess* myProcess = new QProcess();
+        myProcess->start("cmd.exe", params);
+        myProcess->waitForFinished(INT_MAX);
+    }
+#else
+    {
+        QString killCommand = "pkill";
+        QStringList params;
+        params << "-9";
+        params << "-f";
+        params << name;
+        QProcess* myProcess = new QProcess();
+        myProcess->start(killCommand, params);
+        myProcess->waitForFinished(INT_MAX);
+    }
+#endif
+}
+void CServiceUtils::StartTransferService(QProcess* process1, QString localPath, QString remoteIp, QString port)
+{
+    QProcess* process;
+    if(process1 == nullptr)
+    {
+        process = new QProcess();
+    }
+    else
+    {
+        process = process1;
+    }
+
+    QStringList args;
+    args.append(localPath);
+    args.append(remoteIp);
+    args.append(port);
+    args.append("false"); //shouldLoadList = false
+
+#ifdef _WIN32
+    QString appName(QApplication::instance()->applicationDirPath() + "/4SMagoTransferServer.exe");
+#else
+    QString appName(QApplication::instance()->applicationDirPath() + "/4SMagoTransferServer");
+#endif
+
+    if (QFile::exists(appName))
+    {
+        //process->setStandardOutputFile(QProcess::nullDevice());
+        //process->setStandardErrorFile(QProcess::nullDevice());
+        //process->setStandardInputFile(QProcess::nullDevice());
+        process->start(appName, args);
+        if(process->waitForStarted())
+        {
+            qDebug("Processo do TransferServer não iniciou");
+        }
+        else
+        {
+            qDebug("Processo do TransferServer iniciado");
+        }
+
+    }
+
+}
+bool CServiceUtils::KillTcpPort(int portId)
+{
+#ifdef __linux
+    QString killCommand = "fuser";
+    QStringList params;
+    params << "-k";
+    params << QString::number(portId) + "/tcp";
+    QProcess* myProcess = new QProcess();
+    myProcess->start(killCommand, params);
+    return myProcess->waitForFinished(INT_MAX);
+#else
+    QString netstatCommand = "netstat";
+    QStringList netstatParams;
+    netstatParams << "-ano"; // Lista todas conexoes e seus PID
+
+    QProcess netstatProcess;
+    netstatProcess.start(netstatCommand, netstatParams);
+    if (!netstatProcess.waitForFinished() || netstatProcess.exitStatus() != QProcess::NormalExit)
+        return false;
+
+    QString output = netstatProcess.readAllStandardOutput();
+    QString portString = QString(":%1").arg(portId);
+    QString pid;
+
+    // Acha o PID correspondente a porte
+    foreach (const QString &line, output.split('\n')) {
+        if (line.contains(portString)) {
+            QStringList tokens = line.split(QRegExp("\\s+"), QString::SkipEmptyParts); //divide o output do netstat em colunas (divido por espaços em branco)
+            if (tokens.size() >= 5) {
+                pid = tokens.last(); //o PID eh a ultima coluna
+                break;
+            }
+        }
+    }
+
+    if (pid.isEmpty()) {
+        qDebug( "Nenhum processo encontrado usando a porta [%d]", portId);
+        return false;
+    }
+
+    // Matar o processo
+    QString taskkillCommand = "taskkill";
+    QStringList taskkillParams;
+    taskkillParams << "/PID" << pid << "/F";
+
+    QProcess taskkillProcess;
+    taskkillProcess.start(taskkillCommand, taskkillParams);
+    if (!taskkillProcess.waitForFinished() || taskkillProcess.exitStatus() != QProcess::NormalExit) {
+        qDebug( "impossivel matar o processo PID [%s]", pid.toLatin1().data());
+        return false;
+    }
+
+    return true;
+#endif
+}
+
+//int CServiceUtils:: getVideoDuration(QString filePath){
+//	const char* inputFilename = filePath.toUtf8().constData();
+//	 AVFormatContext* formatContext = avformat_alloc_context();
+
+//	 // Open the media file
+//	 if (avformat_open_input(&formatContext, inputFilename, nullptr, nullptr) != 0) {
+//		 qDebug("Error: Couldn't open file.");
+//	 }
+//	// avformat_find_stream_info(formatContext, NULL); - to work with video types that have no headers such as MPEG
+
+//	 // Retrieve stream information
+//	 if(formatContext== nullptr) return -1;
+//	 if (avformat_find_stream_info(formatContext, nullptr) < 0) {
+//		 qDebug("Error: Couldn't find stream information.");
+//	 }
+
+//	 // Get duration in seconds
+//	 int durationInSeconds = formatContext->duration / AV_TIME_BASE;
+
+//	// qDebug("Duration: [%d] seconds", durationInSeconds);
+//	 avformat_close_input(&formatContext);
+//	 avformat_free_context(formatContext);
+
+//	 return durationInSeconds;
+
+//}
+
+// Usage
+
+
+int CServiceUtils::getVideoDuration(QString filePath) {
+
+//    QFile file(filePath);
+//    if (!file.exists()) {
+//        qDebug("Error: File does not exist at path:", filePath.toLatin1().data());
+//        return -1;
+//    }
+//    qDebug("CServiceUtils::getVideoDuration - filepath [%s]", filePath.toLatin1().data());
+//    if (filePath.isEmpty()) {
+//        qDebug("Error: File path is empty.");
+//        return -1;
+//    }
+//    //	av_log_set_level(AV_LOG_ERROR); // tira os logs de warning
+
+//    // Convert QString to std::string
+//    std::string inputFilename = filePath.toStdString();
+
+
+//    AVIOContext *avioCtx = nullptr;
+//    int ret = avio_open(&avioCtx, inputFilename.c_str(), AVIO_FLAG_READ);
+//    if (ret < 0) {
+//        qDebug("Error: avio_open couldn't open file. FFmpeg may have file access issues.");
+//        return -1;
+//    }
+//    avio_close(avioCtx);
+//    QString configuration(avformat_configuration());
+//    qDebug("FFmpeg configuration: [%s]",configuration.toLatin1().data());
+//    AVFormatContext* formatContext = avformat_alloc_context();
+//    // Open the media file
+//    if (avformat_open_input(&formatContext, inputFilename.c_str(), nullptr, nullptr) != 0) {
+//        qDebug("Error: Couldn't open file.");
+//        avformat_free_context(formatContext);
+//        return -1;
+//    }
+
+//    // Retrieve stream information
+//    if (formatContext == nullptr) {
+//        qDebug("Error: Format context is null.");
+//        avformat_close_input(&formatContext);
+//        return -1;
+//    }
+
+//    if (avformat_find_stream_info(formatContext, nullptr) < 0) {
+//        qDebug("Error: Couldn't find stream information.");
+//        avformat_close_input(&formatContext);
+//        return -1;
+//    }
+
+//    // Get duration in seconds
+//    int durationInSeconds = formatContext->duration / AV_TIME_BASE;
+
+//    // Clean up
+//    avformat_close_input(&formatContext);
+//    avformat_free_context(formatContext);
+
+//    return durationInSeconds;
+    return -1;
+}
+
+bool CServiceUtils::isValidIPv4format(QString ip)
+{
+    // Expressão regular para endereços IPV4 válidos
+    QRegExp regExp("^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\.(?!$)|$)){4}$");
+    QRegExpValidator validator(regExp);
+    int pos =0;
+    QValidator::State state = validator.validate(ip,pos);
+    if(state == QValidator::Acceptable)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+bool CServiceUtils::isValidFilename(QString filename) {
+    QRegularExpression invalidPattern("[/\\\\:*?\"<>|\\^%&;\\[\\]{}\`'~$+,]");//caracteres especiais
+    int countDot = filename.count('.');
+    if(countDot > 1) return false; //nao aceita nomes de arquivos com pontos (o unico ponto permitido é do da extensao)
+    return !filename.contains(invalidPattern);
+}
+bool CServiceUtils::isValidIDname(QString filename) {
+    QRegularExpression invalidPattern("[/\\\\:*?\"<>|\\^%&;\\[\\]{}\`'~$+,]");//caracteres especiais
+    int countDot = filename.count('.'); //tambem nao aceita pontos
+    if(countDot > 0) return false;
+    return !filename.contains(invalidPattern);
+}
+QString CServiceUtils::convertWindowsPathToLinux(const QString& windowsPath) {
+    QString linuxCompatiblePath = windowsPath;
+    linuxCompatiblePath.replace('/', '\\');
+    return linuxCompatiblePath;
+}
