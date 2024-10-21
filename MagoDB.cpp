@@ -673,28 +673,49 @@ bool MagoDB::updateStatusFilter(bool showErrors, bool showSuccess,QSqlDatabase* 
 
 
 
-	QString sql;
-	char* str_showErrors = "false";
-	char* str_showSuccess = "false";
-	if(showErrors)
+//	QString sql;
+//	char* str_showErrors = "false";
+//	char* str_showSuccess = "false";
+//	if(showErrors)
+//	{
+//		str_showErrors = "true";
+//	}
+//	if(showSuccess)
+//	{
+//		str_showSuccess = "true";
+//	}
+
+//	sql.sprintf("UPDATE options SET showErrors = '%s'", str_showErrors);
+//	query->prepare(sql);
+//	query->exec();
+//	qDebug() << query->lastError();
+//	sql.sprintf("UPDATE options SET showSuccess = '%s'", str_showSuccess);
+//	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
+//	qDebug("sql = %s", sql.toLatin1().data());
+//	query->prepare(sql);
+//	query->exec();
+//	qDebug() << query->lastError();
+	QString sql = "UPDATE options SET showErrors = :showErrors";
+	query->prepare(sql);
+	query->bindValue(":showErrors", showErrors ? "true" : "false");
+
+	if (!query->exec())
 	{
-		str_showErrors = "true";
-	}
-	if(showSuccess)
-	{
-		str_showSuccess = "true";
+		qDebug() << "Error executing query:" << query->lastError();
+		return false; // Return if the query fails.
 	}
 
-	sql.sprintf("UPDATE options SET showErrors = '%s'", str_showErrors);
+	sql = "UPDATE options SET showSuccess = :showSuccess";
 	query->prepare(sql);
-	query->exec();
-	qDebug() << query->lastError();
-	sql.sprintf("UPDATE options SET showSuccess = '%s'", str_showSuccess);
-	//	sql.sprintf("INSERT INTO sessions (ipList) VALUES ('%s')", ipList);
-	qDebug("sql = %s", sql.toLatin1().data());
-	query->prepare(sql);
-	query->exec();
-	qDebug() << query->lastError();
+	query->bindValue(":showSuccess", showSuccess ? "true" : "false");
+
+	if (!query->exec())
+	{
+		qDebug() << "Error executing query:" << query->lastError();
+		return false; // Return if the query fails.
+	}
+
+	return true;
 }
 
 bool MagoDB::shouldShowErrors(QSqlDatabase* connection)

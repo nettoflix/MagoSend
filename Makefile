@@ -826,13 +826,17 @@ release/qrc_qrc.cpp: qrc.qrc \
 		images/history.ico \
 		images/handle.png \
 		images/lock.png \
+		images/witch-hat.png \
 		images/exit.png \
 		images/sand-clock.png \
 		images/up_arrow.png \
 		images/icon.png \
 		images/settings.png \
 		images/check.png \
+		images/redhat.png \
 		images/refresh_yellow.png \
+		images/witch-hat2.png \
+		images/witch-hat3.png \
 		images/checkbox.png \
 		images/icon.ico \
 		images/espera.png \

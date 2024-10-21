@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[46];
-    char stringdata0[775];
+    QByteArrayData data[45];
+    char stringdata0[763];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -59,25 +59,24 @@ QT_MOC_LITERAL(23, 347, 19), // "onExcluirIPBtnClick"
 QT_MOC_LITERAL(24, 367, 21), // "onPausarTodosBtnClick"
 QT_MOC_LITERAL(25, 389, 22), // "onCancelaAtualBtnClick"
 QT_MOC_LITERAL(26, 412, 24), // "onAtualizarDadosBtnClick"
-QT_MOC_LITERAL(27, 437, 11), // "onModAction"
-QT_MOC_LITERAL(28, 449, 15), // "onSessionAction"
-QT_MOC_LITERAL(29, 465, 17), // "onHistoricoAction"
-QT_MOC_LITERAL(30, 483, 15), // "onOptionsAction"
-QT_MOC_LITERAL(31, 499, 7), // "onTimer"
-QT_MOC_LITERAL(32, 507, 29), // "on_btn_connectSession_clicked"
-QT_MOC_LITERAL(33, 537, 18), // "showWarningMessage"
-QT_MOC_LITERAL(34, 556, 7), // "message"
-QT_MOC_LITERAL(35, 564, 16), // "pupulateGuiTable"
-QT_MOC_LITERAL(36, 581, 19), // "QList<CFilesOnHost>"
-QT_MOC_LITERAL(37, 601, 15), // "listFilesOnHost"
-QT_MOC_LITERAL(38, 617, 21), // "onQueueDonePopulating"
-QT_MOC_LITERAL(39, 639, 10), // "onLoadMods"
-QT_MOC_LITERAL(40, 650, 34), // "QList<QPair<QStringList,QStri..."
-QT_MOC_LITERAL(41, 685, 11), // "modalidades"
-QT_MOC_LITERAL(42, 697, 29), // "onItemFromTableWidgetSelected"
-QT_MOC_LITERAL(43, 727, 18), // "onShowErrorMessage"
-QT_MOC_LITERAL(44, 746, 22), // "onToggleEnviarTodosBtn"
-QT_MOC_LITERAL(45, 769, 5) // "value"
+QT_MOC_LITERAL(27, 437, 15), // "onSessionAction"
+QT_MOC_LITERAL(28, 453, 17), // "onHistoricoAction"
+QT_MOC_LITERAL(29, 471, 15), // "onOptionsAction"
+QT_MOC_LITERAL(30, 487, 7), // "onTimer"
+QT_MOC_LITERAL(31, 495, 29), // "on_btn_connectSession_clicked"
+QT_MOC_LITERAL(32, 525, 18), // "showWarningMessage"
+QT_MOC_LITERAL(33, 544, 7), // "message"
+QT_MOC_LITERAL(34, 552, 16), // "pupulateGuiTable"
+QT_MOC_LITERAL(35, 569, 19), // "QList<CFilesOnHost>"
+QT_MOC_LITERAL(36, 589, 15), // "listFilesOnHost"
+QT_MOC_LITERAL(37, 605, 21), // "onQueueDonePopulating"
+QT_MOC_LITERAL(38, 627, 10), // "onLoadMods"
+QT_MOC_LITERAL(39, 638, 34), // "QList<QPair<QStringList,QStri..."
+QT_MOC_LITERAL(40, 673, 11), // "modalidades"
+QT_MOC_LITERAL(41, 685, 29), // "onItemFromTableWidgetSelected"
+QT_MOC_LITERAL(42, 715, 18), // "onShowErrorMessage"
+QT_MOC_LITERAL(43, 734, 22), // "onToggleEnviarTodosBtn"
+QT_MOC_LITERAL(44, 757, 5) // "value"
 
     },
     "MainWindow\0cancel_active_upload\0\0"
@@ -91,9 +90,9 @@ QT_MOC_LITERAL(45, 769, 5) // "value"
     "onRemoverBtnClick\0onNovoIPBtnClick\0"
     "onExcluirIPBtnClick\0onPausarTodosBtnClick\0"
     "onCancelaAtualBtnClick\0onAtualizarDadosBtnClick\0"
-    "onModAction\0onSessionAction\0"
-    "onHistoricoAction\0onOptionsAction\0"
-    "onTimer\0on_btn_connectSession_clicked\0"
+    "onSessionAction\0onHistoricoAction\0"
+    "onOptionsAction\0onTimer\0"
+    "on_btn_connectSession_clicked\0"
     "showWarningMessage\0message\0pupulateGuiTable\0"
     "QList<CFilesOnHost>\0listFilesOnHost\0"
     "onQueueDonePopulating\0onLoadMods\0"
@@ -110,7 +109,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      30,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -118,38 +117,37 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  164,    2, 0x06 /* Public */,
-       4,    0,  167,    2, 0x06 /* Public */,
-       5,    2,  168,    2, 0x06 /* Public */,
-       8,    1,  173,    2, 0x06 /* Public */,
-      10,    1,  176,    2, 0x06 /* Public */,
-      12,    1,  179,    2, 0x06 /* Public */,
-      13,    1,  182,    2, 0x06 /* Public */,
+       1,    1,  159,    2, 0x06 /* Public */,
+       4,    0,  162,    2, 0x06 /* Public */,
+       5,    2,  163,    2, 0x06 /* Public */,
+       8,    1,  168,    2, 0x06 /* Public */,
+      10,    1,  171,    2, 0x06 /* Public */,
+      12,    1,  174,    2, 0x06 /* Public */,
+      13,    1,  177,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    2,  185,    2, 0x08 /* Private */,
-      18,    0,  190,    2, 0x08 /* Private */,
-      19,    0,  191,    2, 0x08 /* Private */,
-      20,    0,  192,    2, 0x08 /* Private */,
-      21,    0,  193,    2, 0x08 /* Private */,
-      22,    0,  194,    2, 0x08 /* Private */,
-      23,    0,  195,    2, 0x08 /* Private */,
-      24,    0,  196,    2, 0x08 /* Private */,
-      25,    0,  197,    2, 0x08 /* Private */,
-      26,    0,  198,    2, 0x08 /* Private */,
-      27,    0,  199,    2, 0x08 /* Private */,
-      28,    0,  200,    2, 0x08 /* Private */,
-      29,    0,  201,    2, 0x08 /* Private */,
-      30,    0,  202,    2, 0x08 /* Private */,
-      31,    0,  203,    2, 0x08 /* Private */,
-      32,    0,  204,    2, 0x08 /* Private */,
-      33,    1,  205,    2, 0x08 /* Private */,
-      35,    1,  208,    2, 0x08 /* Private */,
-      38,    0,  211,    2, 0x08 /* Private */,
-      39,    1,  212,    2, 0x08 /* Private */,
-      42,    0,  215,    2, 0x08 /* Private */,
-      43,    1,  216,    2, 0x0a /* Public */,
-      44,    1,  219,    2, 0x0a /* Public */,
+      14,    2,  180,    2, 0x08 /* Private */,
+      18,    0,  185,    2, 0x08 /* Private */,
+      19,    0,  186,    2, 0x08 /* Private */,
+      20,    0,  187,    2, 0x08 /* Private */,
+      21,    0,  188,    2, 0x08 /* Private */,
+      22,    0,  189,    2, 0x08 /* Private */,
+      23,    0,  190,    2, 0x08 /* Private */,
+      24,    0,  191,    2, 0x08 /* Private */,
+      25,    0,  192,    2, 0x08 /* Private */,
+      26,    0,  193,    2, 0x08 /* Private */,
+      27,    0,  194,    2, 0x08 /* Private */,
+      28,    0,  195,    2, 0x08 /* Private */,
+      29,    0,  196,    2, 0x08 /* Private */,
+      30,    0,  197,    2, 0x08 /* Private */,
+      31,    0,  198,    2, 0x08 /* Private */,
+      32,    1,  199,    2, 0x08 /* Private */,
+      34,    1,  202,    2, 0x08 /* Private */,
+      37,    0,  205,    2, 0x08 /* Private */,
+      38,    1,  206,    2, 0x08 /* Private */,
+      41,    0,  209,    2, 0x08 /* Private */,
+      42,    1,  210,    2, 0x0a /* Public */,
+      43,    1,  213,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -176,14 +174,13 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   33,
+    QMetaType::Void, 0x80000000 | 35,   36,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   34,
-    QMetaType::Void, 0x80000000 | 36,   37,
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 40,   41,
+    QMetaType::Void, 0x80000000 | 39,   40,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   11,
-    QMetaType::Void, QMetaType::Bool,   45,
+    QMetaType::Void, QMetaType::Bool,   44,
 
        0        // eod
 };
@@ -211,19 +208,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 14: _t->onPausarTodosBtnClick(); break;
         case 15: _t->onCancelaAtualBtnClick(); break;
         case 16: _t->onAtualizarDadosBtnClick(); break;
-        case 17: _t->onModAction(); break;
-        case 18: _t->onSessionAction(); break;
-        case 19: _t->onHistoricoAction(); break;
-        case 20: _t->onOptionsAction(); break;
-        case 21: _t->onTimer(); break;
-        case 22: _t->on_btn_connectSession_clicked(); break;
-        case 23: _t->showWarningMessage((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 24: _t->pupulateGuiTable((*reinterpret_cast< QList<CFilesOnHost>(*)>(_a[1]))); break;
-        case 25: _t->onQueueDonePopulating(); break;
-        case 26: _t->onLoadMods((*reinterpret_cast< QList<QPair<QStringList,QString> >(*)>(_a[1]))); break;
-        case 27: _t->onItemFromTableWidgetSelected(); break;
-        case 28: _t->onShowErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 29: _t->onToggleEnviarTodosBtn((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 17: _t->onSessionAction(); break;
+        case 18: _t->onHistoricoAction(); break;
+        case 19: _t->onOptionsAction(); break;
+        case 20: _t->onTimer(); break;
+        case 21: _t->on_btn_connectSession_clicked(); break;
+        case 22: _t->showWarningMessage((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 23: _t->pupulateGuiTable((*reinterpret_cast< QList<CFilesOnHost>(*)>(_a[1]))); break;
+        case 24: _t->onQueueDonePopulating(); break;
+        case 25: _t->onLoadMods((*reinterpret_cast< QList<QPair<QStringList,QString> >(*)>(_a[1]))); break;
+        case 26: _t->onItemFromTableWidgetSelected(); break;
+        case 27: _t->onShowErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 28: _t->onToggleEnviarTodosBtn((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -317,13 +313,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 30)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 29;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 30)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 29;
     }
     return _id;
 }

@@ -27,6 +27,8 @@ QLabel { background-color: rgba(255, 255, 255, 10);
     color: #f0f0f0;  /* Light text for contrast */
     font-size: 12pt;
     font-weight: bold;  /* Make the text bold to stand out */
+	font-family: 'Segoe UI';
+
 }
 
 
@@ -121,11 +123,12 @@ QPushButton
     border-width: 1px;
     border-color: #1e1e1e;
     border-style: solid;
-    border-radius: 6;
+    border-radius: 5px;
     padding: 3px;
     font-size: 12px;
     padding-left: 5px;
     padding-right: 5px;
+	font-family: 'Segoe UI';
 }
 
 QPushButton:pressed
@@ -1134,7 +1137,7 @@ QTableCornerButton::section {
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

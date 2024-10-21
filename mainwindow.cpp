@@ -308,7 +308,7 @@ void MainWindow::onItemSelected(const QItemSelection &selected, const QItemSelec
 void MainWindow::addQueueToTableWidget()
 {
     populatingTableWidget = true;
-    //	qDebug("addQueueToTableWidget -1");
+        qDebug("addQueueToTableWidget -1");
     //QMutexLocker queueLocker(&getTransferMonitor()->getQueueMutex());
     QVector<VideoFileInfo*> *queue = &getTransferMonitor()->getCurrentQueue();
     int row = ui->tableWidget->rowCount();
@@ -389,19 +389,14 @@ void MainWindow::addQueueToTableWidget()
         }
     }
     //batchIndex += batchSize - notAddedCount;
-    //qDebug("addQueueToTableWidget -2");
-
-    //só vou parar o timer_loadTable se já adicionei todos os items da queue, se não a queue nao está sendo alimentada
-    //e se nao  estou esperando confirmação do usuário pra adicionar mais items
-    //	if(batchIndex >= queue->size()) //já adicionei todos os items da queue na tableWidget
-    //	{
+    qDebug("addQueueToTableWidget -2");
 
     if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
     {
-        //	qDebug("addQueueToTableWidget -3");
+            qDebug("addQueueToTableWidget -3");
         if(!worker2->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
         {
-            //qDebug("addQueueToTableWidget -4");
+            qDebug("addQueueToTableWidget -4");
             ui->tableWidget->show();
             //qDebug("STOP SPINNER!");
             //	qDebug("addQueueToTableWidget -3");
@@ -767,17 +762,6 @@ void MainWindow::onAtualizarDadosBtnClick()
     }
 }
 
-void MainWindow::onModAction()
-{
-    //CModalidadesForm modForm(this);
-    //modForm.show();
-    //modForm.raise();
-
-    //modForm.exec();
-    //QEventLoop loop;
-    //connect(&modForm, SIGNAL(closed()), &modForm, SLOT(reject()));
-    //loop.exec();
-}
 
 void MainWindow::onSessionAction()
 {

@@ -107,8 +107,7 @@ private:
     QPair<int,int>  getFirstAndLastVisibleRowFromTable();
     void updateModComboBox();
     bool showingError = false;
-    //QThread workerThread2;
-    //Worker* worker2;
+
 
 private slots:
     void onItemSelected(const QItemSelection &selected, const QItemSelection &deselected);
@@ -123,7 +122,6 @@ private slots:
     void onPausarTodosBtnClick();
     void onCancelaAtualBtnClick();
     void onAtualizarDadosBtnClick();
-    void onModAction();
     void onSessionAction();
     void onHistoricoAction();
     void onOptionsAction();
