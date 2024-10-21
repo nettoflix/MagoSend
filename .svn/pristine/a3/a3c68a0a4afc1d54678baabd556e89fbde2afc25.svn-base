@@ -128,35 +128,37 @@ MainWindow::MainWindow(QWidget *parent, QString usuario) :
 
 
     //Signals e slots referente ao carregamento de arquivos na lista (QTableWidget)
-    worker2 = new Worker(this);
-    workerThread2.start();
-    worker2->moveToThread(&workerThread2);
-    connect(this, &MainWindow::triggerWorker, worker2 ,[this]()
+    worker3 = new Worker(this);
+    workerThread3.start();
+    worker3->moveToThread(&workerThread3);
+    connect(this, &MainWindow::populateQueueWithPaths, worker3, &Worker::onPopulateQueueWithPaths, Qt::QueuedConnection);
+    connect(worker3, &Worker::queueDonePopulating, this, &MainWindow::onQueueDonePopulating, Qt::QueuedConnection);
+    connect(this, &MainWindow::triggerWorker, worker3 ,[this]()
     {
-        worker2->getFilesAlreadyPresentOnHosts(this->filePaths);
+        worker3->getFilesAlreadyPresentOnHosts(this->filePaths);
     });
-    connect(worker2, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
-    connect(this, &MainWindow::populateQueueWithPaths, worker2, &Worker::onPopulateQueueWithPaths, Qt::QueuedConnection);
-    connect(worker2, &Worker::queueDonePopulating, this, &MainWindow::onQueueDonePopulating, Qt::QueuedConnection);
-    connect(worker2, &Worker::idAlreadyExistOnHost, this, &MainWindow::updateQueueItemInformation);
-    connect(this, &MainWindow::markHostAsRemovedFromTable, worker2, &Worker::onMarkHostAsRemovedFromTable, Qt::QueuedConnection);
-    connect(this, &MainWindow::registerIp, worker2, &Worker::onRegisterIp, Qt::QueuedConnection);
+    connect(worker3, &Worker::filesAlreadyPresentOnHostsResult, this, &MainWindow::pupulateGuiTable);
+    connect(worker3, &Worker::idAlreadyExistOnHost, this, &MainWindow::updateQueueItemInformation);
     //connect(&timer_loadTable, &QTimer::timeout, this, &MainWindow::addQueueToTableWidget);
 
 
 
-    //thread que verifica se o host esta online
+
+    //pega modalidades dos hosts
+    //worker2 = new Worker(this);
+    // workerThread2.start();
+    // worker2->moveToThread(&workerThread2);
     worker = new Worker(this);
     worker->moveToThread(&workerThread);
     worker->startCheckTimer();
     workerThread.start();
+
     connect(this, &MainWindow::getModalidadesFromHosts, worker, &Worker::onGetModalidadesFromHosts, Qt::QueuedConnection);
     connect(worker, &Worker::loadMods, this, &MainWindow::onLoadMods, Qt::QueuedConnection);
     connect(worker, &Worker::hostTableTextColorChanged, this, &MainWindow::changeHostsTableTextColor, Qt::QueuedConnection);
 
-
-
     connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::onItemFromTableWidgetSelected);
+
     connect(this, &MainWindow::showErrorMessage, this, &MainWindow::onShowErrorMessage, Qt::QueuedConnection);
     connect(getTransferMonitor(), &CTransferMonitor::toggleEnviarTodosBtn, this, &MainWindow::onToggleEnviarTodosBtn, Qt::QueuedConnection);
 
@@ -399,7 +401,7 @@ void MainWindow::addQueueToTableWidget()
     if(!waitingUserResponseToAddItems) //não to mais esperando confirmação do usuário para adicionar novos items
     {
         //	qDebug("addQueueToTableWidget -3");
-        if(!worker2->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
+        if(!worker3->isPopulatingQueue) //se a workerThread está adicionando items na queue, quer dizer que logo mais terá mais items pra adicionar na tabela, então nao podemos parar o timer_loadTable nesse caso
         {
             //qDebug("addQueueToTableWidget -4");
             ui->tableWidget->show();
@@ -759,7 +761,7 @@ void MainWindow::onAtualizarDadosBtnClick()
                 QString ip = videoInfo->host->getIp();
                 queueLocker.unlock();
                 //checa se o ID ja existe no banco
-                worker2->checkIfIdExistsOnHosts(ip, newId);
+                worker->checkIfIdExistsOnHosts(ip, newId);
                 qDebug("onAtualizarDadosBtnClick - OUT");
             }
 
@@ -823,16 +825,14 @@ QPair<int,int> MainWindow:: getFirstAndLastVisibleRowFromTable()
 
 void MainWindow::updateModComboBox()
 {
-
     QStringList items;
     for(int i=0; i<ui->hostsTable->rowCount(); i++)
     {
         items << ui->hostsTable->item(i, 1)->text();
     }
-    qDebug(" MainWindow::updateModComboBox() -1");
+    qDebug(" MainWindow::updateModComboBox()");
     qDebug() << " MainWindow::updateModComboBox - Main Thread:" << QThread::currentThread();
     emit getModalidadesFromHosts(items);
-    qDebug(" MainWindow::updateModComboBox() -OUT");
 }
 
 bool MainWindow::getShowingError() const
@@ -923,7 +923,7 @@ void MainWindow::onTimer()
             }
         }
     }
-    if(worker2->isPopulatingQueue) return; //se a workerThread estiver populando a fila, não podemos tentar pegar o lock da queueLocker, se não a GUI thread vai freezar
+    if(worker3->isPopulatingQueue) return; //se a workerThread estiver populando a fila, não podemos tentar pegar o lock da queueLocker, se não a GUI thread vai freezar
     QPair<int,int> rows = getFirstAndLastVisibleRowFromTable();
     for(int i=rows.first; i<=rows.second; i++)
     {
@@ -1032,26 +1032,20 @@ void MainWindow::onTimer()
 
 void MainWindow::on_btn_connectSession_clicked()
 {
-    qDebug("on_btn_connectSession_clicked -1");
     QString selectedSession = ui->cb_sessions->currentText();
     //qDebug("currentText: [%s]", selectedSession.toLatin1().data());
 
     //limpa a lista de ips atual
-    //    qDebug("on_btn_connectSession_clicked: rowCount [%d]", ui->hostsTable->rowCount());
-    int rowCount = ui->hostsTable->rowCount();
-    for(int i=rowCount-1; i>=0; i--)
+    for(int i=0; i<ui->hostsTable->rowCount(); i++)
     {
-        qDebug("ip [%s]", ui->hostsTable->item(i,1)->text().toLatin1().data());
-        emit markHostAsRemovedFromTable(ui->hostsTable->item(i,1)->text());
-        //hostControl->markHostAsRemovedFromTable(ui->hostsTable->item(i,1)->text());
+        hostControl->markHostAsRemovedFromTable(ui->hostsTable->item(i,1)->text());
         ui->hostsTable->removeRow(i);
-        //qDebug("remove i [%d]", i);
+        qDebug("remove i [%d]", i);
     }
     ui->hostsTable->setRowCount(0);
-    qDebug("on_btn_connectSession_clicked -2");
+
     QStringList ipList = CMagoDBCommandsThread::commands->getIpListFromSession(selectedSession);
     QStringList nameList = CMagoDBCommandsThread::commands->getNameListFromSession(selectedSession);
-    qDebug("on_btn_connectSession_clicked -3");
 
     for(QString ip : ipList)
     {
@@ -1066,11 +1060,9 @@ void MainWindow::on_btn_connectSession_clicked()
         ui->hostsTable->setItem(row, 0, nameItem);
         ui->hostsTable->setItem(row, 1, ipItem);
         ui->hostsTable->setItem(row, 2, bitRate);
-        emit registerIp(ip);
-        //hostControl->registerIp(ip);
+        hostControl->registerIp(ip);
 
     }
-    qDebug("on_btn_connectSession_clicked -4");
     updateModComboBox();
 }
 
@@ -1080,9 +1072,9 @@ void MainWindow::setWarningResponse(bool value)
 }
 
 
-Worker *MainWindow::getWorker2() const
+Worker *MainWindow::getWorker3() const
 {
-    return worker2;
+    return worker3;
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)
@@ -1226,10 +1218,6 @@ void MainWindow::pupulateGuiTable(QList<CFilesOnHost> listFilesOnHost)
     if(willPopulateQueue == false) //se tiver algum item pra colocar na lista, o populateQueueWithPaths vai cuidar de parar o spinner quando terminar. Mas no caso de nenhum video ser adicionado, temos que parar o spinner agora
     {
         stopSpinner();
-        ui->btn_pausar->setEnabled(true);
-        ui->btn_Remover->setEnabled(true);
-        openFilesAction->setEnabled(true);
-
     }
     //timer_loadTable.start(30);
 }
@@ -1239,41 +1227,37 @@ QString MainWindow::getVideoDuration(QString filePath) {
     //qDebug("CServiceUtils::getVideoDuration- IN");
     //qDebug("QString MainWindow::getVideoDuration- filePath: [%s]", filePath.toLatin1().data());
     QProcess process;
+    QStringList args;
 #ifdef __WIN32
-    QString command = "ffprobe.exe";
-    QStringList arguments = {"-v", "error", "-select_streams", "v:0", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", filePath};
+    args << filePath;
+    process.start("MediaInfo.exe", args);
 #else
-    QString command = "ffprobe";
-    QStringList arguments = {"-v", "error", "-select_streams", "v:0", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", filePath.toLatin1().data()};
+    args << filePath.toLatin1().data();
+    process.start("mediainfo", args);
 #endif
-
-
-    process.start(command, arguments);
     if (process.waitForFinished(15000))
     {
-        QString output = QString(process.readAllStandardOutput());
-        int duration = output.toFloat();
-        int hours = duration / 3600;         // 1 hora = 3600 segundos
-        int minutes = (duration % 3600) / 60; // 1 minuto = 60 segundos
-        int seconds = duration % 60;  // o resto sao os segundos
-        //qDebug("hours [%d]", hours);
-        //	qDebug("minutes [%d]", minutes);
-        //qDebug("seconds [%d]", seconds);
-        QString sduration="";
-        if(hours > 0)
+        QStringList lines = QString(process.readAllStandardOutput()).split("\n");
+        for (const QString& line : lines)
         {
-            sduration += QString::number(hours) + "h ";
+
+            if(!line.isEmpty())
+            {
+                QStringList data = line.split(":");
+                if (data.size() >= 2)
+                {
+                    QString nodeName = data[0].trimmed();
+                    QString value = data[1].trimmed();
+                    //qDebug("nodeName [%s]", nodeName.toLatin1().data());
+                    //qDebug("value [%s]", value.toLatin1().data());
+                    if(nodeName == "Duration")
+                    {
+                        return value;
+                    }
+                }
+
+            }
         }
-        if(minutes > 0)
-        {
-            sduration += QString::number(minutes) + "m ";
-        }
-        if(seconds >0)
-        {
-            sduration	+= QString::number(seconds) + "s";
-        }
-        //qDebug("sduration [%s]", sduration.toLatin1().data());
-        return sduration;
     }
     else
     {

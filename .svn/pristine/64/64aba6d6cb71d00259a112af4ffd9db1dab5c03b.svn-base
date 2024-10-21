@@ -51,7 +51,7 @@ public:
 
     MagoDB *getDb() const;
 
-    Worker *getWorker2() const;
+    Worker *getWorker3() const;
     bool getShowingError() const;
     void startSpinner();
     void stopSpinner();
@@ -65,8 +65,6 @@ signals:
     void populateQueueWithPaths(QStringList filePathsToPopulate, QString ip);
     void getModalidadesFromHosts(QStringList hosts);
     void showErrorMessage(QString error);
-    void markHostAsRemovedFromTable(QString ip);
-    void registerIp(QString ip);
 
 
 private:
@@ -86,8 +84,8 @@ private:
     QThread workerThread;
     //QThread* workerThread2;
     Worker* worker = nullptr;
-    QThread workerThread2;
-    Worker* worker2;
+    QThread workerThread3;
+    Worker* worker3;
     QIcon* iconEspera;
     QIcon* iconSending;
     QIcon* iconCheck;
@@ -107,8 +105,8 @@ private:
     QPair<int,int>  getFirstAndLastVisibleRowFromTable();
     void updateModComboBox();
     bool showingError = false;
-    //QThread workerThread2;
-    //Worker* worker2;
+    QThread workerThread2;
+     Worker* worker2;
 
 private slots:
     void onItemSelected(const QItemSelection &selected, const QItemSelection &deselected);

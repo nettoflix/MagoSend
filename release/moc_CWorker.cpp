@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Worker_t {
-    QByteArrayData data[22];
-    char stringdata0[354];
+    QByteArrayData data[24];
+    char stringdata0[396];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -53,7 +53,9 @@ QT_MOC_LITERAL(17, 278, 2), // "id"
 QT_MOC_LITERAL(18, 281, 24), // "onPopulateQueueWithPaths"
 QT_MOC_LITERAL(19, 306, 15), // "pathsToPopulate"
 QT_MOC_LITERAL(20, 322, 25), // "onGetModalidadesFromHosts"
-QT_MOC_LITERAL(21, 348, 5) // "hosts"
+QT_MOC_LITERAL(21, 348, 5), // "hosts"
+QT_MOC_LITERAL(22, 354, 28), // "onMarkHostAsRemovedFromTable"
+QT_MOC_LITERAL(23, 383, 12) // "onRegisterIp"
 
     },
     "Worker\0filesAlreadyPresentOnHostsResult\0"
@@ -64,7 +66,8 @@ QT_MOC_LITERAL(21, 348, 5) // "hosts"
     "modalidades\0getFilesAlreadyPresentOnHosts\0"
     "filePaths\0checkIfIdExistsOnHosts\0id\0"
     "onPopulateQueueWithPaths\0pathsToPopulate\0"
-    "onGetModalidadesFromHosts\0hosts"
+    "onGetModalidadesFromHosts\0hosts\0"
+    "onMarkHostAsRemovedFromTable\0onRegisterIp"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +77,7 @@ static const uint qt_meta_data_Worker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,17 +85,19 @@ static const uint qt_meta_data_Worker[] = {
        5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
-       5,    1,   62,    2, 0x06 /* Public */,
-       7,    0,   65,    2, 0x06 /* Public */,
-       8,    2,   66,    2, 0x06 /* Public */,
-      11,    1,   71,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
+       5,    1,   72,    2, 0x06 /* Public */,
+       7,    0,   75,    2, 0x06 /* Public */,
+       8,    2,   76,    2, 0x06 /* Public */,
+      11,    1,   81,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    1,   74,    2, 0x0a /* Public */,
-      16,    2,   77,    2, 0x0a /* Public */,
-      18,    2,   82,    2, 0x0a /* Public */,
-      20,    1,   87,    2, 0x0a /* Public */,
+      14,    1,   84,    2, 0x0a /* Public */,
+      16,    2,   87,    2, 0x0a /* Public */,
+      18,    2,   92,    2, 0x0a /* Public */,
+      20,    1,   97,    2, 0x0a /* Public */,
+      22,    1,  100,    2, 0x0a /* Public */,
+      23,    1,  103,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -106,6 +111,8 @@ static const uint qt_meta_data_Worker[] = {
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   10,   17,
     QMetaType::Void, QMetaType::QStringList, QMetaType::QString,   19,   10,
     QMetaType::Void, QMetaType::QStringList,   21,
+    QMetaType::Void, QMetaType::QString,   10,
+    QMetaType::Void, QMetaType::QString,   10,
 
        0        // eod
 };
@@ -125,6 +132,8 @@ void Worker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 6: _t->checkIfIdExistsOnHosts((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 7: _t->onPopulateQueueWithPaths((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 8: _t->onGetModalidadesFromHosts((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
+        case 9: _t->onMarkHostAsRemovedFromTable((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 10: _t->onRegisterIp((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -192,13 +201,13 @@ int Worker::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }

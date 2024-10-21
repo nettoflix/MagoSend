@@ -12,9 +12,9 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -g -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
+CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -g -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I../4SMagoTransferServer -I../XmlRPC/XmlRpc -I../Qt5.9.6/5.9.6/gcc_64/include -I../Qt5.9.6/5.9.6/gcc_64/include/QtWidgets -I../Qt5.9.6/5.9.6/gcc_64/include/QtGui -I../Qt5.9.6/5.9.6/gcc_64/include/QtSql -I../Qt5.9.6/5.9.6/gcc_64/include/QtCore -Irelease -isystem /usr/include/libdrm -I. -I../Qt5.9.6/5.9.6/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/mago/Qt5.9.6/5.9.6/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -37,7 +37,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = MagoSend1.0.0
 DISTDIR = /home/mago/MagoSend/release/MagoSend1.0.0
 LINK          = g++
-LFLAGS        = -Wl,-rpath,'$$ORIGIN/lib'
+LFLAGS        = -Wl,-rpath,'$$ORIGIN/lib' -Wl,-O1
 LIBS          = $(SUBLIBS) ../ffmpeg/ffmpeg/libavformat/libavformat.so ../ffmpeg/ffmpeg/libavutil/libavutil.so -L/home/mago/Qt5.9.6/5.9.6/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
@@ -848,7 +848,7 @@ compiler_moc_predefs_make_all: release/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) release/moc_predefs.h
 release/moc_predefs.h: ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/data/dummy.cpp
-	g++ -pipe -g -g -std=gnu++11 -Wall -W -dM -E -o release/moc_predefs.h ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/data/dummy.cpp
+	g++ -pipe -g -O2 -std=gnu++11 -Wall -W -dM -E -o release/moc_predefs.h ../Qt5.9.6/5.9.6/gcc_64/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: release/moc_mainwindow.cpp release/moc_CTransferMonitor.cpp release/moc_Host.cpp release/moc_CModalidadesForm.cpp release/moc_CCriarSessaoForm.cpp release/moc_CEditarSessaoForm.cpp release/moc_CHistoricoForm.cpp release/moc_CLoginForm.cpp release/moc_CCadastrarLoginForm.cpp release/moc_CWorker.cpp release/moc_CWaitingSpinnerWidget.cpp release/moc_CSendOptionsForm.cpp release/moc_CMagoDBCommandsThread.cpp
 compiler_moc_header_clean:

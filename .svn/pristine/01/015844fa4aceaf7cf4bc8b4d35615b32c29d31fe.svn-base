@@ -166,8 +166,8 @@ void CTransferMonitor::runLogic()
         int port = host->port;
 
 
-        if(getMainWindow() != nullptr && getMainWindow()->getWorker2() != nullptr){
-            if(!getMainWindow()->getWorker2()->isPopulatingQueue)  //se a workerThread estiver adicionando itens na lista, nao pega esse lock pra nao travar ela
+        if(getMainWindow() != nullptr && getMainWindow()->getWorker3() != nullptr){
+            if(!getMainWindow()->getWorker3()->isPopulatingQueue)  //se a workerThread estiver adicionando itens na lista, nao pega esse lock pra nao travar ela
             {
 
                 QMutexLocker queueLocker(&queueMutex);

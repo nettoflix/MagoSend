@@ -31,7 +31,7 @@ void Worker::startCheckTimer()
 void Worker::onCheckConnection()
 {
 
- //   qDebug() << "onCheckConnection: Current thread ID:" << QThread::currentThreadId();
+    qDebug() << "onCheckConnection: Current thread ID:" << QThread::currentThreadId();
     QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
     for(Host* host : mw->getHostControl()->getHosts())
     {
@@ -53,7 +53,7 @@ void Worker::onCheckConnection()
 
 
 }
-//pega quais sao os arquivos existentes no host
+
 void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
 {
 
@@ -82,7 +82,7 @@ void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
     emit filesAlreadyPresentOnHostsResult(listFilesOnHost);
 
 }
-//verifica se o id ja existe no host
+
 void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
 {
     MagoDB* magodb = new MagoDB(ip.toLatin1().data(), false);
@@ -90,7 +90,6 @@ void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
     //	qDebug("Worker::checkIfIdExistsOnHosts - exists [%d]", exists);
     emit idAlreadyExistOnHost(exists);
 }
-//carrega a lista que contem todas as informaçoes relacionalidas ao arquivo
 void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
 {
     qDebug("Worker::onPopulateQueueWithPaths - IN");
@@ -157,15 +156,4 @@ void Worker::onGetModalidadesFromHosts(QStringList hosts)
     }
     emit loadMods(modList);
 
-}
-
-void Worker::onMarkHostAsRemovedFromTable(QString ip)
-{
-    qDebug("Worker::onMarkHostAsRemovedFromTable");
-    mw->getHostControl()->markHostAsRemovedFromTable(ip);
-}
-
-void Worker::onRegisterIp(QString ip)
-{
- mw->getHostControl()->registerIp(ip);
 }
