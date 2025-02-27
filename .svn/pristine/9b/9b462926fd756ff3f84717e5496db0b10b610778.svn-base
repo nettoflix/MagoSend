@@ -1,0 +1,199 @@
+#include "CallbackWorkerThread.h"
+#include <QDebug>
+#include "XmlRpcClient.h"
+CallbackWorkerThread::CallbackWorkerThread(CHostControl* hostControl)
+{
+    this->hostControl = hostControl;
+    workerThread.start();
+
+}
+
+void CallbackWorkerThread::run()
+{
+    qDebug("CallbackWorkerThread::run - IN");
+    exec();
+    
+}
+
+bool CallbackWorkerThread::tellMagoThatEventWasSent(QString id, QString ip)
+{
+    qDebug("tellMagoThatEventWasSent");
+
+    //aqui e sempre local o ip, pq o servico que envia e local...
+    XmlRpc::XmlRpcClient* client = new XmlRpc::XmlRpcClient(ip.toLatin1().data(), 8771);
+
+    XmlRpc::XmlRpcValue result;
+    XmlRpc::XmlRpcValue args;
+
+    args[0] = id.toStdString();
+    args[1] = "";
+
+    client->reforceConnection();
+
+    //timeout em segundos...
+    if (client->execute("CXmlMediaCheckerUpdateEventWithoutRefresh", args, result, 3))
+    {
+        client->close();
+        delete client;
+        qDebug("tellMagoThatEventWasSent::TRUE");
+
+        return true;
+    }
+    else
+    {
+        qDebug("tellMagoThatEventWasSent::FALSE");
+        client->close();
+        delete client;
+        return false;
+    }
+}
+
+void CallbackWorkerThread::enqueue(QString fileName, QString ip)
+{
+    qDebug("CallbackWorkerThread::enqueue - IN");
+  //  queueMutex.lock();
+    callbackQueue.enqueue({fileName, ip});
+   // queueMutex.unlock();
+    processQueue();
+     qDebug("CallbackWorkerThread::enqueue - OUT");
+}
+
+void CallbackWorkerThread::processQueue()
+{
+    qDebug("processQueue- IN");
+//queueMutex.lock();
+    while(!callbackQueue.isEmpty())
+    {
+        CallbackParameter param = callbackQueue.dequeue();
+        //queueMutex.unlock();
+        qDebug() << "Worker: Processing" << param.filename << "from IP:" << param.ip;
+        QString fileName = param.filename;
+        QString hostIp = param.ip;
+        //QThread::sleep(3);  // Simulate processing time
+        // qDebug() << "Worker: Finished processing" << param.filename;
+        //qDebug("CHostControl::marVideoAsSent, ip [%s] para o video [%s]", hostIp.toLatin1().data(), fileName.toLatin1().data());
+        QDateTime now = QDateTime::currentDateTime();
+        QString nowStr = now.toString("yyyy-MM-dd hh:mm:ss");
+
+        QMutexLocker hostsLocker(&hostControl->getHostsMutex());
+
+        for(Host* host : hostControl->getHosts())
+        {
+            if(host->getIp() == hostIp)
+            {
+                host->setBusy(false);
+                host->setCurrentUpload(nullptr);
+            }
+        }
+        hostsLocker.unlock();
+        QMutexLocker queueLocker(&hostControl->getMainWindow()->getTransferMonitor()->getQueueMutex());
+        int count = 0;
+        for(VideoFileInfo* videoInfo : hostControl->getMainWindow()->getTransferMonitor()->getCurrentQueue())
+        {
+            count++;
+            QFileInfo fileInfo(videoInfo->getFilename());
+            QString filepath = fileInfo.filePath();
+            QString videoInfo_fileName = fileInfo.fileName();
+            QString numero = videoInfo->getId();
+            QString titulo = videoInfo->getTitulo();
+            QString modalidade = videoInfo->getModalidade();
+            QString filename = videoInfo->getBaseName();
+            QFileInfo nameInfo(filename);
+            QString baseName = nameInfo.completeBaseName();
+            // qDebug("baseName [%s] do IP [%s]", baseName.toLatin1().data(), hostIp.toLatin1().data());
+            QString duration = videoInfo->getDuration();
+            bool doesFilenameMatch = false;
+    #ifdef __WIN32
+            QByteArray videoFileNameConverted =videoInfo_fileName.toUtf8().data();
+            QByteArray filenameCalledbackConverted = fileName.toLatin1().data();
+            if(videoFileNameConverted == filenameCalledbackConverted) doesFilenameMatch = true;
+    #else
+            if(videoInfo_fileName == fileName) doesFilenameMatch = true;
+    #endif
+
+
+            if(doesFilenameMatch && videoInfo->getIp() == hostIp)
+            {
+                //	qDebug("CHostControl::markVideoAsSent - videoInfo_fileName == fileName ");
+                videoInfo->setIsActiveUpload(false);
+                /* Mesmo quando o video é cancelado pelo usuário, o transfer executa o callback que chama essa funcao "markVideoAsSent"
+                por isso, precisamos checar se o video não foi cancelado antes de marcar ele como "enviado" */
+                if(videoInfo->getStatus() != CVideoStatus::CANCELLED) //
+                {
+
+                    videoInfo->setStatus(CVideoStatus::SENT);
+                    //qDebug("nowStr: [%s]", nowStr.toLatin1().data());
+                    //cadastra no banco de dados da máquina local (magosenddb)
+    #ifdef __linux
+                    CMagoDBCommandsThread::commands->queuedAddHistoricoMagoSend(numero.toLatin1(),titulo.toLatin1(), filepath.toLatin1(),modalidade,
+                                                                                duration, hostIp,videoInfo->getStatusString(), nowStr, hostControl->getMainWindow()->getUsuario());
+    #else
+                    CMagoDBCommandsThread::commands->queuedAddHistoricoMagoSend(numero,titulo, filepath,modalidade,
+                                                                                duration, hostIp,videoInfo->getStatusString(), nowStr, hostControl->getMainWindow()->getUsuario());
+    #endif
+                    //cadastra o evento no banco de dados do Mago Host
+                    MagoDB* magodb = new MagoDB(hostIp.toLatin1().data(), false);
+                    // QString magosendIniFileName = QApplication::applicationDirPath() + "/MagoSend.ini";
+                    //   QSettings settings(magosendIniFileName, QSettings::IniFormat);
+                    //     QString magoMediaPath = settings.value("magoMediaPath").toString();z
+                    QString path;
+                    qDebug() << "markVideoAsSent: modalidade= " << modalidade;
+                    if((modalidade != "" | modalidade != "Nenhuma") && !CHostControl::usarModalidadeLogica)
+                    {
+                        if(CHostControl::repeatSubFolderAsPrefix)
+                        {
+							qDebug("repeatSubFolder as prefix");
+                            path = CHostControl::magoMediaPath + "/"+ modalidade+"/" + modalidade + "_"+ baseName + ".mxf";
+                        }
+                        else
+                        {
+								qDebug("NAO repeatSubFolder as prefix");
+                            path = CHostControl::magoMediaPath + "/"+ modalidade+"/"+ baseName + ".mxf";
+                        }
+                    }
+                    else
+                    {
+                        qDebug("QUERO USAR MODALIDADE LOGICA");
+                        path = CHostControl::magoMediaPath +"/"+ baseName + ".mxf";
+                    }
+
+
+    #ifdef __linux
+                    if(magodb->EventExistsByNumber(numero.toLatin1().data()))
+                    {
+                        //	qDebug("EventExistsByNumber");
+						magodb->UpdateEvent(numero.toLatin1().data(), numero.toLatin1().data(), path.toLatin1().data(), titulo.toLatin1().data(),0,0,0,0,"","",0,modalidade.toUtf8().data());
+                    }
+                    else
+                    {
+
+                        //	qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
+                        magodb->AddEvent(numero.toLatin1().data(),path.toLatin1().data(), titulo.toLatin1().data(), 0, 0, 0, 0, "", "", 0,modalidade.toUtf8().data());
+                    }
+    #else
+                    qDebug("complete path [%s]", path.toLatin1().data());
+                    if(magodb->EventExistsByNumber(numero.toUtf8().data()))
+                    {
+                        //	qDebug("EventExistsByNumber");
+                        magodb->UpdateEvent(numero.toUtf8().data(), numero.toUtf8().data(), path.toUtf8().data(), titulo.toUtf8().data(),0,0,0,0,"","",0,modalidade.toUtf8().data());
+                    }
+                    else
+                    {
+
+                        //	qDebug("magodb->addEvent path: [%s]", path.toLatin1().data());
+                        magodb->AddEvent(numero.toUtf8().data(),path.toUtf8().data(), titulo.toUtf8().data(), 0, 0, 0, 0, "", "", 0,modalidade.toUtf8().data());
+                    }
+    #endif
+                    delete magodb;
+                    tellMagoThatEventWasSent(numero, hostIp);
+                }
+                
+                break;
+            }
+        }
+     //    queueMutex.lock();
+    }
+
+
+
+}

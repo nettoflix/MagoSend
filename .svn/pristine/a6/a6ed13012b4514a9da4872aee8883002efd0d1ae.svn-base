@@ -1,0 +1,376 @@
+
+#include "CHostControl.h"
+#include "CServiceUtils.h"
+#include "Host.h"
+
+#include <QFile>
+#include <QTextStream>
+#include <QThread>
+
+Host::Host(CHostControl* hostControl, QString ip, int port) : QObject(), hostControl(hostControl),ip(ip), port(port){
+	process = new QProcess();
+	busy=false;
+	bitRate = 0.0f;
+	shouldCancelUpload = false;
+	wasRemovedFromTableWidget = false;
+	wasConnected = false;
+	isConnected = false;
+	this->currentUpload = nullptr;
+	client = new XmlRpc::XmlRpcClient("127.0.0.1", this->port); //client1 se conecta com o transferlocal
+	client2 = new XmlRpc::XmlRpcClient(ip.toLatin1().data(), MAGO_TRANSFER_SERVER_PORT_1); //client2 se conecta diretamente com o host para verificar se ele está online
+
+	QString logName(ip + QString("-") + QString::number(port) + "-");
+#ifdef __WIN32
+	log = new CLog(logName);
+#else
+	QString path = QString("MagoSendLogs/") + logName;
+	log = new CLog(path);
+#endif
+	connect(process, &QProcess::readyReadStandardOutput, [this]() mutable {
+		if(this->isRestartingService) return;
+		QMutexLocker locker(&logMutex);
+		QThread::msleep(10);
+		QString message = QString(process->readAllStandardOutput());
+		log->writeText(message.toLatin1().data());
+	});
+
+
+	isRestartingService = false;
+	connect(this, &Host::updateBitrate, getHostControl()->getMainWindow() , &MainWindow::onUpdateBitrate, Qt::QueuedConnection);
+}
+
+
+Host::~Host()
+{
+	if (process != nullptr) {
+		if (process->state() != QProcess::NotRunning) {
+			process->terminate();
+			if (!process->waitForFinished(1500)) {
+				process->kill();
+
+				//process->waitForFinished();
+			}
+		}
+		QThread::msleep(30);
+		//delete process;
+		process->deleteLater();
+		process = nullptr;
+	}
+
+	if (client != nullptr) {
+		client->close();
+		delete client;
+		client = nullptr;
+	}
+	if (client2 != nullptr) {
+		client2->close();
+		delete client2;
+		client2 = nullptr;
+	}
+
+	delete log;
+	if(currentUpload!=nullptr) currentUpload->setHost(nullptr);
+}
+
+VideoFileInfo *Host::getCurrentUpload() const
+{
+	return currentUpload;
+}
+
+void Host::setCurrentUpload(VideoFileInfo *value)
+{
+
+	if(value!=nullptr)
+	{
+		value->setIsActiveUpload(true);
+	}
+	else if(value==nullptr && currentUpload!=nullptr)
+	{
+		currentUpload->setIsActiveUpload(false);
+	}
+	currentUpload = value;
+}
+
+bool Host::getIsConnected() const
+{
+	return isConnected;
+}
+
+QString Host::getIp() const
+{
+	return ip;
+}
+
+bool Host::getWasRemovedFromTableWidget() const
+{
+	return wasRemovedFromTableWidget;
+}
+
+void Host::setWasRemovedFromTableWidget(bool value)
+{
+	wasRemovedFromTableWidget = value;
+}
+
+bool Host::getShouldCancelUpload() const
+{
+	return shouldCancelUpload;
+}
+
+void Host::resetUseCount()
+{
+	this->useCount = 0;
+}
+
+void Host::addUseCount()
+{
+	useCount++;
+}
+
+void Host::setConnected(bool value)
+{
+	this->isConnected = value;
+}
+
+bool Host::isBeingUsed()
+{
+	if(useCount == 0) return false;
+	return true;
+}
+
+
+
+
+CUploadServiceClientProgressResult Host::getProgressResult() const
+{
+	//	qDebug << "Get progress reesult: thread: " << QThread::currentThread();
+	return progressResult;
+}
+
+void Host::setProgressResult(const CUploadServiceClientProgressResult &value)
+{
+	progressResult = value;
+	setBitRate(value.bitRate);
+}
+
+void Host::setShouldCancelUpload(bool value)
+{
+	shouldCancelUpload = value;
+}
+
+bool Host::isBusy()
+{
+	return this->busy;
+}
+
+void Host::setBusy(bool busy)
+{
+	this->busy = busy;
+}
+
+void Host::setBitRate(float value)
+{
+	this->bitRate = value;
+}
+
+float Host::getBitRate()
+{
+	return this->bitRate;
+}
+
+CUploadServiceClientProgressResult Host::AskServriceAboutItsProgress()
+{
+
+	//	qDebug("CUploadServiceClient::AskServriceAboutItsProgress - 1 - IN");
+	CUploadServiceClientProgressResult progressResult;
+	progressResult.filename  = "";
+	progressResult.progress  = CUploadServiceClient::UPLOAD_SERVICE_IS_OUT;
+	progressResult.fileCount = 0;
+	progressResult.bitRate = 0.0;
+
+	if(isRestartingService) return progressResult;
+
+	XmlRpc::XmlRpcValue result2;
+	XmlRpc::XmlRpcValue args2;
+	QMutexLocker locker(&logMutex);
+	client->reforceConnection();
+	//timeout em segundos...
+	if (client->execute("CXmlGetSentFileProgress", args2, result2, 3))
+	{
+		locker.unlock();
+		//qDebug("CUploadServiceClient::AskServriceAboutItsProgress - 2");
+		std::string sFilename = result2[0];
+		int progress = result2[1];
+		int count = result2[2];
+		std::string bitrate_str = result2[3];
+		float bitrate = std::stof(bitrate_str);
+		//qDebug("float bitRate: [%.2f]", bitrate);
+		progressResult.filename  = QString::fromStdString(sFilename);
+		progressResult.progress  = progress;
+		progressResult.fileCount = count;
+		progressResult.bitRate = bitrate;
+		emit updateBitrate(bitrate,ip);
+
+		this->setProgressResult(progressResult);
+		//	qDebug("Host::AskServriceAboutItsProgress progress: %d", this->getProgressResult().progress);
+		return progressResult;
+
+	}
+	else
+	{
+		//qDebug("CUploadServiceClient::AskServriceAboutItsProgress - 3");
+		this->setProgressResult(progressResult);
+		return progressResult;
+	}
+}
+bool Host::TellServiceToUploadFile(QString filename, bool isSendInSilentMode, QString adviseAfterEndingIP, QString adviseAfterEndingMethodName, int adviseAfterEndingPort, QString targetSubFolder, double timeout)
+{
+	if(isRestartingService) return false;
+
+	// qDebug("CUploadServiceClient::1- port [%d]", port);
+
+	if(client != nullptr)
+	{
+		XmlRpc::XmlRpcValue result;
+		XmlRpc::XmlRpcValue args;
+
+		//qDebug("CUploadServiceClient::2");
+
+		QString fullFilePath = filename;
+		QString filenameD = fullFilePath;
+		args[0] = filenameD.toStdString();
+		if (isSendInSilentMode)
+		{
+			args[1] = (int)1;
+		}
+		else
+		{
+			args[1] = (int)0;
+		}
+
+		//qDebug("CUploadServiceClient::3");
+
+		args[2] = adviseAfterEndingIP.toStdString();
+		args[3] = adviseAfterEndingMethodName.toStdString();
+		args[4] = adviseAfterEndingPort;
+		args[5] = targetSubFolder.toStdString();
+		QMutexLocker locker(&logMutex);
+		client->reforceConnection();
+
+		//qDebug("CUploadServiceClient::4");
+		//qDebug("CUploadServiceClient:: port [%d]", port);
+		//timeout em segundos...
+		if (client->execute("CXmlSendFile", args, result, timeout))
+		{
+			locker.unlock();
+			qDebug("CUploadServiceClient::TRUE - 1");
+			//  qDebug("CUploadServiceClient::Marcado para envio [%s]", filename.toLatin1().data());
+
+			return true;
+		}
+		else
+		{
+			qDebug("CUploadServiceClient::FALSE - 2");
+			return false;
+		}
+	}
+	else
+	{
+		qDebug("CUploadServiceClient::FALSE - 3");
+		return false;
+	}
+
+
+}
+
+bool Host::getWasConnected() const
+{
+	return wasConnected;
+}
+
+void Host::setWasConnected(bool value)
+{
+	wasConnected = value;
+}
+
+CHostControl *Host::getHostControl() const
+{
+	return hostControl;
+}
+
+bool Host::CheckConnection(QString ip)
+{
+	XmlRpc::XmlRpcValue result;
+	XmlRpc::XmlRpcValue args;
+	client2->reforceConnection();
+
+	//timeout em segundos...
+	if (client2->execute("CXmlTestConnection", args, result, 3))
+	{
+		//qDebug("CheckConnection - TRUE");
+		this->setConnected(true);
+		return true;
+	}
+	else
+	{
+		this->setConnected(false);
+			//qDebug("CheckConnection - FALSE");
+		return false;
+	}
+}
+
+QProcess *Host::getProcess() const
+{
+	return process;
+}
+
+int Host::getPort() const
+{
+	return port;
+}
+
+
+void Host::restartService()
+{
+	if(isRestartingService) return;
+	isRestartingService = true;
+	QMutexLocker locker(&logMutex);
+	disconnect(process, &QProcess::readyReadStandardOutput, nullptr, nullptr);
+	qDebug(" Host::restartService -1 ");
+	// Ensure process is closed properly before deleting
+	if (process != nullptr) {
+		if (process->state() != QProcess::NotRunning) {
+			process->terminate();
+			if (!process->waitForFinished(1500)) {
+				process->kill();
+
+				//process->waitForFinished();
+			}
+		}
+		//QThread::msleep(10);
+		delete process;
+		//process->deleteLater();
+		process = nullptr;
+	}
+
+	if (client != nullptr) {
+		client->close();
+		delete client;
+		client = nullptr;
+	}
+
+	QThread::msleep(10);
+	process = new QProcess();
+	connect(process, &QProcess::readyReadStandardOutput, [this]() mutable {
+		QString message = QString(process->readAllStandardOutput());
+		log->writeText(message.toLatin1().data());
+	});
+	CServiceUtils::StartTransferService(process,"", ip, QString::number(port));
+	client = new XmlRpc::XmlRpcClient("127.0.0.1", this->port);
+	qDebug(" Host::restartService -2 ");
+	QThread::msleep(10);
+	isRestartingService = false;
+}
+
+
+
+

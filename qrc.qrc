@@ -70,9 +70,5 @@
         <file>images/sand-clock.png</file>
         <file>images/hourglass.png</file>
         <file>images/lock.png</file>
-        <file>images/witch-hat.png</file>
-        <file>images/witch-hat2.png</file>
-        <file>images/witch-hat3.png</file>
-        <file>images/redhat.png</file>
     </qresource>
 </RCC>

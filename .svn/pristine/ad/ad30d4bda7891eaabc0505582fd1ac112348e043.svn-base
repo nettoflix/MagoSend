@@ -1,0 +1,50 @@
+#include "CMagoDBCommandsThread.h"
+#include "CSendOptionsForm.h"
+#include "ui_CSendOptionsForm.h"
+
+CSendOptionsForm::CSendOptionsForm(QWidget *parent) :
+	QDialog(parent),
+	ui(new Ui::CSendOptionsForm)
+{
+	ui->setupUi(this);
+	//	db = new MagoDB();
+	bool alwaysWarnFile = CMagoDBCommandsThread::commands->warningWhenOverwriteFile();
+	bool alwaysWarnId =  CMagoDBCommandsThread::commands->warningWhenOverwriteId();
+
+	ui->comboBox_sessions->clear();
+	QStringList sessions = CMagoDBCommandsThread::commands->queuedGetSessionNames();
+	ui->comboBox_sessions->addItems(sessions);
+	ui->checkBox_arquivo->setChecked(alwaysWarnFile);
+	ui->checkBox_id->setChecked(alwaysWarnId);
+	//
+	bool shouldAutoConnect = CMagoDBCommandsThread::commands->shoudAutoConnectSession();
+	ui->checkBox_connectAuto->setChecked(shouldAutoConnect);
+
+	QString sessionToConnect = CMagoDBCommandsThread::commands->getSessionToConnect();
+	for(int i=0; i<sessions.size(); i++)
+	{
+		if(sessionToConnect == sessions.at(i))
+		{
+				ui->comboBox_sessions->setCurrentIndex(i);
+				break;
+		}
+	}
+
+}
+
+CSendOptionsForm::~CSendOptionsForm()
+{
+	//	delete db;
+	delete ui;
+}
+
+void CSendOptionsForm::closeEvent(QCloseEvent *event)
+{
+	qDebug("fechoU!");
+	CMagoDBCommandsThread::commands->updateSendOptions(ui->checkBox_arquivo->isChecked(),ui->checkBox_id->isChecked());
+	CMagoDBCommandsThread::commands->updateCheckBoxAutoConnectSession(ui->checkBox_connectAuto->isChecked());
+	QString chosenSession = ui->comboBox_sessions->currentText();
+	CMagoDBCommandsThread::commands->updateAutoConnectSession(chosenSession);
+	this->accept();
+}
+

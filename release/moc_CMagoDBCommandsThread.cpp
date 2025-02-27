@@ -87,8 +87,8 @@ int CMagoDBCommandsThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_CMagoDBCommandsThreadWorker_t {
-    QByteArrayData data[48];
-    char stringdata0[750];
+    QByteArrayData data[66];
+    char stringdata0[1151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -144,7 +144,25 @@ QT_MOC_LITERAL(43, 669, 17), // "userAlreadyExists"
 QT_MOC_LITERAL(44, 687, 15), // "getUserPassword"
 QT_MOC_LITERAL(45, 703, 15), // "AddUserMagoSend"
 QT_MOC_LITERAL(46, 719, 8), // "password"
-QT_MOC_LITERAL(47, 728, 21) // "getUsersFromHistorico"
+QT_MOC_LITERAL(47, 728, 21), // "getUsersFromHistorico"
+QT_MOC_LITERAL(48, 750, 11), // "getLastUser"
+QT_MOC_LITERAL(49, 762, 12), // "saveLastUser"
+QT_MOC_LITERAL(50, 775, 26), // "saveRemindLastUserCheckBox"
+QT_MOC_LITERAL(51, 802, 5), // "value"
+QT_MOC_LITERAL(52, 808, 19), // "getLastUserCheckBox"
+QT_MOC_LITERAL(53, 828, 30), // "saveRemindLastPasswordCheckBox"
+QT_MOC_LITERAL(54, 859, 16), // "saveLastPassword"
+QT_MOC_LITERAL(55, 876, 23), // "getLastPasswordCheckBox"
+QT_MOC_LITERAL(56, 900, 15), // "getLastPassword"
+QT_MOC_LITERAL(57, 916, 32), // "updateCheckBoxAutoConnectSession"
+QT_MOC_LITERAL(58, 949, 24), // "updateAutoConnectSession"
+QT_MOC_LITERAL(59, 974, 23), // "shoudAutoConnectSession"
+QT_MOC_LITERAL(60, 998, 19), // "getSessionToConnect"
+QT_MOC_LITERAL(61, 1018, 31), // "updateShouldUpdateIdForAllItems"
+QT_MOC_LITERAL(62, 1050, 31), // "updateShouldUseModalidadeLogica"
+QT_MOC_LITERAL(63, 1082, 31), // "updateShouldUseModalidadePrefix"
+QT_MOC_LITERAL(64, 1114, 20), // "updateMagoMediasPath"
+QT_MOC_LITERAL(65, 1135, 15) // "updatePortStart"
 
     },
     "CMagoDBCommandsThreadWorker\0"
@@ -166,7 +184,18 @@ QT_MOC_LITERAL(47, 728, 21) // "getUsersFromHistorico"
     "warningWhenOverwriteId\0updateSendOptions\0"
     "shouldOverwriteFile\0shouldOverwriteId\0"
     "userAlreadyExists\0getUserPassword\0"
-    "AddUserMagoSend\0password\0getUsersFromHistorico"
+    "AddUserMagoSend\0password\0getUsersFromHistorico\0"
+    "getLastUser\0saveLastUser\0"
+    "saveRemindLastUserCheckBox\0value\0"
+    "getLastUserCheckBox\0saveRemindLastPasswordCheckBox\0"
+    "saveLastPassword\0getLastPasswordCheckBox\0"
+    "getLastPassword\0updateCheckBoxAutoConnectSession\0"
+    "updateAutoConnectSession\0"
+    "shoudAutoConnectSession\0getSessionToConnect\0"
+    "updateShouldUpdateIdForAllItems\0"
+    "updateShouldUseModalidadeLogica\0"
+    "updateShouldUseModalidadePrefix\0"
+    "updateMagoMediasPath\0updatePortStart"
 };
 #undef QT_MOC_LITERAL
 
@@ -176,7 +205,7 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      33,   14, // methods
+      50,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -184,39 +213,56 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    9,  179,    2, 0x0a /* Public */,
-      12,    0,  198,    2, 0x0a /* Public */,
-      13,    1,  199,    2, 0x0a /* Public */,
-      15,    1,  202,    2, 0x0a /* Public */,
-      16,    0,  205,    2, 0x0a /* Public */,
-      18,    0,  206,    2, 0x0a /* Public */,
-      19,    0,  207,    2, 0x0a /* Public */,
-      20,    2,  208,    2, 0x0a /* Public */,
-      23,   10,  213,    2, 0x0a /* Public */,
-      23,    9,  234,    2, 0x2a /* Public | MethodCloned */,
-      23,    8,  253,    2, 0x2a /* Public | MethodCloned */,
-      23,    7,  270,    2, 0x2a /* Public | MethodCloned */,
-      23,    6,  285,    2, 0x2a /* Public | MethodCloned */,
-      23,    5,  298,    2, 0x2a /* Public | MethodCloned */,
-      23,    4,  309,    2, 0x2a /* Public | MethodCloned */,
-      23,    3,  318,    2, 0x2a /* Public | MethodCloned */,
-      23,    2,  325,    2, 0x2a /* Public | MethodCloned */,
-      23,    1,  330,    2, 0x2a /* Public | MethodCloned */,
-      23,    0,  333,    2, 0x2a /* Public | MethodCloned */,
-      26,    0,  334,    2, 0x0a /* Public */,
-      27,    2,  335,    2, 0x0a /* Public */,
-      30,    0,  340,    2, 0x0a /* Public */,
-      31,    1,  341,    2, 0x0a /* Public */,
-      32,    3,  344,    2, 0x0a /* Public */,
-      36,    3,  351,    2, 0x0a /* Public */,
-      37,    1,  358,    2, 0x0a /* Public */,
-      38,    0,  361,    2, 0x0a /* Public */,
-      39,    0,  362,    2, 0x0a /* Public */,
-      40,    2,  363,    2, 0x0a /* Public */,
-      43,    1,  368,    2, 0x0a /* Public */,
-      44,    1,  371,    2, 0x0a /* Public */,
-      45,    2,  374,    2, 0x0a /* Public */,
-      47,    0,  379,    2, 0x0a /* Public */,
+       1,    9,  264,    2, 0x0a /* Public */,
+      12,    0,  283,    2, 0x0a /* Public */,
+      13,    1,  284,    2, 0x0a /* Public */,
+      15,    1,  287,    2, 0x0a /* Public */,
+      16,    0,  290,    2, 0x0a /* Public */,
+      18,    0,  291,    2, 0x0a /* Public */,
+      19,    0,  292,    2, 0x0a /* Public */,
+      20,    2,  293,    2, 0x0a /* Public */,
+      23,   10,  298,    2, 0x0a /* Public */,
+      23,    9,  319,    2, 0x2a /* Public | MethodCloned */,
+      23,    8,  338,    2, 0x2a /* Public | MethodCloned */,
+      23,    7,  355,    2, 0x2a /* Public | MethodCloned */,
+      23,    6,  370,    2, 0x2a /* Public | MethodCloned */,
+      23,    5,  383,    2, 0x2a /* Public | MethodCloned */,
+      23,    4,  394,    2, 0x2a /* Public | MethodCloned */,
+      23,    3,  403,    2, 0x2a /* Public | MethodCloned */,
+      23,    2,  410,    2, 0x2a /* Public | MethodCloned */,
+      23,    1,  415,    2, 0x2a /* Public | MethodCloned */,
+      23,    0,  418,    2, 0x2a /* Public | MethodCloned */,
+      26,    0,  419,    2, 0x0a /* Public */,
+      27,    2,  420,    2, 0x0a /* Public */,
+      30,    0,  425,    2, 0x0a /* Public */,
+      31,    1,  426,    2, 0x0a /* Public */,
+      32,    3,  429,    2, 0x0a /* Public */,
+      36,    3,  436,    2, 0x0a /* Public */,
+      37,    1,  443,    2, 0x0a /* Public */,
+      38,    0,  446,    2, 0x0a /* Public */,
+      39,    0,  447,    2, 0x0a /* Public */,
+      40,    2,  448,    2, 0x0a /* Public */,
+      43,    1,  453,    2, 0x0a /* Public */,
+      44,    1,  456,    2, 0x0a /* Public */,
+      45,    2,  459,    2, 0x0a /* Public */,
+      47,    0,  464,    2, 0x0a /* Public */,
+      48,    0,  465,    2, 0x0a /* Public */,
+      49,    1,  466,    2, 0x0a /* Public */,
+      50,    1,  469,    2, 0x0a /* Public */,
+      52,    0,  472,    2, 0x0a /* Public */,
+      53,    1,  473,    2, 0x0a /* Public */,
+      54,    1,  476,    2, 0x0a /* Public */,
+      55,    0,  479,    2, 0x0a /* Public */,
+      56,    0,  480,    2, 0x0a /* Public */,
+      57,    1,  481,    2, 0x0a /* Public */,
+      58,    1,  484,    2, 0x0a /* Public */,
+      59,    0,  487,    2, 0x0a /* Public */,
+      60,    0,  488,    2, 0x0a /* Public */,
+      61,    1,  489,    2, 0x0a /* Public */,
+      62,    1,  492,    2, 0x0a /* Public */,
+      63,    1,  495,    2, 0x0a /* Public */,
+      64,    1,  498,    2, 0x0a /* Public */,
+      65,    1,  501,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,    4,    5,    6,    7,    8,    9,   10,   11,
@@ -252,6 +298,23 @@ static const uint qt_meta_data_CMagoDBCommandsThreadWorker[] = {
     QMetaType::QString, QMetaType::QString,   11,
     QMetaType::Bool, QMetaType::QString, QMetaType::QByteArray,   11,   46,
     QMetaType::QStringList,
+    QMetaType::QString,
+    QMetaType::Void, QMetaType::QString,   11,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Bool,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Void, QMetaType::QString,   46,
+    QMetaType::Bool,
+    QMetaType::QString,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Bool,
+    QMetaType::QString,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Void, QMetaType::Bool,   51,
+    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::Int,   51,
 
        0        // eod
 };
@@ -320,6 +383,29 @@ void CMagoDBCommandsThreadWorker::qt_static_metacall(QObject *_o, QMetaObject::C
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 32: { QStringList _r = _t->getUsersFromHistorico();
             if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = std::move(_r); }  break;
+        case 33: { QString _r = _t->getLastUser();
+            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
+        case 34: _t->saveLastUser((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 35: _t->saveRemindLastUserCheckBox((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 36: { bool _r = _t->getLastUserCheckBox();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 37: _t->saveRemindLastPasswordCheckBox((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 38: _t->saveLastPassword((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 39: { bool _r = _t->getLastPasswordCheckBox();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 40: { QString _r = _t->getLastPassword();
+            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
+        case 41: _t->updateCheckBoxAutoConnectSession((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 42: _t->updateAutoConnectSession((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 43: { bool _r = _t->shoudAutoConnectSession();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 44: { QString _r = _t->getSessionToConnect();
+            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
+        case 45: _t->updateShouldUpdateIdForAllItems((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 46: _t->updateShouldUseModalidadeLogica((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 47: _t->updateShouldUseModalidadePrefix((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 48: _t->updateMagoMediasPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 49: _t->updatePortStart((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -350,13 +436,13 @@ int CMagoDBCommandsThreadWorker::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 33)
+        if (_id < 50)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 33;
+        _id -= 50;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 33)
+        if (_id < 50)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 33;
+        _id -= 50;
     }
     return _id;
 }

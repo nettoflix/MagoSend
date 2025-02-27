@@ -1,0 +1,206 @@
+#include "CWorker.h"
+Worker::Worker(MainWindow* mw)
+{
+	this->mw = mw;
+
+}
+
+Worker::~Worker()
+{
+	delete checkConnectionTimer;
+}
+
+bool Worker::getIsPopulatingQueue() const
+{
+	return isPopulatingQueue;
+}
+
+void Worker::setIsPopulatingQueue(bool value)
+{
+	isPopulatingQueue = value;
+}
+
+void Worker::startCheckTimer()
+{
+	checkConnectionTimer = new QTimer();
+	connect(checkConnectionTimer, &QTimer::timeout, this,&Worker::onCheckConnection);
+	checkConnectionTimer->start(1000);
+
+}
+
+void Worker::onCheckConnection()
+{
+
+	//   qDebug() << "onCheckConnection: Current thread ID:" << QThread::currentThreadId();
+	QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
+
+	for(Host* host : mw->getHostControl()->getHosts())
+	{
+		if(host!=nullptr)
+		{
+			QString  ip = host->getIp();
+			bool wasConnected = host->getWasConnected();
+			hostsLocker.unlock();
+			// bool isConnected = CUploadServiceClient::CheckConnection(ip);
+			bool isConnected = host->CheckConnection(ip);
+			hostsLocker.relock();
+			if(isConnected)// && !host->getIsConnected())
+			{
+				//  qDebug("is connected!");
+
+				//host->setConnected(true);
+				// hostsLocker.unlock();
+				emit hostTableTextColorChanged(QColor(Qt::green), ip);
+			}
+			else if(!isConnected)// && host->getIsConnected())
+			{
+				//   qDebug("is NOT connected!");
+				//  hostsLocker.relock();
+				//host->setConnected(false);
+				//   hostsLocker.unlock();
+				emit hostTableTextColorChanged(QColor(Qt::red), ip);
+			}
+			if(!wasConnected && isConnected)
+			{
+				qDebug("ip [%s]", ip.toLatin1().data());
+				qDebug("wasConnected [%d]", wasConnected);
+				qDebug("isConnected [%d]", isConnected);
+
+				emit doUpdateModComboBox();
+			}
+			host->setWasConnected(isConnected);
+			//  hostsLocker.relock();
+		}
+	}
+
+
+}
+//pega quais sao os arquivos existentes no host
+void Worker::getFilesAlreadyPresentOnHosts(QStringList filePaths)
+{
+
+	QList<CFilesOnHost> listFilesOnHost;
+	qDebug("Worker::getFilesAlreadyPresentOnHosts-1- filePaths size: [%d]", filePaths.size());
+	QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
+	QElapsedTimer timer;
+	timer.start();
+	for(Host* host : mw->getHostControl()->getHosts())
+	{
+		bool couldConnect;
+		qDebug("Worker::getFilesAlreadyPresentOnHosts-2");
+		//list << "getFilesAlreadyPresentOnHost:resultTest1" << "getFilesAlreadyPresentOnHost:resultTest2";
+		QStringList listToPutExistingFileNames;
+		couldConnect = CUploadServiceClient::checkIfVideosExistOnHost(host->getIp(), filePaths, listToPutExistingFileNames);
+		//if(!listToPutExistingFileNames.isEmpty())
+		//{
+		listFilesOnHost.append(CFilesOnHost(host->getIp(), listToPutExistingFileNames, couldConnect));
+		//}
+
+	}
+	qint64 elapsed = timer.elapsed();  // Measure the elapsed time in milliseconds
+	qDebug() << "Worker::Time elapsed:" << elapsed << "milliseconds";
+	qDebug("Worker::getFilesAlreadyPresentOnHosts - 4");
+	hostsLocker.unlock();
+	emit warnAboutExistingFilesOnHost(listFilesOnHost);
+
+}
+//verifica se o id ja existe no host
+void Worker::checkIfIdExistsOnHosts(QString ip, QString id)
+{
+	MagoDB* magodb = new MagoDB(ip.toLatin1().data(), false);
+	bool exists = magodb->EventExistsByNumber(id.toLatin1().data());
+	//	qDebug("Worker::checkIfIdExistsOnHosts - exists [%d]", exists);
+	emit idAlreadyExistOnHost(exists);
+}
+//carrega a lista que contem todas as informaçoes relacionadas ao arquivo
+void Worker::onPopulateQueueWithPaths(QStringList pathsToPopulate, QString ip)
+{
+	qDebug("Worker::onPopulateQueueWithPaths - IN");
+	QElapsedTimer timer;
+
+	setIsPopulatingQueue(true);
+	QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
+	QMutexLocker queueLocker(&mw->getTransferMonitor()->getQueueMutex());
+	qDebug("Worker::onPopulateQueueWithPaths - IN2");
+	CHostControl* hostControl = mw->getHostControl();
+	for (Host* host : hostControl->getHosts()) {
+
+		if(host->getIp() == ip)
+		{
+			if(!host->getWasRemovedFromTableWidget())
+			{
+				int count = 0;
+				for(QString filePath : pathsToPopulate)
+				{
+					count++;
+					if(!mw->getTransferMonitor()->isAlreadyInQueue(filePath, ip))
+					{
+						timer.restart();
+
+
+						QString durationInSeconds = mw->getVideoDuration(filePath);
+						VideoFileInfo* file1= new VideoFileInfo(filePath,"", durationInSeconds, 0, host, CVideoStatus::WAITING);
+						mw->getTransferMonitor()->getCurrentQueue().append(file1);
+						qint64 elapsed = timer.elapsed();
+						qDebug() << "onPopulateQueueWithPaths::Time elapsed:" << elapsed << "mili seconds";
+					}
+				}
+			}
+		}
+
+	}
+	setIsPopulatingQueue(false);
+	hostsLocker.unlock();
+	queueLocker.unlock();
+	qDebug("Worker::onPopulateQueueWithPaths - queueDonePopulating - OUT AND EMIT ");
+	emit queueDonePopulating();
+}
+
+void Worker::onGetModalidadesFromHosts(QStringList hosts)
+{
+	qDebug("Worker::onGetModalidadesFromHosts - IN");
+	QList<QPair<QStringList, QString>> modList;
+
+	for(int i=0; i<hosts.size(); i++)
+	{
+		//QMutexLocker hostsLocker(&mw->getHostControl()->getHostsMutex());
+		//Host* host = mw->getHostControl()->getHostByIp(hosts.at(i));
+		bool isConnected = CUploadServiceClient::CheckConnection(hosts.at(i));//host->CheckConnection(hosts.at(i));
+	//	hostsLocker.unlock();
+
+
+		if(isConnected)
+		{
+			MagoDB* magodb = new MagoDB(hosts.at(i).toLatin1().data(), false);
+			QStringList hostModalidades = magodb->getModalidadesMago();
+			modList << QPair<QStringList,QString>(hostModalidades, hosts.at(i));
+
+			delete magodb;
+		}
+		else
+		{
+			return;
+		}
+	}
+	qDebug("Worker::onGetModalidadesFromHosts - emit loadMods");
+	emit loadMods(modList);
+
+}
+
+void Worker::onMarkHostAsRemovedFromTable(QString ip)
+{
+	qDebug("Worker::onMarkHostAsRemovedFromTable");
+	mw->getHostControl()->markHostAsRemovedFromTable(ip);
+}
+
+void Worker::onRegisterIp(QString ip)
+{
+	mw->getHostControl()->registerIp(ip);
+}
+
+void Worker::onRestartService(Host* host)
+{
+	host->restartService();
+}
+
+

@@ -1,0 +1,33 @@
+#ifndef CSERVICEUTILS_H
+#define CSERVICEUTILS_H
+
+
+
+#include <QString>
+#include <QProcess>
+#include <QApplication>
+#include <QFile>
+extern "C"
+{
+//	#include <libavcodec/avcodec.h>
+    //#include <libavformat/avformat.h>
+}
+
+
+class CServiceUtils
+{
+public:
+	CServiceUtils();
+
+	static void KillAllServicesWithThisname(QString name);
+	static void KillAllTransferService();
+	static void StartTransferService(QProcess* process1, QString localPath, QString remoteIp, QString port);
+	static bool KillTcpPort(int portId);
+	static bool isValidIPv4format(QString ip);
+	static bool isValidFilename(QString filename);
+	static bool isValidIDname(QString filename);
+    static QString convertWindowsPathToLinux(const QString& windowsPath);
+
+};
+
+#endif // CSERVICEUTILS_H

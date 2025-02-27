@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[45];
-    char stringdata0[763];
+    QByteArrayData data[51];
+    char stringdata0[894];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -66,17 +66,23 @@ QT_MOC_LITERAL(30, 487, 7), // "onTimer"
 QT_MOC_LITERAL(31, 495, 29), // "on_btn_connectSession_clicked"
 QT_MOC_LITERAL(32, 525, 18), // "showWarningMessage"
 QT_MOC_LITERAL(33, 544, 7), // "message"
-QT_MOC_LITERAL(34, 552, 16), // "pupulateGuiTable"
-QT_MOC_LITERAL(35, 569, 19), // "QList<CFilesOnHost>"
-QT_MOC_LITERAL(36, 589, 15), // "listFilesOnHost"
-QT_MOC_LITERAL(37, 605, 21), // "onQueueDonePopulating"
-QT_MOC_LITERAL(38, 627, 10), // "onLoadMods"
-QT_MOC_LITERAL(39, 638, 34), // "QList<QPair<QStringList,QStri..."
-QT_MOC_LITERAL(40, 673, 11), // "modalidades"
-QT_MOC_LITERAL(41, 685, 29), // "onItemFromTableWidgetSelected"
-QT_MOC_LITERAL(42, 715, 18), // "onShowErrorMessage"
-QT_MOC_LITERAL(43, 734, 22), // "onToggleEnviarTodosBtn"
-QT_MOC_LITERAL(44, 757, 5) // "value"
+QT_MOC_LITERAL(34, 552, 30), // "onWarnAboutExistingFilesOnHost"
+QT_MOC_LITERAL(35, 583, 19), // "QList<CFilesOnHost>"
+QT_MOC_LITERAL(36, 603, 15), // "listFilesOnHost"
+QT_MOC_LITERAL(37, 619, 21), // "onQueueDonePopulating"
+QT_MOC_LITERAL(38, 641, 10), // "onLoadMods"
+QT_MOC_LITERAL(39, 652, 34), // "QList<QPair<QStringList,QStri..."
+QT_MOC_LITERAL(40, 687, 11), // "modalidades"
+QT_MOC_LITERAL(41, 699, 29), // "onItemFromTableWidgetSelected"
+QT_MOC_LITERAL(42, 729, 27), // "on_actionSobre_Qt_triggered"
+QT_MOC_LITERAL(43, 757, 24), // "on_actionSobre_triggered"
+QT_MOC_LITERAL(44, 782, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(45, 804, 18), // "onShowErrorMessage"
+QT_MOC_LITERAL(46, 823, 22), // "onToggleEnviarTodosBtn"
+QT_MOC_LITERAL(47, 846, 5), // "value"
+QT_MOC_LITERAL(48, 852, 15), // "onUpdateBitrate"
+QT_MOC_LITERAL(49, 868, 7), // "bitrate"
+QT_MOC_LITERAL(50, 876, 17) // "updateModComboBox"
 
     },
     "MainWindow\0cancel_active_upload\0\0"
@@ -93,13 +99,17 @@ QT_MOC_LITERAL(44, 757, 5) // "value"
     "onSessionAction\0onHistoricoAction\0"
     "onOptionsAction\0onTimer\0"
     "on_btn_connectSession_clicked\0"
-    "showWarningMessage\0message\0pupulateGuiTable\0"
+    "showWarningMessage\0message\0"
+    "onWarnAboutExistingFilesOnHost\0"
     "QList<CFilesOnHost>\0listFilesOnHost\0"
     "onQueueDonePopulating\0onLoadMods\0"
     "QList<QPair<QStringList,QString> >\0"
     "modalidades\0onItemFromTableWidgetSelected\0"
+    "on_actionSobre_Qt_triggered\0"
+    "on_actionSobre_triggered\0on_pushButton_clicked\0"
     "onShowErrorMessage\0onToggleEnviarTodosBtn\0"
-    "value"
+    "value\0onUpdateBitrate\0bitrate\0"
+    "updateModComboBox"
 };
 #undef QT_MOC_LITERAL
 
@@ -109,7 +119,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      29,   14, // methods
+      34,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -117,37 +127,42 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  159,    2, 0x06 /* Public */,
-       4,    0,  162,    2, 0x06 /* Public */,
-       5,    2,  163,    2, 0x06 /* Public */,
-       8,    1,  168,    2, 0x06 /* Public */,
-      10,    1,  171,    2, 0x06 /* Public */,
-      12,    1,  174,    2, 0x06 /* Public */,
-      13,    1,  177,    2, 0x06 /* Public */,
+       1,    1,  184,    2, 0x06 /* Public */,
+       4,    0,  187,    2, 0x06 /* Public */,
+       5,    2,  188,    2, 0x06 /* Public */,
+       8,    1,  193,    2, 0x06 /* Public */,
+      10,    1,  196,    2, 0x06 /* Public */,
+      12,    1,  199,    2, 0x06 /* Public */,
+      13,    1,  202,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    2,  180,    2, 0x08 /* Private */,
-      18,    0,  185,    2, 0x08 /* Private */,
-      19,    0,  186,    2, 0x08 /* Private */,
-      20,    0,  187,    2, 0x08 /* Private */,
-      21,    0,  188,    2, 0x08 /* Private */,
-      22,    0,  189,    2, 0x08 /* Private */,
-      23,    0,  190,    2, 0x08 /* Private */,
-      24,    0,  191,    2, 0x08 /* Private */,
-      25,    0,  192,    2, 0x08 /* Private */,
-      26,    0,  193,    2, 0x08 /* Private */,
-      27,    0,  194,    2, 0x08 /* Private */,
-      28,    0,  195,    2, 0x08 /* Private */,
-      29,    0,  196,    2, 0x08 /* Private */,
-      30,    0,  197,    2, 0x08 /* Private */,
-      31,    0,  198,    2, 0x08 /* Private */,
-      32,    1,  199,    2, 0x08 /* Private */,
-      34,    1,  202,    2, 0x08 /* Private */,
-      37,    0,  205,    2, 0x08 /* Private */,
-      38,    1,  206,    2, 0x08 /* Private */,
-      41,    0,  209,    2, 0x08 /* Private */,
-      42,    1,  210,    2, 0x0a /* Public */,
-      43,    1,  213,    2, 0x0a /* Public */,
+      14,    2,  205,    2, 0x08 /* Private */,
+      18,    0,  210,    2, 0x08 /* Private */,
+      19,    0,  211,    2, 0x08 /* Private */,
+      20,    0,  212,    2, 0x08 /* Private */,
+      21,    0,  213,    2, 0x08 /* Private */,
+      22,    0,  214,    2, 0x08 /* Private */,
+      23,    0,  215,    2, 0x08 /* Private */,
+      24,    0,  216,    2, 0x08 /* Private */,
+      25,    0,  217,    2, 0x08 /* Private */,
+      26,    0,  218,    2, 0x08 /* Private */,
+      27,    0,  219,    2, 0x08 /* Private */,
+      28,    0,  220,    2, 0x08 /* Private */,
+      29,    0,  221,    2, 0x08 /* Private */,
+      30,    0,  222,    2, 0x08 /* Private */,
+      31,    0,  223,    2, 0x08 /* Private */,
+      32,    1,  224,    2, 0x08 /* Private */,
+      34,    1,  227,    2, 0x08 /* Private */,
+      37,    0,  230,    2, 0x08 /* Private */,
+      38,    1,  231,    2, 0x08 /* Private */,
+      41,    0,  234,    2, 0x08 /* Private */,
+      42,    0,  235,    2, 0x08 /* Private */,
+      43,    0,  236,    2, 0x08 /* Private */,
+      44,    0,  237,    2, 0x08 /* Private */,
+      45,    1,  238,    2, 0x0a /* Public */,
+      46,    1,  241,    2, 0x0a /* Public */,
+      48,    2,  244,    2, 0x0a /* Public */,
+      50,    0,  249,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -179,8 +194,13 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 39,   40,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   11,
-    QMetaType::Void, QMetaType::Bool,   44,
+    QMetaType::Void, QMetaType::Bool,   47,
+    QMetaType::Void, QMetaType::Float, QMetaType::QString,   49,    7,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -214,12 +234,17 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 20: _t->onTimer(); break;
         case 21: _t->on_btn_connectSession_clicked(); break;
         case 22: _t->showWarningMessage((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 23: _t->pupulateGuiTable((*reinterpret_cast< QList<CFilesOnHost>(*)>(_a[1]))); break;
+        case 23: _t->onWarnAboutExistingFilesOnHost((*reinterpret_cast< QList<CFilesOnHost>(*)>(_a[1]))); break;
         case 24: _t->onQueueDonePopulating(); break;
         case 25: _t->onLoadMods((*reinterpret_cast< QList<QPair<QStringList,QString> >(*)>(_a[1]))); break;
         case 26: _t->onItemFromTableWidgetSelected(); break;
-        case 27: _t->onShowErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 28: _t->onToggleEnviarTodosBtn((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 27: _t->on_actionSobre_Qt_triggered(); break;
+        case 28: _t->on_actionSobre_triggered(); break;
+        case 29: _t->on_pushButton_clicked(); break;
+        case 30: _t->onShowErrorMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 31: _t->onToggleEnviarTodosBtn((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 32: _t->onUpdateBitrate((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 33: _t->updateModComboBox(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -313,13 +338,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 29)
+        if (_id < 34)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 29;
+        _id -= 34;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 29)
+        if (_id < 34)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 29;
+        _id -= 34;
     }
     return _id;
 }

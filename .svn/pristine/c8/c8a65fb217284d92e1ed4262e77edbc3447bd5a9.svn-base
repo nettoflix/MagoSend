@@ -1,0 +1,23 @@
+IDI_ICON1               ICON    DISCARDABLE     "images/icon.ico"
+
+#include <windows.h>
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+	BEGIN
+	    VALUE "CompanyName",        "4S Informatica"
+	    VALUE "FileDescription",    "MagoSend"
+	    VALUE "FileVersion",        "1.0.0.0"
+	    VALUE "LegalCopyright",     "Copyright � 2024 4S Informatica"
+	    VALUE "LegalTrademarks1",   "All rights reserved"
+	    VALUE "LegalTrademarks2",   "All rights reserved"
+	    VALUE "OriginalFilename",   "MagoSend.exe"
+	    VALUE "ProductName",        "MagoSend"
+	    VALUE "ProductVersion",     "1.0.0.0"
+	END
+    END
+END

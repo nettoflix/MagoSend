@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -32,6 +33,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionSobre_Qt;
+    QAction *actionSobre;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -72,6 +75,7 @@ public:
     QPushButton *btn_pausar;
     QPushButton *btn_Remover;
     QMenuBar *menuBar;
+    QMenu *menuSobre;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -79,15 +83,13 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1024, 640);
-        MainWindow->setStyleSheet(QLatin1String("QToolTip\n"
-"{\n"
-"     border: 1px solid black;\n"
-"     background-color: #ffa02f;\n"
-"     padding: 1px;\n"
-"     border-radius: 3px;\n"
-"     opacity: 100;\n"
+        MainWindow->setStyleSheet(QLatin1String("QToolTip {\n"
+"    background: #FFA02F;\n"
+"    color: black;\n"
+"    border: 1px solid black;\n"
+"    padding: 4px;\n"
+"    border-radius: 3px;\n"
 "}\n"
-"\n"
 "QLabel { background-color: rgba(255, 255, 255, 10); \n"
 "    color: #f0f0f0;  /* Light text for contrast */\n"
 "    font-size: 12pt;\n"
@@ -126,9 +128,9 @@ public:
 "}\n"
 "\n"
 "QMenuBar::item:pressed\n"
-""
-                        "{\n"
-"    background: #444;\n"
+"{\n"
+"    backgrou"
+                        "nd: #444;\n"
 "    border: 1px solid #000;\n"
 "    background-color: QLinearGradient(\n"
 "        x1:0, y1:0,\n"
@@ -176,9 +178,9 @@ public:
 "QLineEdit\n"
 "{\n"
 "    background-color: #3d3d3d;\n"
-"    color: #f0f0"
-                        "f0;\n"
-"    border: 1px solid #5a5a5a;  /* Subtle border */\n"
+"    color: #f0f0f0;\n"
+"    border"
+                        ": 1px solid #5a5a5a;  /* Subtle border */\n"
 "    border-radius: 6px;\n"
 "    font-size: 11pt;\n"
 "}\n"
@@ -207,8 +209,8 @@ public:
 "{\n"
 "    selection-background-color: #ffaa00;\n"
 "    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #565656, stop: 0.1 #525252, stop: 0.5 #4e4e4e, stop: 0.9 #4a4a4a, stop: 1 #464646);\n"
-""
-                        "    border-style: solid;\n"
+"    border-style"
+                        ": solid;\n"
 "    border: 1px solid #1e1e1e;\n"
 "    border-radius: 5;\n"
 "}\n"
@@ -241,9 +243,9 @@ public:
 "\n"
 "     border-left-width: 0px;\n"
 "     border-left-color: darkgray;\n"
-"     border-left-style: solid; /* just a single line */"
-                        "\n"
-"     border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+"     border-left-style: solid; /* just a single line */\n"
+"     border"
+                        "-top-right-radius: 3px; /* same radius as the QComboBox */\n"
 "     border-bottom-right-radius: 3px;\n"
 " }\n"
 "\n"
@@ -280,8 +282,8 @@ public:
 "QScrollBar::handle:horizontal\n"
 "{\n"
 "      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);\n"
-""
-                        "      min-height: 20px;\n"
+"      min-heig"
+                        "ht: 20px;\n"
 "      border-radius: 2px;\n"
 "}\n"
 "\n"
@@ -316,10 +318,10 @@ public:
 "      background: none;\n"
 "}\n"
 "\n"
-"QScrollBar:ve"
-                        "rtical\n"
+"QScrollBar:vertical\n"
 "{\n"
-"      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);\n"
+""
+                        "      background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);\n"
 "      width: 15px;\n"
 "      margin: 16px 0 16px 0;\n"
 "      border: 1px solid #222222;\n"
@@ -348,8 +350,8 @@ public:
 "      border: 1px solid #1b1b19;\n"
 "      border-radius: 2px;\n"
 "      background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #d7801a, stop: 1 #ffa02f);\n"
-" "
-                        "     height: 14px;\n"
+"      height: 14px"
+                        ";\n"
 "      subcontrol-position: top;\n"
 "      subcontrol-origin: margin;\n"
 "}\n"
@@ -395,9 +397,9 @@ public:
 "QDockWidget::title\n"
 "{\n"
 "    text-align: center;\n"
-"    spacing: 3px; /* spacing between items in the tool bar *"
-                        "/\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #323232, stop: 0.5 #242424, stop:1 #323232);\n"
+"    spacing: 3px; /* spacing between items in the tool bar */\n"
+"    backgro"
+                        "und-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #323232, stop: 0.5 #242424, stop:1 #323232);\n"
 "}\n"
 "\n"
 "QDockWidget::close-button, QDockWidget::float-button\n"
@@ -427,10 +429,10 @@ public:
 "}\n"
 "\n"
 "QMainWindow::separator:hover\n"
-""
-                        "{\n"
+"{\n"
 "\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #d7801a, stop:0.5 #b56c17 stop:1 #ffa02f);\n"
+"    b"
+                        "ackground-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #d7801a, stop:0.5 #b56c17 stop:1 #ffa02f);\n"
 "    color: white;\n"
 "    padding-left: 4px;\n"
 "    border: 1px solid #6c6c6c;\n"
@@ -467,9 +469,9 @@ public:
 "\n"
 "QTabBar::tab {\n"
 "    color: #b1b1b1;\n"
-"    border: 1px so"
-                        "lid #444;\n"
-"    border-bottom-style: none;\n"
+"    border: 1px solid #444;\n"
+"  "
+                        "  border-bottom-style: none;\n"
 "    background-color: #323232;\n"
 "    padding-left: 10px;\n"
 "    padding-right: 10px;\n"
@@ -509,9 +511,9 @@ public:
 "{\n"
 "    border-top-left-radius: 3px;\n"
 "    border-top-right-radius: 3px;\n"
-"    margin"
-                        "-bottom: 0px;\n"
-"}\n"
+"    margin-bottom: 0px;\n"
+""
+                        "}\n"
 "\n"
 "QTabBar::tab:!selected:hover\n"
 "{\n"
@@ -550,8 +552,8 @@ public:
 "\n"
 "QRadioButton::indicator\n"
 "{\n"
-""
-                        "    border-radius: 6px;\n"
+"    border-radi"
+                        "us: 6px;\n"
 "}\n"
 "\n"
 "QRadioButton::indicator:hover, QCheckBox::indicator:hover\n"
@@ -595,10 +597,10 @@ public:
 "    background-color: transparent;\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: center left;\n"
-""
-                        "}\n"
+"}\n"
 "\n"
-"QAbstractSpinBox::up-arrow,QAbstractSpinBox::up-arrow:disabled,QAbstractSpinBox::up-arrow:off {\n"
+"Q"
+                        "AbstractSpinBox::up-arrow,QAbstractSpinBox::up-arrow:disabled,QAbstractSpinBox::up-arrow:off {\n"
 "    image: url(:/images/up_arrow_disabled.png);\n"
 "    width: 10px;\n"
 "    height: 10px;\n"
@@ -624,9 +626,9 @@ public:
 "    gridline-color: #5a5a5a;  /* Softer grid line color */\n"
 "    selection-background-color: #ff9100;  /* Orange for selected row */\n"
 "    selection-color: #000000;  /* Black text when selected */\n"
-"    border: 1px solid #2a2a2a;  /* Border to match overa"
-                        "ll theme */\n"
-"}\n"
+"    border: 1px solid #2a2a2a;  /* Border to match overall theme */\n"
+""
+                        "}\n"
 "\n"
 "QHeaderView::section {\n"
 "    background-color: #2a2a2a;  /* Darker header background */\n"
@@ -663,8 +665,8 @@ public:
 "border: 0px solid #76797C;\n"
 "}\n"
 "\n"
-"QTableWi"
-                        "dget::row::selected {\n"
+"QTableWidget::row::selec"
+                        "ted {\n"
 "background-color: #334E5E;\n"
 "border: 0px solid #76797C;\n"
 "}\n"
@@ -690,6 +692,10 @@ public:
 "    border-radius: 0px;\n"
 "}\n"
 ""));
+        actionSobre_Qt = new QAction(MainWindow);
+        actionSobre_Qt->setObjectName(QStringLiteral("actionSobre_Qt"));
+        actionSobre = new QAction(MainWindow);
+        actionSobre->setObjectName(QStringLiteral("actionSobre"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -746,6 +752,7 @@ public:
         label_5 = new QLabel(widget);
         label_5->setObjectName(QStringLiteral("label_5"));
         QFont font;
+        font.setFamily(QStringLiteral("Segoe UI"));
         font.setPointSize(12);
         font.setBold(true);
         font.setWeight(75);
@@ -1016,11 +1023,18 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1024, 21));
+        menuBar->setGeometry(QRect(0, 0, 1024, 22));
+        menuSobre = new QMenu(menuBar);
+        menuSobre->setObjectName(QStringLiteral("menuSobre"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuSobre->menuAction());
+        menuSobre->addSeparator();
+        menuSobre->addAction(actionSobre_Qt);
+        menuSobre->addAction(actionSobre);
 
         retranslateUi(MainWindow);
 
@@ -1030,6 +1044,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        actionSobre_Qt->setText(QApplication::translate("MainWindow", "Sobre Qt", Q_NULLPTR));
+        actionSobre->setText(QApplication::translate("MainWindow", "Sobre", Q_NULLPTR));
         groupBox_3->setTitle(QString());
         label_5->setText(QApplication::translate("MainWindow", "Sess\303\243o", Q_NULLPTR));
         btn_connectSession->setText(QApplication::translate("MainWindow", "Conectar", Q_NULLPTR));
@@ -1045,6 +1061,7 @@ public:
         btn_Enviar->setText(QApplication::translate("MainWindow", "Enviar todos", Q_NULLPTR));
         btn_pausar->setText(QApplication::translate("MainWindow", "Pausar todos", Q_NULLPTR));
         btn_Remover->setText(QApplication::translate("MainWindow", "Remover", Q_NULLPTR));
+        menuSobre->setTitle(QApplication::translate("MainWindow", "Sobre", Q_NULLPTR));
     } // retranslateUi
 
 };

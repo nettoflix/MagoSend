@@ -1,0 +1,91 @@
+#ifndef HOST_H
+#define HOST_H
+#include <CUploadServiceClient.h>
+#include <QProcess>
+#include <QString>
+#include "VideoFileInfo.h"
+#include <QObject>
+
+#include "CLog.h"
+
+class VideoFileInfo;
+class CHostControl;
+enum CHostState{
+	UNVERIFIED = 0, HOST_ERROR, CONNECTED
+};
+
+class Host : public QObject
+{
+	Q_OBJECT
+public:
+    Host(CHostControl* hostControl,QString ip, int port);
+   // Host();
+	~Host();
+
+    bool isBusy();
+	void setBusy(bool busy);
+	void setBitRate(float value);
+	float getBitRate();
+	void setShouldCancelUpload(bool value);
+	bool getShouldCancelUpload() const;
+	void resetUseCount();
+	void addUseCount();
+	void setConnected(bool value);
+	bool isBeingUsed();
+
+	CUploadServiceClientProgressResult getProgressResult() const;
+	void setProgressResult(const CUploadServiceClientProgressResult &value);
+
+	bool getWasRemovedFromTableWidget() const;
+	void setWasRemovedFromTableWidget(bool value);
+
+	QString getIp() const;
+
+	bool getIsConnected() const;
+
+	VideoFileInfo *getCurrentUpload() const;
+	void setCurrentUpload(VideoFileInfo *value);
+	CUploadServiceClientProgressResult AskServriceAboutItsProgress();
+
+    void restartService();
+
+    int getPort() const;
+
+    QProcess *getProcess() const;
+    CHostControl *getHostControl() const;
+	bool CheckConnection(QString ip);
+
+	bool getWasConnected() const;
+	void setWasConnected(bool value);
+
+signals:
+	void updateBitrate(float bitrate, QString ip);
+public slots:
+    bool TellServiceToUploadFile(QString filename, bool isSendInSilentMode = false, QString adviseAfterEndingIP = "", QString adviseAfterEndingMethodName = "", int adviseAfterEndingPort = 0, QString targetSubFolder = "", double timeout = 3);
+private:
+	CUploadServiceClientProgressResult progressResult;
+	int useCount = 0;
+    QString ip;
+    CHostControl* hostControl;
+    CLog* log;
+    int port;
+    QProcess* process;
+    CHostState state;
+    bool busy;
+    float bitRate;
+    bool wasRemovedFromTableWidget;
+    bool shouldCancelUpload;
+    bool isConnected;
+	bool wasConnected;
+    VideoFileInfo* currentUpload;
+    //aqui e sempre local o ip, pq o servico que envia e local...
+    XmlRpc::XmlRpcClient* client;
+	//ip é do host (Mago) e a porta é sempre 1660 porque é o transfer do Mago
+	XmlRpc::XmlRpcClient* client2;
+    bool isRestartingService;
+    QMutex logMutex;
+
+};
+
+#endif // HOST_H
+

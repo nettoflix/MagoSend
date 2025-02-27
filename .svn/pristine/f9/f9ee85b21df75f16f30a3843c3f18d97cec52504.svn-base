@@ -1,0 +1,102 @@
+#include "CLog.h"
+#include "CLoginForm.h"
+#include "mainwindow.h"
+#include <QApplication>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#ifdef __WIN32
+#include <windows.h>
+#endif
+CLog* clog = nullptr;
+#if QT_VERSION >= 0x050000
+void IDEDebugOutputToStdHandler(QtMsgType Type, const QMessageLogContext& Context, const QString &Message)
+{
+    const char symbols[] =
+    { 'I', 'E', '!', 'X' };
+    QString output = QString("[%1] %2").arg(symbols[Type]).arg(Message);
+    std::cout << output.toStdString() << std::endl;
+    if (Type == QtFatalMsg)
+        abort();
+}
+
+void IDEDebugOutputToFileHandler(QtMsgType Type, const QMessageLogContext& Context, const QString &Message)
+{
+    if (clog != nullptr)
+    {
+        clog->writeText(Message.toUtf8().data());
+    }
+    std::cout << Message.toStdString() << std::endl;
+    std::cout.flush();
+}
+#else
+void IDEDebugOutputToStdHandler(QtMsgType type, const char* msg)
+{
+    const char symbols[] =
+    { 'I', 'E', '!', 'X' };
+    QString output = QString("[%1] %2").arg(symbols[type]).arg(msg);
+    std::cout << output.toStdString() << std::endl;
+    if (type == QtFatalMsg)
+        abort();
+}
+
+void IDEDebugOutputToFileHandler(QtMsgType type, const char *msg)
+{
+    switch (type)
+    {
+    case QtDebugMsg:
+        ideLogfile << " Debug: " << msg << "\n";
+        break;
+    case QtCriticalMsg:
+        ideLogfile << " Critical: " << msg << "\n";
+        break;
+    case QtWarningMsg:
+        ideLogfile << " Warning: " << msg << "\n";
+        break;
+    case QtFatalMsg:
+        ideLogfile << " Fatal: " << msg << "\n";
+        abort();
+    }
+    ideLogfile.flush();
+
+    QString output(msg);
+    //if (output.startsWith("C4SAudioFile"))
+    {
+        std::cout << output.toStdString() << std::endl;
+    }
+}
+#endif
+CMagoDBCommandsThread* magoDbCommandsThread;
+
+
+int main(int argc, char *argv[])
+{
+    //QLoggingCategory::setFilterRules("*.debug=true\nqt.*.debug=true");
+	clog = new CLog("MagoSend");
+#ifdef _WIN32
+
+    if (AttachConsole(ATTACH_PARENT_PROCESS))
+    {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
+
+#endif
+    //prepara os logs...
+#if QT_VERSION >= 0x050000
+    //qInstallMessageHandler(IDEDebugOutputToStdHandler);
+    qInstallMessageHandler(IDEDebugOutputToFileHandler);
+#else
+    //qInstallMsgHandler(IDEDebugOutputToStdHandler);
+    qInstallMsgHandler(IDEDebugOutputToFileHandler);
+#endif
+    qDebug("Aplicacao iniciada!");
+    QApplication a(argc, argv);
+	a.setWindowIcon(QIcon(":/images/redhat.png"));
+    magoDbCommandsThread = new CMagoDBCommandsThread();
+    //MainWindow w;
+    CLoginForm loginForm(nullptr, nullptr);
+    loginForm.show();
+    // w.show();
+    return a.exec();
+}

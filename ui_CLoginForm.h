@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -36,6 +37,9 @@ public:
     QLineEdit *le_user;
     QLineEdit *le_password;
     QPushButton *btn_entrar;
+    QHBoxLayout *horizontalLayout_2;
+    QCheckBox *cb_lembrarUser;
+    QCheckBox *cb_lembrarPassword;
     QPushButton *btn_cadastrar;
 
     void setupUi(QWidget *CLoginForm)
@@ -730,6 +734,21 @@ public:
 
         verticalLayout->addWidget(btn_entrar);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        cb_lembrarUser = new QCheckBox(CLoginForm);
+        cb_lembrarUser->setObjectName(QStringLiteral("cb_lembrarUser"));
+
+        horizontalLayout_2->addWidget(cb_lembrarUser);
+
+        cb_lembrarPassword = new QCheckBox(CLoginForm);
+        cb_lembrarPassword->setObjectName(QStringLiteral("cb_lembrarPassword"));
+
+        horizontalLayout_2->addWidget(cb_lembrarPassword);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         btn_cadastrar = new QPushButton(CLoginForm);
         btn_cadastrar->setObjectName(QStringLiteral("btn_cadastrar"));
         QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -776,6 +795,8 @@ public:
 #endif // QT_NO_TOOLTIP
         le_password->setPlaceholderText(QApplication::translate("CLoginForm", "senha", Q_NULLPTR));
         btn_entrar->setText(QApplication::translate("CLoginForm", "Entrar", Q_NULLPTR));
+        cb_lembrarUser->setText(QApplication::translate("CLoginForm", "Lembrar usu\303\241rio", Q_NULLPTR));
+        cb_lembrarPassword->setText(QApplication::translate("CLoginForm", "Lembrar senha", Q_NULLPTR));
         btn_cadastrar->setText(QApplication::translate("CLoginForm", "Cadastrar", Q_NULLPTR));
     } // retranslateUi
 
